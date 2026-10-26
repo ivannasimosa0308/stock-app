@@ -23,7 +23,7 @@ export const roleGuard: any = (
 
             // Si no está autenticado, redirigir atómicamente a login con queryParams
             if (!authService.isAuthenticated() || !currentUser) {
-                return router.createUrlTree(['/auth/login'], {
+                return router.createUrlTree(['/login'], {
                     queryParams: { returnUrl: state.url }
                 });
             }
@@ -33,7 +33,7 @@ export const roleGuard: any = (
                 return true;
             }
 
-            // Si no tiene permiso para /admin o rol admin, redirigir a /user-dashboard
+            // Si un usuario con rol 'user' intenta acceder a '/admin', redirigirlo a '/user-dashboard'
             return router.createUrlTree(['/user-dashboard']);
         };
     }
@@ -47,7 +47,7 @@ export const roleGuard: any = (
     const userRole = authService.userRole();
 
     if (!authService.isAuthenticated() || !currentUser) {
-        return router.createUrlTree(['/auth/login']);
+        return router.createUrlTree(['/login']);
     }
 
     const allowedRoles = route.data?.['roles'] as string[] | undefined;

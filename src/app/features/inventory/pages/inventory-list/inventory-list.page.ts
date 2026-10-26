@@ -326,6 +326,6 @@ export class InventoryListPage implements OnInit {
 
     async onLogout(): Promise<void> {
         await this.authService.logout();
-        this.router.navigate(['/auth/login']);
+        this.router.navigate(['/login']);
     }
 }

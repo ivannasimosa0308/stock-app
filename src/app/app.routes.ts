@@ -5,27 +5,30 @@ import { roleGuard } from './core/guards/role.guard';
 export const routes: Routes = [
   {
     path: '',
-    redirectTo: 'inventory',
+    redirectTo: 'login',
     pathMatch: 'full'
   },
 
-  // Alias y rutas directas solicitadas en el dossier del laboratorio DAM2
+  // Rutas principales exigidas por el Dossier del Laboratorio DAM2
   {
     path: 'login',
-    redirectTo: 'auth/login',
-    pathMatch: 'full'
+    loadComponent: () => import('./features/auth/pages/login/login.page')
+      .then(m => m.LoginPage)
   },
   {
     path: 'admin',
-    redirectTo: 'dashboard',
-    pathMatch: 'full'
+    canActivate: [authGuard, roleGuard('admin')], // Protección mediante Functional Guard + Factoría
+    loadComponent: () => import('./features/dashboard/pages/admin-dashboard.page')
+      .then(m => m.AdminDashboardPage)
   },
   {
     path: 'user-dashboard',
-    redirectTo: 'inventory',
-    pathMatch: 'full'
+    canActivate: [authGuard], // Ruta de destino para rol 'user' (operador)
+    loadComponent: () => import('./features/inventory/pages/inventory-list/inventory-list.page')
+      .then(m => m.InventoryListPage)
   },
 
+  // Rutas extendidas de StockFlow Enterprise
   {
     path: 'auth/login',
     loadComponent: () => import('./features/auth/pages/login/login.page')
@@ -39,19 +42,19 @@ export const routes: Routes = [
   },
   {
     path: 'inventory/new',
-    canActivate: [authGuard, roleGuard('admin')], // Factoría de guards
+    canActivate: [authGuard, roleGuard('admin')], // Exclusivo Administrador
     loadComponent: () => import('./features/inventory/pages/product-form/product-form.page')
       .then(m => m.ProductFormPage)
   },
   {
     path: 'inventory/edit/:id',
-    canActivate: [authGuard, roleGuard('admin')], // Factoría de guards
+    canActivate: [authGuard, roleGuard('admin')], // Exclusivo Administrador
     loadComponent: () => import('./features/inventory/pages/product-form/product-form.page')
       .then(m => m.ProductFormPage)
   },
   {
     path: 'dashboard',
-    canActivate: [authGuard, roleGuard('admin')], // Factoría de guards
+    canActivate: [authGuard, roleGuard('admin')], // Exclusivo Administrador
     loadComponent: () => import('./features/dashboard/pages/admin-dashboard.page')
       .then(m => m.AdminDashboardPage)
   },
@@ -68,6 +71,6 @@ export const routes: Routes = [
   },
   {
     path: '**',
-    redirectTo: 'inventory'
+    redirectTo: 'login'
   }
 ];

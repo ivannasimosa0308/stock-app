@@ -94,9 +94,9 @@ export class LoginPage {
             if (returnUrl) {
                 this.router.navigateByUrl(returnUrl);
             } else if (this.authService.isAdmin()) {
-                this.router.navigate(['/dashboard']);
+                this.router.navigate(['/admin']);
             } else {
-                this.router.navigate(['/inventory']);
+                this.router.navigate(['/user-dashboard']);
             }
         } catch (err: any) {
             this.errorMessage.set(err.message || 'Error al iniciar sesión. Revisa tus credenciales.');

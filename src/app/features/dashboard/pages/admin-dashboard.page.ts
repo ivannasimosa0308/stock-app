@@ -529,6 +529,6 @@ export class AdminDashboardPage implements OnInit, AfterViewInit {
 
   async onLogout(): Promise<void> {
     await this.authService.logout();
-    this.router.navigate(['/auth/login']);
+    this.router.navigate(['/login']);
   }
 }
