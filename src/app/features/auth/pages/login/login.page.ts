@@ -1,6 +1,6 @@
 import { Component, inject, signal } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import {
     IonHeader, IonToolbar, IonTitle, IonContent, IonCard,
@@ -22,7 +22,7 @@ import { AuthService } from '../../../../core/services/auth.service';
     template: `
     <ion-header>
       <ion-toolbar color="primary">
-        <ion-title>StockFlow - Iniciar Sesión</ion-title>
+        <ion-title>StockFlow - Control de Acceso</ion-title>
       </ion-toolbar>
     </ion-header>
 
@@ -30,14 +30,14 @@ import { AuthService } from '../../../../core/services/auth.service';
       <div style="max-width: 450px; margin: 40px auto 0;">
         <ion-card>
           <ion-card-header>
-            <ion-card-title class="ion-text-center">Bienvenido</ion-card-title>
+            <ion-card-title class="ion-text-center">Iniciar Sesión</ion-card-title>
           </ion-card-header>
 
           <ion-card-content>
             <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
               <ion-item lines="full" class="ion-margin-bottom">
-                <ion-label position="stacked">Correo Electrónico</ion-label>
-                <ion-input type="email" formControlName="email" placeholder="usuario@empresa.com"></ion-input>
+                <ion-label position="stacked">Usuario o Correo Electrónico</ion-label>
+                <ion-input type="text" formControlName="email" placeholder="admin / operador o usuario@empresa.com"></ion-input>
               </ion-item>
 
               <ion-item lines="full" class="ion-margin-bottom">
@@ -69,13 +69,14 @@ export class LoginPage {
     private fb = inject(FormBuilder);
     private authService = inject(AuthService);
     private router = inject(Router);
+    private route = inject(ActivatedRoute);
 
     isLoading = signal(false);
     errorMessage = signal<string | null>(null);
 
     loginForm: FormGroup = this.fb.group({
-        email: ['', [Validators.required, Validators.email]],
-        password: ['', [Validators.required, Validators.minLength(6)]]
+        email: ['', [Validators.required]],
+        password: ['', [Validators.required, Validators.minLength(3)]]
     });
 
     async onSubmit() {
@@ -87,9 +88,16 @@ export class LoginPage {
         const { email, password } = this.loginForm.value;
 
         try {
-            await this.authService.login(email, password);
-            // Tras login exitoso, redirige al inventario
-            this.router.navigate(['/inventory']);
+            const res = await this.authService.login(email, password);
+            // Si el guard redirigió guardando el returnUrl, navegamos hacia allí
+            const returnUrl = this.route.snapshot.queryParamMap.get('returnUrl');
+            if (returnUrl) {
+                this.router.navigateByUrl(returnUrl);
+            } else if (this.authService.isAdmin()) {
+                this.router.navigate(['/dashboard']);
+            } else {
+                this.router.navigate(['/inventory']);
+            }
         } catch (err: any) {
             this.errorMessage.set(err.message || 'Error al iniciar sesión. Revisa tus credenciales.');
         } finally {

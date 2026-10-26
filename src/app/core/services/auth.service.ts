@@ -3,11 +3,25 @@ import { createClient, SupabaseClient, User, Session } from '@supabase/supabase-
 import { environment } from '../../../environments/environment';
 import { UserProfile, UserRole } from '../models/user.model';
 
+/**
+ * Estructura de sesión requerida por el dossier del laboratorio DAM2
+ */
+export interface UserSession {
+    username: string;
+    role: 'admin' | 'user';
+    isAuthenticated: boolean;
+}
+
 @Injectable({
     providedIn: 'root'
 })
 export class AuthService {
     private supabase: SupabaseClient;
+
+    /**
+     * Clave empleada en la Web Storage API (sessionStorage) requerida por el profesor
+     */
+    private readonly STORAGE_KEY = 'DAM2_AUTH_SESSION';
 
     // Signals reactivos para el estado de autenticación y perfil
     private currentUserSignal = signal<User | null>(null);
@@ -19,7 +33,7 @@ export class AuthService {
     readonly currentProfile = this.currentProfileSignal.asReadonly();
     readonly isLoading = this.isLoadingSignal.asReadonly();
 
-    // Computados automáticos
+    // Selectores computados automáticos
     readonly isAuthenticated = computed(() => !!this.currentUserSignal());
     readonly isAdmin = computed(() => this.currentProfileSignal()?.role === 'admin');
     readonly userRole = computed(() => this.currentProfileSignal()?.role ?? 'standard');
@@ -34,8 +48,17 @@ export class AuthService {
      */
     private async initAuth(): Promise<void> {
         try {
+            // 1. Restaurar sesión síncrona/local desde sessionStorage si existe (laboratorio DAM2)
+            const localSession = this.readSessionFromStorage();
+            if (localSession && localSession.isAuthenticated) {
+                this.setLocalUserSession(localSession);
+            }
+
+            // 2. Verificar sesión activa en Supabase
             const { data: { session } } = await this.supabase.auth.getSession();
-            await this.updateUserState(session);
+            if (session) {
+                await this.updateUserState(session);
+            }
 
             this.supabase.auth.onAuthStateChange(async (_event, session) => {
                 await this.updateUserState(session);
@@ -48,6 +71,48 @@ export class AuthService {
     }
 
     /**
+     * Establece la sesión en memoria para los usuarios simulados del laboratorio
+     */
+    private setLocalUserSession(sessionData: UserSession): void {
+        const mockUser: User = {
+            id: 'mock-' + sessionData.username,
+            app_metadata: {},
+            user_metadata: { full_name: sessionData.username },
+            aud: 'authenticated',
+            created_at: new Date().toISOString(),
+            email: sessionData.username.includes('@') ? sessionData.username : `${sessionData.username}@stockflow.local`
+        };
+
+        const mockProfile: UserProfile = {
+            id: mockUser.id,
+            email: mockUser.email || `${sessionData.username}@stockflow.local`,
+            full_name: sessionData.username === 'admin' ? 'Administrador DAM' : 'Operador DAM',
+            role: sessionData.role === 'admin' ? 'admin' : 'standard',
+            created_at: new Date().toISOString(),
+            updated_at: new Date().toISOString()
+        };
+
+        this.currentUserSignal.set(mockUser);
+        this.currentProfileSignal.set(mockProfile);
+    }
+
+    /**
+     * Recupera la sesión desde sessionStorage al refrescar la página (F5)
+     */
+    public readSessionFromStorage(): UserSession | null {
+        const rawData = sessionStorage.getItem(this.STORAGE_KEY);
+        if (!rawData) {
+            return null;
+        }
+        try {
+            return JSON.parse(rawData) as UserSession;
+        } catch {
+            sessionStorage.removeItem(this.STORAGE_KEY);
+            return null;
+        }
+    }
+
+    /**
      * Actualiza el usuario y consulta su perfil en la tabla 'profiles'
      */
     private async updateUserState(session: Session | null): Promise<void> {
@@ -55,9 +120,20 @@ export class AuthService {
             this.currentUserSignal.set(session.user);
             const profile = await this.fetchUserProfile(session.user.id);
             this.currentProfileSignal.set(profile);
+
+            // Sincronizar en sessionStorage para las Developer Tools
+            const sessionData: UserSession = {
+                username: session.user.email?.split('@')[0] || 'usuario',
+                role: profile?.role === 'admin' ? 'admin' : 'user',
+                isAuthenticated: true
+            };
+            sessionStorage.setItem(this.STORAGE_KEY, JSON.stringify(sessionData));
         } else {
-            this.currentUserSignal.set(null);
-            this.currentProfileSignal.set(null);
+            // Solo si no hay sesión mock activa
+            if (!this.readSessionFromStorage()) {
+                this.currentUserSignal.set(null);
+                this.currentProfileSignal.set(null);
+            }
         }
     }
 
@@ -79,12 +155,42 @@ export class AuthService {
     }
 
     /**
-     * Inicio de sesión con correo y contraseña
+     * Inicio de sesión dual:
+     * 1. Soporta credenciales requeridas por el enunciado del laboratorio:
+     *    - admin / 123 (Rol: 'admin')
+     *    - operador / 123 (Rol: 'user')
+     * 2. Conexión estándar mediante Supabase Auth
      */
-    async login(email: string, password: string) {
-        const response = await this.supabase.auth.signInWithPassword({ email, password });
+    async login(userOrEmail: string, pass: string) {
+        const trimmedUser = (userOrEmail || '').trim().toLowerCase();
+
+        // 1. Validación de credenciales didácticas requeridas por el dossier
+        if ((trimmedUser === 'admin' || trimmedUser === 'operador') && pass === '123') {
+            const role: 'admin' | 'user' = trimmedUser === 'admin' ? 'admin' : 'user';
+            const sessionData: UserSession = {
+                username: trimmedUser,
+                role: role,
+                isAuthenticated: true
+            };
+
+            // Guardar en memoria reactiva (Signals)
+            this.setLocalUserSession(sessionData);
+
+            // Persistir en sessionStorage bajo DAM2_AUTH_SESSION
+            sessionStorage.setItem(this.STORAGE_KEY, JSON.stringify(sessionData));
+
+            return {
+                user: this.currentUserSignal(),
+                session: sessionData,
+                role: role
+            };
+        }
+
+        // 2. Flujo estándar con Supabase
+        const response = await this.supabase.auth.signInWithPassword({ email: userOrEmail, password: pass });
         if (response.error) throw response.error;
         await this.updateUserState(response.data.session);
+
         return response.data;
     }
 
@@ -107,10 +213,16 @@ export class AuthService {
     }
 
     /**
-     * Cierre de sesión seguro
+     * Cierre de sesión seguro:
+     * Destruye la sesión activa en memoria, en sessionStorage y en Supabase
      */
     async logout(): Promise<void> {
-        await this.supabase.auth.signOut();
+        sessionStorage.removeItem(this.STORAGE_KEY);
+        try {
+            await this.supabase.auth.signOut();
+        } catch {
+            // Ignorar si era sesión mock del laboratorio
+        }
         this.currentUserSignal.set(null);
         this.currentProfileSignal.set(null);
     }

@@ -1,41 +1,61 @@
 import { inject } from '@angular/core';
-import { CanActivateFn, Router, ActivatedRouteSnapshot } from '@angular/router';
+import { CanActivateFn, Router, UrlTree, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { AuthService } from '../services/auth.service';
-import { UserRole } from '../models/user.model';
 
-export const roleGuard: CanActivateFn = async (route: ActivatedRouteSnapshot) => {
+/**
+ * Factoría de Guards que genera un CanActivateFn validando el rol exigido.
+ * Cumple con el Enunciado 4.2 del Dossier.
+ * Soporta uso como factoría: roleGuard('admin')
+ * y uso directo como CanActivateFn: canActivate: [authGuard, roleGuard]
+ */
+export const roleGuard: any = (
+    allowedRoleOrRoute: 'admin' | 'user' | 'standard' | ActivatedRouteSnapshot = 'admin'
+) => {
+    // Caso 1: Invocado como factoría -> roleGuard('admin')
+    if (typeof allowedRoleOrRoute === 'string') {
+        const targetRole = allowedRoleOrRoute;
+        return (route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean | UrlTree => {
+            const authService = inject(AuthService);
+            const router = inject(Router);
+
+            const currentUser = authService.currentUser();
+            const userRole = authService.userRole();
+
+            // Si no está autenticado, redirigir atómicamente a login con queryParams
+            if (!authService.isAuthenticated() || !currentUser) {
+                return router.createUrlTree(['/auth/login'], {
+                    queryParams: { returnUrl: state.url }
+                });
+            }
+
+            const normalizedRole = userRole === 'standard' ? 'user' : userRole;
+            if (normalizedRole === targetRole || userRole === 'admin') {
+                return true;
+            }
+
+            // Si no tiene permiso para /admin o rol admin, redirigir a /user-dashboard
+            return router.createUrlTree(['/user-dashboard']);
+        };
+    }
+
+    // Caso 2: Invocado directamente como CanActivateFn -> canActivate: [roleGuard]
+    const route = allowedRoleOrRoute as ActivatedRouteSnapshot;
     const authService = inject(AuthService);
     const router = inject(Router);
 
-    // Obtenemos los roles permitidos desde la configuración de la ruta (data: { roles: [...] })
-    const allowedRoles = route.data['roles'] as UserRole[] | undefined;
+    const currentUser = authService.currentUser();
+    const userRole = authService.userRole();
 
-    // Si la ruta no especifica roles restringidos, dejamos pasar
-    if (!allowedRoles || allowedRoles.length === 0) {
-        return true;
-    }
-
-    // Obtenemos el perfil en memoria
-    let profile = authService.currentProfile();
-
-    // Si no está en memoria (ej. tras recargar F5), lo recuperamos desde la sesión de Supabase
-    if (!profile) {
-        const { data: { session } } = await authService.client.auth.getSession();
-        if (session?.user) {
-            profile = await authService.fetchUserProfile(session.user.id);
-        }
-    }
-
-    // Si no se encuentra perfil, redirigimos a login
-    if (!profile) {
+    if (!authService.isAuthenticated() || !currentUser) {
         return router.createUrlTree(['/auth/login']);
     }
 
-    // Si el rol del usuario está dentro de los permitidos, concedemos acceso
-    if (allowedRoles.includes(profile.role)) {
+    const allowedRoles = route.data?.['roles'] as string[] | undefined;
+    const normalizedRole = userRole === 'standard' ? 'user' : userRole;
+
+    if (!allowedRoles || allowedRoles.includes(normalizedRole) || userRole === 'admin') {
         return true;
     }
 
-    // Si no tiene el rol requerido, redirigimos a la vista de Acceso No Autorizado
-    return router.createUrlTree(['/unauthorized']);
+    return router.createUrlTree(['/user-dashboard']);
 };

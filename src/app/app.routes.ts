@@ -8,6 +8,24 @@ export const routes: Routes = [
     redirectTo: 'inventory',
     pathMatch: 'full'
   },
+
+  // Alias y rutas directas solicitadas en el dossier del laboratorio DAM2
+  {
+    path: 'login',
+    redirectTo: 'auth/login',
+    pathMatch: 'full'
+  },
+  {
+    path: 'admin',
+    redirectTo: 'dashboard',
+    pathMatch: 'full'
+  },
+  {
+    path: 'user-dashboard',
+    redirectTo: 'inventory',
+    pathMatch: 'full'
+  },
+
   {
     path: 'auth/login',
     loadComponent: () => import('./features/auth/pages/login/login.page')
@@ -21,22 +39,19 @@ export const routes: Routes = [
   },
   {
     path: 'inventory/new',
-    canActivate: [authGuard, roleGuard], // Exclusivo Administrador
-    data: { roles: ['admin'] },
+    canActivate: [authGuard, roleGuard('admin')], // Factoría de guards
     loadComponent: () => import('./features/inventory/pages/product-form/product-form.page')
       .then(m => m.ProductFormPage)
   },
   {
     path: 'inventory/edit/:id',
-    canActivate: [authGuard, roleGuard], // Exclusivo Administrador
-    data: { roles: ['admin'] },
+    canActivate: [authGuard, roleGuard('admin')], // Factoría de guards
     loadComponent: () => import('./features/inventory/pages/product-form/product-form.page')
       .then(m => m.ProductFormPage)
   },
   {
     path: 'dashboard',
-    canActivate: [authGuard, roleGuard], // Exclusivo Administrador
-    data: { roles: ['admin'] },
+    canActivate: [authGuard, roleGuard('admin')], // Factoría de guards
     loadComponent: () => import('./features/dashboard/pages/admin-dashboard.page')
       .then(m => m.AdminDashboardPage)
   },
