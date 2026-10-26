@@ -29,7 +29,6 @@ import {
   closeOutline
 } from 'ionicons/icons';
 
-import { MongoLogsService } from '../../../../core/services/mongo-logs.service';
 import { InventoryService } from '../../../../core/services/inventory.service';
 import { ExportService } from '../../../../core/services/export.service';
 import { MovementLog, MovementType } from '../../../../core/models/inventory-log.model';
@@ -68,7 +67,7 @@ import { DataTableComponent, ColumnDef } from '../../../../shared/components/dat
             <ion-icon name="arrow-back-outline" slot="icon-only"></ion-icon>
           </ion-button>
         </ion-buttons>
-        <ion-title>Historial NoSQL en Tiempo Real (MongoDB)</ion-title>
+        <ion-title>Historial de Movimientos de Stock</ion-title>
         <ion-buttons slot="end">
           <ion-button (click)="router.navigate(['/dashboard'])">Dashboard</ion-button>
         </ion-buttons>
@@ -79,8 +78,8 @@ import { DataTableComponent, ColumnDef } from '../../../../shared/components/dat
       <!-- Encabezado de la página -->
       <div class="movements-header">
         <div>
-          <h2>Trazabilidad de Existencias (Logs de Auditoría)</h2>
-          <p>Registro flexible de entradas y salidas de almacén persistidas en MongoDB.</p>
+          <h2>Auditoría de Entradas y Salidas</h2>
+          <p>Registro histórico y trazabilidad de existencias en Supabase.</p>
         </div>
         <div class="header-actions">
           <ion-button fill="outline" size="small" (click)="loadLogs()" [disabled]="isLoading()">
@@ -98,14 +97,14 @@ import { DataTableComponent, ColumnDef } from '../../../../shared/components/dat
         </div>
       </div>
 
-      <!-- Tabla de Datos Reutilizable (Fase 2 + Fase 3) -->
+      <!-- Cuadrícula Responsiva Mobile-First -->
       <app-data-table
         title="Historial de Movimientos"
         [data]="logs()"
         [columns]="columns"
         [showActions]="false"
         [isLoading]="isLoading()"
-        searchPlaceholder="Buscar por SKU, producto, motivo o email..."
+        searchPlaceholder="Buscar por SKU, producto o motivo..."
         [pageSize]="8"
       ></app-data-table>
 
@@ -114,7 +113,7 @@ import { DataTableComponent, ColumnDef } from '../../../../shared/components/dat
         <ng-template>
           <ion-header>
             <ion-toolbar color="primary">
-              <ion-title>Nuevo Movimiento de Stock</ion-title>
+              <ion-title>Registrar Movimiento de Existencias</ion-title>
               <ion-buttons slot="end">
                 <ion-button (click)="closeModal()">
                   <ion-icon name="close-outline" slot="icon-only"></ion-icon>
@@ -127,7 +126,7 @@ import { DataTableComponent, ColumnDef } from '../../../../shared/components/dat
             <form (ngSubmit)="submitMovement()">
               <!-- Selección de Producto -->
               <ion-item lines="full" class="modal-field">
-                <ion-label position="stacked">Selecciona Producto (Supabase SQL) *</ion-label>
+                <ion-label position="stacked">Selecciona Producto *</ion-label>
                 <ion-select
                   [(ngModel)]="selectedProductId"
                   name="selectedProductId"
@@ -176,17 +175,6 @@ import { DataTableComponent, ColumnDef } from '../../../../shared/components/dat
                 ></ion-input>
               </ion-item>
 
-              <!-- Metadatos dinámicos NoSQL -->
-              <ion-item lines="full" class="modal-field ion-margin-top">
-                <ion-label position="stacked">Observaciones / Metadatos Flexibles (NoSQL)</ion-label>
-                <ion-textarea
-                  [(ngModel)]="notes"
-                  name="notes"
-                  rows="2"
-                  placeholder="Ej. Transportista DHL, Lote A-19, etc."
-                ></ion-textarea>
-              </ion-item>
-
               <div class="modal-actions ion-margin-top">
                 <ion-button fill="outline" color="medium" (click)="closeModal()">Cancelar</ion-button>
                 <ion-button
@@ -194,7 +182,7 @@ import { DataTableComponent, ColumnDef } from '../../../../shared/components/dat
                   color="success"
                   [disabled]="!selectedProductId || quantity < 1 || !reason || isSubmitting()"
                 >
-                  Confirmar y Guardar Dual
+                  Confirmar y Guardar
                 </ion-button>
               </div>
             </form>
@@ -258,7 +246,6 @@ import { DataTableComponent, ColumnDef } from '../../../../shared/components/dat
   `]
 })
 export class MovementHistoryPage implements OnInit {
-  mongoLogsService = inject(MongoLogsService);
   inventoryService = inject(InventoryService);
   exportService = inject(ExportService);
   router = inject(Router);
@@ -270,12 +257,10 @@ export class MovementHistoryPage implements OnInit {
   isSubmitting = signal<boolean>(false);
   toastMessage = signal<string | null>(null);
 
-  // Formulario del Modal
   selectedProductId: string = '';
   movementType: MovementType = 'IN';
   quantity: number = 1;
   reason: string = '';
-  notes: string = '';
 
   readonly columns: ColumnDef[] = [
     { key: 'timestamp', label: 'Fecha y Hora', sortable: true, type: 'date' },
@@ -308,10 +293,10 @@ export class MovementHistoryPage implements OnInit {
   async loadLogs(): Promise<void> {
     this.isLoading.set(true);
     try {
-      const data = await this.mongoLogsService.getLogs();
+      const data = await this.inventoryService.getMovements();
       this.logs.set(data);
     } catch (err) {
-      this.toastMessage.set('Error cargando historial NoSQL.');
+      this.toastMessage.set('Error cargando historial de movimientos.');
     } finally {
       this.isLoading.set(false);
     }
@@ -322,7 +307,7 @@ export class MovementHistoryPage implements OnInit {
       const data = await this.inventoryService.getProducts();
       this.products.set(data);
     } catch (err) {
-      console.error('Error cargando productos para movimientos:', err);
+      console.error('Error cargando productos:', err);
     }
   }
 
@@ -331,14 +316,8 @@ export class MovementHistoryPage implements OnInit {
     this.selectedProductId = '';
     this.quantity = 1;
     this.reason = '';
-    this.notes = '';
   }
 
-  /**
-   * Ejecuta la persistencia dual sincronizada:
-   * 1. Actualiza el stock en PostgreSQL (Supabase)
-   * 2. Registra el log de auditoría en MongoDB
-   */
   async submitMovement(): Promise<void> {
     const product = this.products().find(p => p.id === this.selectedProductId);
     if (!product) return;
@@ -359,13 +338,7 @@ export class MovementHistoryPage implements OnInit {
     const calculatedNewStock = prevStock + delta;
 
     try {
-      // 1. Persistencia Relacional SQL en Supabase
-      await this.inventoryService.updateProduct(product.id, {
-        stock: calculatedNewStock
-      });
-
-      // 2. Persistencia Flexible NoSQL en MongoDB
-      await this.mongoLogsService.logMovement({
+      await this.inventoryService.registerMovement({
         productId: product.id,
         sku: product.sku,
         productName: product.name,
@@ -373,17 +346,12 @@ export class MovementHistoryPage implements OnInit {
         quantity: Math.abs(Number(this.quantity)),
         previousStock: prevStock,
         newStock: calculatedNewStock,
-        reason: this.reason,
-        metadata: {
-          notes: this.notes,
-          adjustedAt: new Date().toISOString()
-        }
+        reason: this.reason
       });
 
-      this.toastMessage.set('Movimiento registrado con éxito en Supabase y MongoDB.');
+      this.toastMessage.set('Movimiento registrado con éxito.');
       this.closeModal();
 
-      // Recargar datos actualizados
       await Promise.all([
         this.loadLogs(),
         this.loadProducts()

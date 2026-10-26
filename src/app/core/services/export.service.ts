@@ -34,7 +34,7 @@ export class ExportService {
   }
 
   /**
-   * Exporta el historial de movimientos de MongoDB a formato CSV
+   * Exporta el historial de movimientos de existencias a formato CSV
    */
   exportMovementsToCsv(movements: MovementLog[]): void {
     if (!movements || movements.length === 0) {

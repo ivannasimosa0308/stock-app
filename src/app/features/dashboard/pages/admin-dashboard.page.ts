@@ -34,7 +34,6 @@ Chart.register(...registerables);
 
 import { AuthService } from '../../../core/services/auth.service';
 import { InventoryService } from '../../../core/services/inventory.service';
-import { MongoLogsService } from '../../../core/services/mongo-logs.service';
 import { ExportService } from '../../../core/services/export.service';
 import { Product, Category } from '../../../core/models/product.model';
 import { MovementLog } from '../../../core/models/inventory-log.model';
@@ -72,7 +71,7 @@ import { StatWidgetComponent } from '../../../shared/components/stat-widget/stat
         <ion-buttons slot="end">
           <ion-button (click)="router.navigate(['/movements'])">
             <ion-icon name="time-outline" slot="start"></ion-icon>
-            Historial NoSQL
+            Movimientos
           </ion-button>
           <ion-button (click)="onLogout()" aria-label="Cerrar sesión">
             <ion-icon name="log-out-outline" slot="icon-only"></ion-icon>
@@ -85,8 +84,8 @@ import { StatWidgetComponent } from '../../../shared/components/stat-widget/stat
       <!-- Barra Superior con Botones de Exportación -->
       <div class="dashboard-header">
         <div>
-          <h2>Analítica Consolidada (SQL + NoSQL)</h2>
-          <p>Orquestación asíncrona de datos de Supabase y registros en tiempo real de MongoDB.</p>
+          <h2>Analítica y Métricas de Inventario</h2>
+          <p>Métricas consolidadas de catálogo y flujo de existencias en Supabase.</p>
         </div>
         <div class="export-actions">
           <ion-button fill="outline" color="medium" size="small" (click)="loadDashboardData()" [disabled]="isLoading()">
@@ -108,7 +107,7 @@ import { StatWidgetComponent } from '../../../shared/components/stat-widget/stat
       @if (isLoading()) {
         <div class="loading-box">
           <ion-spinner name="crescent" color="primary"></ion-spinner>
-          <p>Orquestando datos con Promise.all...</p>
+          <p>Cargando métricas con Promise.all...</p>
         </div>
       } @else {
         <!-- Widgets de KPIs Principales -->
@@ -138,11 +137,11 @@ import { StatWidgetComponent } from '../../../shared/components/stat-widget/stat
           ></app-stat-widget>
 
           <app-stat-widget
-            title="Movimientos NoSQL"
+            title="Movimientos Registrados"
             [value]="movementsCount()"
             icon="server-outline"
             color="warning"
-            subtitle="Logs auditados en MongoDB"
+            subtitle="Operaciones auditadas"
           ></app-stat-widget>
         </section>
 
@@ -156,7 +155,7 @@ import { StatWidgetComponent } from '../../../shared/components/stat-widget/stat
                   <ion-icon name="pie-chart-outline" class="title-icon"></ion-icon>
                   Distribución por Categorías
                 </ion-card-title>
-                <ion-badge color="secondary">SQL (Supabase)</ion-badge>
+                <ion-badge color="secondary">Catálogo</ion-badge>
               </div>
             </ion-card-header>
             <ion-card-content>
@@ -166,7 +165,7 @@ import { StatWidgetComponent } from '../../../shared/components/stat-widget/stat
             </ion-card-content>
           </ion-card>
 
-          <!-- Gráfico 2: Movimientos NoSQL en MongoDB -->
+          <!-- Gráfico 2: Flujo de Entradas y Salidas -->
           <ion-card class="chart-card">
             <ion-card-header>
               <div class="chart-title-wrap">
@@ -174,7 +173,7 @@ import { StatWidgetComponent } from '../../../shared/components/stat-widget/stat
                   <ion-icon name="bar-chart-outline" class="title-icon"></ion-icon>
                   Flujo de Entradas y Salidas
                 </ion-card-title>
-                <ion-badge color="tertiary">NoSQL (MongoDB)</ion-badge>
+                <ion-badge color="tertiary">Operaciones</ion-badge>
               </div>
             </ion-card-header>
             <ion-card-content>
@@ -354,7 +353,6 @@ import { StatWidgetComponent } from '../../../shared/components/stat-widget/stat
 export class AdminDashboardPage implements OnInit, AfterViewInit {
   authService = inject(AuthService);
   inventoryService = inject(InventoryService);
-  mongoLogsService = inject(MongoLogsService);
   exportService = inject(ExportService);
   router = inject(Router);
 
@@ -364,13 +362,11 @@ export class AdminDashboardPage implements OnInit, AfterViewInit {
   private categoryChartInstance?: Chart;
   private movementsChartInstance?: Chart;
 
-  // Estado reactivo con Signals
   isLoading = signal<boolean>(true);
   products = signal<Product[]>([]);
   categories = signal<Category[]>([]);
   movements = signal<MovementLog[]>([]);
 
-  // Métricas calculadas
   totalValue = signal<number>(0);
   totalUnits = signal<number>(0);
   lowStockCount = signal<number>(0);
@@ -396,13 +392,8 @@ export class AdminDashboardPage implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    // Los gráficos se renderizan una vez cargados los datos
   }
 
-  /**
-   * Orquestación Asíncrona Avanzada mediante Promise.all
-   * Consulta de forma paralela y no bloqueante Supabase (SQL) y MongoDB (NoSQL)
-   */
   async loadDashboardData(): Promise<void> {
     this.isLoading.set(true);
 
@@ -410,7 +401,7 @@ export class AdminDashboardPage implements OnInit, AfterViewInit {
       const [fetchedProducts, fetchedCategories, fetchedLogs] = await Promise.all([
         this.inventoryService.getProducts(),
         this.inventoryService.getCategories(),
-        this.mongoLogsService.getRecentLogs(50)
+        this.inventoryService.getMovements(50)
       ]);
 
       this.products.set(fetchedProducts);
@@ -418,7 +409,6 @@ export class AdminDashboardPage implements OnInit, AfterViewInit {
       this.movements.set(fetchedLogs);
       this.recentMovements.set(fetchedLogs.slice(0, 5));
 
-      // Calcular KPIs
       this.totalValue.set(fetchedProducts.reduce((acc, p) => acc + (p.stock * p.unit_price), 0));
       this.totalUnits.set(fetchedProducts.reduce((acc, p) => acc + p.stock, 0));
       this.lowStockCount.set(fetchedProducts.filter(p => p.stock <= p.min_stock).length);
@@ -426,21 +416,17 @@ export class AdminDashboardPage implements OnInit, AfterViewInit {
 
       this.isLoading.set(false);
 
-      // Renderizar gráficos tras el render del DOM
       setTimeout(() => {
         this.renderCategoryChart(fetchedProducts, fetchedCategories);
         this.renderMovementsChart(fetchedLogs);
       }, 100);
 
     } catch (error) {
-      console.error('Error en la orquestación asíncrona del Dashboard:', error);
+      console.error('Error en la carga de datos del Dashboard:', error);
       this.isLoading.set(false);
     }
   }
 
-  /**
-   * Gráfico 1: Distribución de existencias por Categoría (Doughnut Chart)
-   */
   private renderCategoryChart(products: Product[], categories: Category[]): void {
     if (!this.categoryCanvas) return;
 
@@ -466,11 +452,11 @@ export class AdminDashboardPage implements OnInit, AfterViewInit {
         datasets: [{
           data: data,
           backgroundColor: [
-            '#3b82f6', // Azul
-            '#10b981', // Verde
-            '#f59e0b', // Ámbar
-            '#8b5cf6', // Violeta
-            '#ec4899'  // Rosa
+            '#3b82f6',
+            '#10b981',
+            '#f59e0b',
+            '#8b5cf6',
+            '#ec4899'
           ],
           borderWidth: 2,
           borderColor: '#ffffff'
@@ -486,9 +472,6 @@ export class AdminDashboardPage implements OnInit, AfterViewInit {
     });
   }
 
-  /**
-   * Gráfico 2: Flujo de Entradas vs Salidas de MongoDB (Bar Chart)
-   */
   private renderMovementsChart(logs: MovementLog[]): void {
     if (!this.movementsCanvas) return;
 
@@ -512,8 +495,8 @@ export class AdminDashboardPage implements OnInit, AfterViewInit {
           label: 'Unidades Transferidas',
           data: [inQuantity, outQuantity],
           backgroundColor: [
-            'rgba(16, 185, 129, 0.8)', // Verde
-            'rgba(239, 68, 68, 0.8)'   // Rojo
+            'rgba(16, 185, 129, 0.8)',
+            'rgba(239, 68, 68, 0.8)'
           ],
           borderColor: ['#10b981', '#ef4444'],
           borderWidth: 1,
