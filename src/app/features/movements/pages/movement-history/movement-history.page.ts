@@ -10,14 +10,12 @@ import {
   IonButton,
   IonButtons,
   IonIcon,
-  IonBadge,
   IonModal,
   IonItem,
   IonLabel,
   IonSelect,
   IonSelectOption,
   IonInput,
-  IonTextarea,
   IonToast
 } from '@ionic/angular';
 import { addIcons } from 'ionicons';
@@ -48,14 +46,12 @@ import { DataTableComponent, ColumnDef } from '../../../../shared/components/dat
     IonButton,
     IonButtons,
     IonIcon,
-    IonBadge,
     IonModal,
     IonItem,
     IonLabel,
     IonSelect,
     IonSelectOption,
     IonInput,
-    IonTextarea,
     IonToast,
     DataTableComponent
   ],
