@@ -20,6 +20,20 @@ export const routes: Routes = [
       .then(m => m.InventoryListPage)
   },
   {
+    path: 'inventory/new',
+    canActivate: [authGuard, roleGuard], // Exclusivo Administrador
+    data: { roles: ['admin'] },
+    loadComponent: () => import('./features/inventory/pages/product-form/product-form.page')
+      .then(m => m.ProductFormPage)
+  },
+  {
+    path: 'inventory/edit/:id',
+    canActivate: [authGuard, roleGuard], // Exclusivo Administrador
+    data: { roles: ['admin'] },
+    loadComponent: () => import('./features/inventory/pages/product-form/product-form.page')
+      .then(m => m.ProductFormPage)
+  },
+  {
     path: 'dashboard',
     canActivate: [authGuard, roleGuard], // Exclusivo Administrador
     data: { roles: ['admin'] },
