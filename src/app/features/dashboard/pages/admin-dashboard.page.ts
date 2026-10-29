@@ -418,21 +418,21 @@ export class AdminDashboardPage implements OnInit, AfterViewInit {
     {
       name: 'Ivanna Simosa',
       role: 'Directora Logística (Admin)',
-      avatar: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=150&q=80',
+      avatar: 'https://rxhsemwcylhhbgfnogle.supabase.co/storage/v1/object/public/stockflow-media/employees/admin-ivanna.jpg',
       status: 'En turno',
       badgeClass: 'bg-success-subtle text-success'
     },
     {
       name: 'Carlos Méndez',
       role: 'Operador Planta 1',
-      avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=150&q=80',
+      avatar: 'https://rxhsemwcylhhbgfnogle.supabase.co/storage/v1/object/public/stockflow-media/employees/operador-carlos.jpg',
       status: 'Activo',
       badgeClass: 'bg-primary-subtle text-primary'
     },
     {
       name: 'Laura Gómez',
       role: 'Auditora de Recepción',
-      avatar: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=150&q=80',
+      avatar: 'https://rxhsemwcylhhbgfnogle.supabase.co/storage/v1/object/public/stockflow-media/employees/auditora-laura.jpg',
       status: 'Almacén B',
       badgeClass: 'bg-secondary-subtle text-secondary'
     }

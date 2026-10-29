@@ -3,30 +3,30 @@ import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angula
 import { Router, ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import {
-    IonHeader, IonToolbar, IonTitle, IonContent, IonSpinner, IonIcon
+  IonHeader, IonToolbar, IonTitle, IonContent, IonSpinner, IonIcon
 } from '@ionic/angular';
 import { addIcons } from 'ionicons';
 import {
-    shieldCheckmarkOutline,
-    personOutline,
-    lockClosedOutline,
-    flashOutline,
-    cubeOutline
+  shieldCheckmarkOutline,
+  personOutline,
+  lockClosedOutline,
+  flashOutline,
+  cubeOutline
 } from 'ionicons/icons';
 import { AuthService } from '../../../../core/services/auth.service';
 
 @Component({
-    selector: 'app-login',
-    standalone: true,
-    imports: [
-        CommonModule,
-        ReactiveFormsModule,
-        IonHeader, IonToolbar, IonTitle, IonContent, IonSpinner, IonIcon
-    ],
-    template: `
+  selector: 'app-login',
+  standalone: true,
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    IonHeader, IonToolbar, IonTitle, IonContent, IonSpinner, IonIcon
+  ],
+  template: `
     <ion-header>
       <ion-toolbar color="dark">
-        <ion-title>INVENT — StockFlow Enterprise</ion-title>
+        <ion-title>StockFlow S.L</ion-title>
       </ion-toolbar>
     </ion-header>
 
@@ -46,12 +46,12 @@ import { AuthService } from '../../../../core/services/auth.service';
                 </p>
               </div>
 
-              <!-- Acceso Rápido Modo Demo (1-Click) -->
+              <!-- Acceso Rápido -->
               <div class="demo-panel p-3 rounded-4 mb-4">
                 <div class="d-flex align-items-center justify-content-between mb-2">
                   <span class="small fw-bold text-primary text-uppercase">
                     <ion-icon name="flash-outline" class="me-1 align-middle"></ion-icon>
-                    Acceso Rápido Demostración
+                    Acceso Rápido 
                   </span>
                   <span class="badge bg-primary-subtle text-primary rounded-pill">1-Clic</span>
                 </div>
@@ -138,7 +138,7 @@ import { AuthService } from '../../../../core/services/auth.service';
       </div>
     </ion-content>
   `,
-    styles: [`
+  styles: [`
       .brand-badge {
         width: 56px;
         height: 56px;
@@ -172,59 +172,59 @@ import { AuthService } from '../../../../core/services/auth.service';
     `]
 })
 export class LoginPage {
-    private fb = inject(FormBuilder);
-    private authService = inject(AuthService);
-    private router = inject(Router);
-    private route = inject(ActivatedRoute);
+  private fb = inject(FormBuilder);
+  private authService = inject(AuthService);
+  private router = inject(Router);
+  private route = inject(ActivatedRoute);
 
-    isLoading = signal(false);
-    errorMessage = signal<string | null>(null);
+  isLoading = signal(false);
+  errorMessage = signal<string | null>(null);
 
-    loginForm: FormGroup = this.fb.group({
-        email: ['', [Validators.required]],
-        password: ['', [Validators.required, Validators.minLength(3)]]
+  loginForm: FormGroup = this.fb.group({
+    email: ['', [Validators.required]],
+    password: ['', [Validators.required, Validators.minLength(3)]]
+  });
+
+  constructor() {
+    addIcons({
+      shieldCheckmarkOutline,
+      personOutline,
+      lockClosedOutline,
+      flashOutline,
+      cubeOutline
     });
+  }
 
-    constructor() {
-        addIcons({
-            shieldCheckmarkOutline,
-            personOutline,
-            lockClosedOutline,
-            flashOutline,
-            cubeOutline
-        });
+  async loginDemo(profileType: 'admin' | 'operador'): Promise<void> {
+    this.loginForm.patchValue({
+      email: profileType,
+      password: '123'
+    });
+    await this.onSubmit();
+  }
+
+  async onSubmit() {
+    if (this.loginForm.invalid) return;
+
+    this.isLoading.set(true);
+    this.errorMessage.set(null);
+
+    const { email, password } = this.loginForm.value;
+
+    try {
+      await this.authService.login(email, password);
+      const returnUrl = this.route.snapshot.queryParamMap.get('returnUrl');
+      if (returnUrl) {
+        this.router.navigateByUrl(returnUrl);
+      } else if (this.authService.isAdmin()) {
+        this.router.navigate(['/admin']);
+      } else {
+        this.router.navigate(['/user-dashboard']);
+      }
+    } catch (err: any) {
+      this.errorMessage.set(err.message || 'Error al iniciar sesión. Revisa tus credenciales.');
+    } finally {
+      this.isLoading.set(false);
     }
-
-    async loginDemo(profileType: 'admin' | 'operador'): Promise<void> {
-        this.loginForm.patchValue({
-            email: profileType,
-            password: '123'
-        });
-        await this.onSubmit();
-    }
-
-    async onSubmit() {
-        if (this.loginForm.invalid) return;
-
-        this.isLoading.set(true);
-        this.errorMessage.set(null);
-
-        const { email, password } = this.loginForm.value;
-
-        try {
-            await this.authService.login(email, password);
-            const returnUrl = this.route.snapshot.queryParamMap.get('returnUrl');
-            if (returnUrl) {
-                this.router.navigateByUrl(returnUrl);
-            } else if (this.authService.isAdmin()) {
-                this.router.navigate(['/admin']);
-            } else {
-                this.router.navigate(['/user-dashboard']);
-            }
-        } catch (err: any) {
-            this.errorMessage.set(err.message || 'Error al iniciar sesión. Revisa tus credenciales.');
-        } finally {
-            this.isLoading.set(false);
-        }
-    }
+  }
 }

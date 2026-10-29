@@ -128,8 +128,8 @@ export class AuthService {
         const usernameKey = isAdminUser ? 'admin' : 'operador';
         const savedAvatar = localStorage.getItem(`STOCKFLOW_AVATAR_${usernameKey}`);
 
-        const defaultAdminAvatar = 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=300&q=80';
-        const defaultOperadorAvatar = 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=300&q=80';
+        const defaultAdminAvatar = 'https://rxhsemwcylhhbgfnogle.supabase.co/storage/v1/object/public/stockflow-media/employees/admin-ivanna.jpg';
+        const defaultOperadorAvatar = 'https://rxhsemwcylhhbgfnogle.supabase.co/storage/v1/object/public/stockflow-media/employees/operador-carlos.jpg';
 
         const mockUser: User = {
             id: 'mock-' + sessionData.username,

@@ -203,7 +203,7 @@ export class EmployeeProfileCardComponent implements OnInit, OnDestroy {
   authService = inject(AuthService);
   storageService = inject(StorageService);
 
-  defaultAvatar = 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=300&q=80';
+  defaultAvatar = 'https://rxhsemwcylhhbgfnogle.supabase.co/storage/v1/object/public/stockflow-media/employees/admin-ivanna.jpg';
   isUploading = signal<boolean>(false);
   elapsedFormatted = signal<string>('00:00:00');
   startTimeFormatted = signal<string>('--:--');

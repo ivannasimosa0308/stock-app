@@ -265,7 +265,7 @@ export class ProductFormPage implements OnInit {
   private router = inject(Router);
   private route = inject(ActivatedRoute);
 
-  defaultProductImage = 'https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?auto=format&fit=crop&w=300&q=80';
+  defaultProductImage = 'https://rxhsemwcylhhbgfnogle.supabase.co/storage/v1/object/public/stockflow-media/products/monitor-lg-32.jpg';
   categories = signal<Category[]>([]);
   isEditMode = signal<boolean>(false);
   productId: string | null = null;
@@ -277,7 +277,7 @@ export class ProductFormPage implements OnInit {
     sku: ['', [Validators.required]],
     name: ['', [Validators.required, Validators.minLength(3)]],
     description: [''],
-    image_url: ['https://images.unsplash.com/photo-1593642632823-8f785ba67e45?auto=format&fit=crop&w=300&q=80'],
+    image_url: ['https://rxhsemwcylhhbgfnogle.supabase.co/storage/v1/object/public/stockflow-media/products/dell-xps-15.jpg'],
     category_id: ['cat-1'],
     stock: [10, [Validators.required, Validators.min(0)]],
     min_stock: [5, [Validators.required, Validators.min(0)]],

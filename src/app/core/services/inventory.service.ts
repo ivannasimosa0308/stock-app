@@ -9,7 +9,7 @@ import { MovementLog, MovementType } from '../models/inventory-log.model';
 export class InventoryService {
   private authService = inject(AuthService);
   private localMovementsKey = 'stockflow_supabase_movements_cache';
-  private localProductsKey = 'stockflow_products_catalog_v2';
+  private localProductsKey = 'stockflow_products_catalog_v3';
   private localImagesKey = 'stockflow_product_images_map';
 
   private get supabase() {
@@ -34,7 +34,7 @@ export class InventoryService {
       stock: 14,
       min_stock: 5,
       unit_price: 1890,
-      image_url: 'https://images.unsplash.com/photo-1593642632823-8f785ba67e45?auto=format&fit=crop&w=300&q=80',
+      image_url: 'https://rxhsemwcylhhbgfnogle.supabase.co/storage/v1/object/public/stockflow-media/products/dell-xps-15.jpg',
       created_at: '2026-01-15T10:00:00Z'
     },
     {
@@ -47,7 +47,7 @@ export class InventoryService {
       stock: 4,
       min_stock: 6,
       unit_price: 2249,
-      image_url: 'https://images.unsplash.com/photo-1517336714731-489689fd1ca8?auto=format&fit=crop&w=300&q=80',
+      image_url: 'https://rxhsemwcylhhbgfnogle.supabase.co/storage/v1/object/public/stockflow-media/products/macbook-pro-14.jpg',
       created_at: '2026-02-10T11:30:00Z'
     },
     {
@@ -60,7 +60,7 @@ export class InventoryService {
       stock: 19,
       min_stock: 8,
       unit_price: 589,
-      image_url: 'https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?auto=format&fit=crop&w=300&q=80',
+      image_url: 'https://rxhsemwcylhhbgfnogle.supabase.co/storage/v1/object/public/stockflow-media/products/monitor-lg-32.jpg',
       created_at: '2026-03-04T09:15:00Z'
     },
     {
@@ -73,7 +73,7 @@ export class InventoryService {
       stock: 32,
       min_stock: 10,
       unit_price: 215,
-      image_url: 'https://images.unsplash.com/photo-1587829741301-dc798b83add3?auto=format&fit=crop&w=300&q=80',
+      image_url: 'https://rxhsemwcylhhbgfnogle.supabase.co/storage/v1/object/public/stockflow-media/products/logitech-mx-kit.jpg',
       created_at: '2026-04-12T14:20:00Z'
     },
     {
@@ -86,7 +86,7 @@ export class InventoryService {
       stock: 3,
       min_stock: 5,
       unit_price: 645,
-      image_url: 'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=300&q=80',
+      image_url: 'https://rxhsemwcylhhbgfnogle.supabase.co/storage/v1/object/public/stockflow-media/products/synology-nas.jpg',
       created_at: '2026-05-20T16:40:00Z'
     },
     {
@@ -99,7 +99,7 @@ export class InventoryService {
       stock: 11,
       min_stock: 5,
       unit_price: 679,
-      image_url: 'https://images.unsplash.com/photo-1547119957-637f8679db1e?auto=format&fit=crop&w=300&q=80',
+      image_url: 'https://rxhsemwcylhhbgfnogle.supabase.co/storage/v1/object/public/stockflow-media/products/monitor-dell-27.jpg',
       created_at: '2026-06-08T12:10:00Z'
     }
   ];
@@ -142,10 +142,10 @@ export class InventoryService {
   async getProducts(): Promise<Product[]> {
     const imgMap = this.getImageMap();
     const fallbackImages = [
-      'https://images.unsplash.com/photo-1593642632823-8f785ba67e45?auto=format&fit=crop&w=300&q=80',
-      'https://images.unsplash.com/photo-1517336714731-489689fd1ca8?auto=format&fit=crop&w=300&q=80',
-      'https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?auto=format&fit=crop&w=300&q=80',
-      'https://images.unsplash.com/photo-1587829741301-dc798b83add3?auto=format&fit=crop&w=300&q=80'
+      'https://rxhsemwcylhhbgfnogle.supabase.co/storage/v1/object/public/stockflow-media/products/dell-xps-15.jpg',
+      'https://rxhsemwcylhhbgfnogle.supabase.co/storage/v1/object/public/stockflow-media/products/macbook-pro-14.jpg',
+      'https://rxhsemwcylhhbgfnogle.supabase.co/storage/v1/object/public/stockflow-media/products/monitor-lg-32.jpg',
+      'https://rxhsemwcylhhbgfnogle.supabase.co/storage/v1/object/public/stockflow-media/products/logitech-mx-kit.jpg'
     ];
 
     try {
@@ -232,7 +232,7 @@ export class InventoryService {
     const matchedCat = categories.find(c => c.id === product.category_id) || categories[0];
 
     try {
-      const { image_url, ...dbPayload } = product as any;
+      const dbPayload = { ...product };
       const { data, error } = await this.supabase
         .from('products')
         .insert([dbPayload])
@@ -286,7 +286,7 @@ export class InventoryService {
     }
 
     try {
-      const { image_url, category, ...dbUpdates } = updates as any;
+      const { category, ...dbUpdates } = updates as any;
       const { data, error } = await this.supabase
         .from('products')
         .update(dbUpdates)
