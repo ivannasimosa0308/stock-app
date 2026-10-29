@@ -10,7 +10,8 @@ export interface Product {
   id: string;              // Identificador único (UUID)
   sku: string;             // Código de referencia único (ej. "LAP-DELL-001")
   name: string;            // Nombre comercial del producto
-  description?: string;     // Descripción detallada
+  description?: string;    // Descripción detallada
+  image_url?: string;      // URL de imagen almacenada en Supabase Storage
   category_id?: string;    // Llave foránea que apunta a la categoría
   category?: Category;     // Objeto categoría anidado (para mostrar su nombre en tablas)
   stock: number;           // Cantidad física disponible actualmente

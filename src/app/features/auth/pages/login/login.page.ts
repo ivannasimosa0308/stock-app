@@ -3,10 +3,16 @@ import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angula
 import { Router, ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import {
-    IonHeader, IonToolbar, IonTitle, IonContent, IonCard,
-    IonCardHeader, IonCardTitle, IonCardContent, IonItem,
-    IonLabel, IonInput, IonButton, IonSpinner, IonText
+    IonHeader, IonToolbar, IonTitle, IonContent, IonSpinner, IonIcon
 } from '@ionic/angular';
+import { addIcons } from 'ionicons';
+import {
+    shieldCheckmarkOutline,
+    personOutline,
+    lockClosedOutline,
+    flashOutline,
+    cubeOutline
+} from 'ionicons/icons';
 import { AuthService } from '../../../../core/services/auth.service';
 
 @Component({
@@ -15,55 +21,155 @@ import { AuthService } from '../../../../core/services/auth.service';
     imports: [
         CommonModule,
         ReactiveFormsModule,
-        IonHeader, IonToolbar, IonTitle, IonContent, IonCard,
-        IonCardHeader, IonCardTitle, IonCardContent, IonItem,
-        IonLabel, IonInput, IonButton, IonSpinner, IonText
+        IonHeader, IonToolbar, IonTitle, IonContent, IonSpinner, IonIcon
     ],
     template: `
     <ion-header>
-      <ion-toolbar color="primary">
-        <ion-title>StockFlow - Control de Acceso</ion-title>
+      <ion-toolbar color="dark">
+        <ion-title>INVENT — StockFlow Enterprise</ion-title>
       </ion-toolbar>
     </ion-header>
 
-    <ion-content class="ion-padding">
-      <div style="max-width: 450px; margin: 40px auto 0;">
-        <ion-card>
-          <ion-card-header>
-            <ion-card-title class="ion-text-center">Iniciar Sesión</ion-card-title>
-          </ion-card-header>
+    <ion-content class="invent-shell">
+      <div class="container py-5">
+        <div class="row justify-content-center">
+          <div class="col-12 col-md-8 col-lg-5">
+            <div class="invent-card p-4 p-md-5">
+              <!-- Encabezado Corporativo -->
+              <div class="text-center mb-4">
+                <div class="brand-badge mx-auto mb-3 d-flex align-items-center justify-content-center">
+                  <ion-icon name="cube-outline" class="fs-2 text-white"></ion-icon>
+                </div>
+                <h3 class="fw-bold text-dark mb-1">Control de Acceso</h3>
+                <p class="text-muted small mb-0">
+                  Sistema de Gestión de Inventario y Turnos en Tiempo Real
+                </p>
+              </div>
 
-          <ion-card-content>
-            <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-              <ion-item lines="full" class="ion-margin-bottom">
-                <ion-label position="stacked">Usuario o Correo Electrónico</ion-label>
-                <ion-input type="text" formControlName="email" placeholder="admin / operador o usuario@empresa.com"></ion-input>
-              </ion-item>
+              <!-- Acceso Rápido Modo Demo (1-Click) -->
+              <div class="demo-panel p-3 rounded-4 mb-4">
+                <div class="d-flex align-items-center justify-content-between mb-2">
+                  <span class="small fw-bold text-primary text-uppercase">
+                    <ion-icon name="flash-outline" class="me-1 align-middle"></ion-icon>
+                    Acceso Rápido Demostración
+                  </span>
+                  <span class="badge bg-primary-subtle text-primary rounded-pill">1-Clic</span>
+                </div>
+                <p class="extra-small text-muted mb-3">
+                  Inicia sesión automáticamente e inicia el cronómetro de jornada laboral:
+                </p>
+                <div class="row g-2">
+                  <div class="col-6">
+                    <button
+                      type="button"
+                      class="btn btn-primary w-100 fw-semibold py-2 rounded-3 d-flex align-items-center justify-content-center gap-1 shadow-sm"
+                      (click)="loginDemo('admin')"
+                      [disabled]="isLoading()"
+                    >
+                      <ion-icon name="shield-checkmark-outline"></ion-icon>
+                      <span>Demo Admin</span>
+                    </button>
+                  </div>
+                  <div class="col-6">
+                    <button
+                      type="button"
+                      class="btn btn-outline-dark w-100 fw-semibold py-2 rounded-3 d-flex align-items-center justify-content-center gap-1"
+                      (click)="loginDemo('operador')"
+                      [disabled]="isLoading()"
+                    >
+                      <ion-icon name="person-outline"></ion-icon>
+                      <span>Demo Operador</span>
+                    </button>
+                  </div>
+                </div>
+              </div>
 
-              <ion-item lines="full" class="ion-margin-bottom">
-                <ion-label position="stacked">Contraseña</ion-label>
-                <ion-input type="password" formControlName="password" placeholder="••••••••"></ion-input>
-              </ion-item>
+              <div class="divider-text text-center my-3">
+                <span class="bg-white px-3 text-muted small">o acceso manual</span>
+              </div>
 
-              @if (errorMessage()) {
-                <ion-text color="danger" class="ion-padding-vertical">
-                  <p class="ion-text-center">{{ errorMessage() }}</p>
-                </ion-text>
-              }
+              <!-- Formulario Reactivo Estándar -->
+              <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+                <div class="mb-3">
+                  <label class="form-label fw-semibold small text-secondary">
+                    Usuario o Correo Corporativo
+                  </label>
+                  <input
+                    type="text"
+                    class="form-control form-control-lg fs-6 rounded-3"
+                    formControlName="email"
+                    placeholder="admin / operador o usuario@empresa.com"
+                  />
+                </div>
 
-              <ion-button expand="block" type="submit" [disabled]="loginForm.invalid || isLoading()" class="ion-margin-top">
-                @if (isLoading()) {
-                  <ion-spinner name="crescent"></ion-spinner>
-                } @else {
-                  Acceder al Sistema
+                <div class="mb-3">
+                  <label class="form-label fw-semibold small text-secondary">
+                    Contraseña
+                  </label>
+                  <input
+                    type="password"
+                    class="form-control form-control-lg fs-6 rounded-3"
+                    formControlName="password"
+                    placeholder="•••••••• (123 para demo)"
+                  />
+                </div>
+
+                @if (errorMessage()) {
+                  <div class="alert alert-danger py-2 small text-center rounded-3 mb-3">
+                    {{ errorMessage() }}
+                  </div>
                 }
-              </ion-button>
-            </form>
-          </ion-card-content>
-        </ion-card>
+
+                <button
+                  type="submit"
+                  class="btn btn-dark w-100 py-2 fw-bold rounded-3 mt-2"
+                  [disabled]="loginForm.invalid || isLoading()"
+                >
+                  @if (isLoading()) {
+                    <ion-spinner name="crescent" color="light"></ion-spinner>
+                  } @else {
+                    Acceder al Sistema
+                  }
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
       </div>
     </ion-content>
-  `
+  `,
+    styles: [`
+      .brand-badge {
+        width: 56px;
+        height: 56px;
+        border-radius: 16px;
+        background: linear-gradient(135deg, #5b47fb 0%, #3b28cc 100%);
+        box-shadow: 0 8px 20px rgba(91, 71, 251, 0.3);
+      }
+      .demo-panel {
+        background-color: #f5f3ff;
+        border: 1px solid #ddd6fe;
+      }
+      .extra-small {
+        font-size: 0.76rem;
+      }
+      .divider-text {
+        position: relative;
+      }
+      .divider-text::before {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 0;
+        right: 0;
+        border-top: 1px solid #e2e8f0;
+        z-index: 0;
+      }
+      .divider-text span {
+        position: relative;
+        z-index: 1;
+      }
+    `]
 })
 export class LoginPage {
     private fb = inject(FormBuilder);
@@ -79,6 +185,24 @@ export class LoginPage {
         password: ['', [Validators.required, Validators.minLength(3)]]
     });
 
+    constructor() {
+        addIcons({
+            shieldCheckmarkOutline,
+            personOutline,
+            lockClosedOutline,
+            flashOutline,
+            cubeOutline
+        });
+    }
+
+    async loginDemo(profileType: 'admin' | 'operador'): Promise<void> {
+        this.loginForm.patchValue({
+            email: profileType,
+            password: '123'
+        });
+        await this.onSubmit();
+    }
+
     async onSubmit() {
         if (this.loginForm.invalid) return;
 
@@ -88,8 +212,7 @@ export class LoginPage {
         const { email, password } = this.loginForm.value;
 
         try {
-            const res = await this.authService.login(email, password);
-            // Si el guard redirigió guardando el returnUrl, navegamos hacia allí
+            await this.authService.login(email, password);
             const returnUrl = this.route.snapshot.queryParamMap.get('returnUrl');
             if (returnUrl) {
                 this.router.navigateByUrl(returnUrl);

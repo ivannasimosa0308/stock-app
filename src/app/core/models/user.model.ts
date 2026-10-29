@@ -7,6 +7,8 @@ export interface UserProfile {
     email: string;           // Correo corporativo del empleado
     full_name: string;       // Nombre y apellidos
     role: UserRole;          // 'admin' (acceso total) o 'standard' (operador básico)
+    avatar_url?: string;     // Foto del empleado en Supabase Storage
+    position?: string;       // Cargo en el almacén
     created_at?: string;     // Fecha de alta en el sistema
     updated_at?: string;
 }

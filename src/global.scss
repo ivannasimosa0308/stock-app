@@ -1,37 +1,113 @@
 /*
- * App Global CSS
+ * App Global SCSS + Bootstrap 5 Custom Integration
  * ----------------------------------------------------------------------------
- * Put style rules here that you want to apply globally. These styles are for
- * the entire app and not just one component. Additionally, this file can be
- * used as an entry point to import other CSS/Sass files to be included in the
- * output CSS.
- * For more information on global stylesheets, visit the documentation:
- * https://ionicframework.com/docs/layout/global-stylesheets
+ * Personalización de variables SCSS de Bootstrap antes de su importación
+ * inspirada en el diseño corporativo "Store Inventory Dashboard"
  */
 
-/* Core CSS required for Ionic components to work properly */
-@import "@ionic/angular/css/core.css";
+// 1. Variables SCSS personalizadas de Bootstrap 5
+$primary: #5b47fb;
+$secondary: #64748b;
+$success: #10b981;
+$info: #0ea5e9;
+$warning: #ffaa2c;
+$danger: #ff6b4a;
+$light: #f8fafc;
+$dark: #1e1b4b;
 
-/* Basic CSS for apps built with Ionic */
+$body-bg: #f4f6fb;
+$body-color: #1e293b;
+$border-radius: 0.75rem;
+$border-radius-lg: 1rem;
+$border-radius-sm: 0.5rem;
+$box-shadow-sm: 0 2px 10px rgba(30, 27, 75, 0.05);
+$box-shadow: 0 8px 24px rgba(30, 27, 75, 0.08);
+
+// 2. Importación de Bootstrap 5 SCSS
+@import "bootstrap/scss/bootstrap";
+
+// 3. Core CSS requerido por Ionic Framework
+@import "@ionic/angular/css/core.css";
 @import "@ionic/angular/css/normalize.css";
 @import "@ionic/angular/css/structure.css";
 @import "@ionic/angular/css/typography.css";
 @import "@ionic/angular/css/display.css";
 
-/* Optional CSS utils that can be commented out */
+// Utilidades de Ionic
 @import "@ionic/angular/css/padding.css";
 @import "@ionic/angular/css/float-elements.css";
 @import "@ionic/angular/css/text-alignment.css";
 @import "@ionic/angular/css/text-transformation.css";
 @import "@ionic/angular/css/flex-utils.css";
 
-/**
- * Ionic Dark Mode
- * -----------------------------------------------------
- * For more info, please see:
- * https://ionicframework.com/docs/theming/dark-mode
- */
+// 4. Variables globales de tema claro empresarial para Ionic + Bootstrap
+:root {
+  --ion-color-primary: #5b47fb;
+  --ion-color-primary-rgb: 91, 71, 251;
+  --ion-color-primary-contrast: #ffffff;
+  --ion-color-primary-shade: #503edd;
+  --ion-color-primary-tint: #6b59fb;
 
-/* @import "@ionic/angular/css/palettes/dark.always.css"; */
-/* @import "@ionic/angular/css/palettes/dark.class.css"; */
-@import '@ionic/angular/css/palettes/dark.system.css';
+  --ion-color-secondary: #ff6b4a;
+  --ion-color-secondary-rgb: 255, 107, 74;
+  --ion-color-secondary-contrast: #ffffff;
+
+  --ion-color-tertiary: #3b28cc;
+  --ion-color-success: #10b981;
+  --ion-color-warning: #ffaa2c;
+  --ion-color-danger: #ef4444;
+  --ion-color-dark: #1e1b4b;
+  --ion-color-medium: #64748b;
+  --ion-color-light: #f4f6fb;
+
+  --ion-background-color: #f4f6fb;
+  --ion-background-color-rgb: 244, 246, 251;
+  --ion-text-color: #1e293b;
+  --ion-text-color-rgb: 30, 41, 59;
+  --ion-card-background: #ffffff;
+  --ion-item-background: #ffffff;
+  --ion-toolbar-background: #1e1b4b;
+  --ion-toolbar-color: #ffffff;
+}
+
+// Clases reutilizables estilo Store Inventory Dashboard
+.invent-shell {
+  background-color: #f4f6fb;
+  min-height: 100%;
+}
+
+.invent-card {
+  background: #ffffff;
+  border: 1px solid rgba(226, 232, 240, 0.85);
+  border-radius: 1rem;
+  box-shadow: 0 6px 20px rgba(30, 27, 75, 0.05);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.invent-kpi-coral {
+  background: linear-gradient(135deg, #ff7452 0%, #ff5232 100%);
+  color: #ffffff;
+  border-radius: 1rem;
+  box-shadow: 0 8px 20px rgba(255, 107, 74, 0.28);
+}
+
+.invent-kpi-amber {
+  background: linear-gradient(135deg, #ffbe3d 0%, #ff9f1a 100%);
+  color: #ffffff;
+  border-radius: 1rem;
+  box-shadow: 0 8px 20px rgba(255, 170, 44, 0.28);
+}
+
+.invent-kpi-indigo {
+  background: linear-gradient(135deg, #4f39f6 0%, #311b92 100%);
+  color: #ffffff;
+  border-radius: 1rem;
+  box-shadow: 0 8px 20px rgba(79, 57, 246, 0.28);
+}
+
+.invent-kpi-emerald {
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  color: #ffffff;
+  border-radius: 1rem;
+  box-shadow: 0 8px 20px rgba(16, 185, 129, 0.25);
+}

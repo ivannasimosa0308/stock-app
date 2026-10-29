@@ -4,9 +4,7 @@ import { AuthService } from '../services/auth.service';
 
 /**
  * Factoría de Guards que genera un CanActivateFn validando el rol exigido.
- * Cumple con el Enunciado 4.2 del Dossier.
- * Soporta uso como factoría: roleGuard('admin')
- * y uso directo como CanActivateFn: canActivate: [authGuard, roleGuard]
+ * Cumple con el Enunciado 4.2 del Dossier y registra alertas de intrusión (403).
  */
 export const roleGuard: any = (
     allowedRoleOrRoute: 'admin' | 'user' | 'standard' | ActivatedRouteSnapshot = 'admin'
@@ -21,7 +19,6 @@ export const roleGuard: any = (
             const currentUser = authService.currentUser();
             const userRole = authService.userRole();
 
-            // Si no está autenticado, redirigir atómicamente a login con queryParams
             if (!authService.isAuthenticated() || !currentUser) {
                 return router.createUrlTree(['/login'], {
                     queryParams: { returnUrl: state.url }
@@ -33,8 +30,21 @@ export const roleGuard: any = (
                 return true;
             }
 
-            // Si un usuario con rol 'user' intenta acceder a '/admin', redirigirlo a '/user-dashboard'
-            return router.createUrlTree(['/user-dashboard']);
+            // Registrar intento de intrusión para mostrar el aviso de Acceso Prohibido (403)
+            sessionStorage.setItem(
+                'STOCKFLOW_FORBIDDEN_ATTEMPT',
+                JSON.stringify({
+                    attemptedUrl: state.url,
+                    user: currentUser.email || 'operador',
+                    role: normalizedRole,
+                    timestamp: new Date().toLocaleTimeString('es-ES')
+                })
+            );
+
+            // Redirigir a /user-dashboard (o /unauthorized si se solicita explícitamente)
+            return router.createUrlTree(['/user-dashboard'], {
+                queryParams: { forbidden: 'true', attempted: state.url }
+            });
         };
     }
 
@@ -50,12 +60,14 @@ export const roleGuard: any = (
         return router.createUrlTree(['/login']);
     }
 
-    const allowedRoles = route.data?.['roles'] as string[] | undefined;
-    const normalizedRole = userRole === 'standard' ? 'user' : userRole;
-
-    if (!allowedRoles || allowedRoles.includes(normalizedRole) || userRole === 'admin') {
+    const allowedRoles = route?.data?.['roles'] as string[] | undefined;
+    if (!allowedRoles || allowedRoles.length === 0) {
         return true;
     }
 
-    return router.createUrlTree(['/user-dashboard']);
+    if (allowedRoles.includes(userRole) || userRole === 'admin') {
+        return true;
+    }
+
+    return router.createUrlTree(['/unauthorized']);
 };

@@ -22,16 +22,22 @@ export class AuthService {
      * Clave empleada en la Web Storage API (sessionStorage) requerida por el profesor
      */
     private readonly STORAGE_KEY = 'DAM2_AUTH_SESSION';
+    private readonly CLOCK_KEY = 'STOCKFLOW_CLOCK_START';
+    private readonly CLOCK_ACTIVE_KEY = 'STOCKFLOW_CLOCK_ACTIVE';
 
-    // Signals reactivos para el estado de autenticación y perfil
+    // Signals reactivos para el estado de autenticación, perfil y cronómetro de turno
     private currentUserSignal = signal<User | null>(null);
     private currentProfileSignal = signal<UserProfile | null>(null);
     private isLoadingSignal = signal<boolean>(true);
+    private sessionStartTimeSignal = signal<number | null>(null);
+    private isClockedInSignal = signal<boolean>(false);
 
     // Exposición pública de sólo lectura
     readonly currentUser = this.currentUserSignal.asReadonly();
     readonly currentProfile = this.currentProfileSignal.asReadonly();
     readonly isLoading = this.isLoadingSignal.asReadonly();
+    readonly sessionStartTime = this.sessionStartTimeSignal.asReadonly();
+    readonly isClockedIn = this.isClockedInSignal.asReadonly();
 
     // Selectores computados automáticos
     readonly isAuthenticated = computed(() => !!this.currentUserSignal());
@@ -52,12 +58,14 @@ export class AuthService {
             const localSession = this.readSessionFromStorage();
             if (localSession && localSession.isAuthenticated) {
                 this.setLocalUserSession(localSession);
+                this.restoreClockState();
             }
 
             // 2. Verificar sesión activa en Supabase
             const { data: { session } } = await this.supabase.auth.getSession();
             if (session) {
                 await this.updateUserState(session);
+                this.restoreClockState();
             }
 
             this.supabase.auth.onAuthStateChange(async (_event, session) => {
@@ -71,9 +79,58 @@ export class AuthService {
     }
 
     /**
+     * Inicia o restaura el cronómetro de jornada laboral al iniciar sesión
+     */
+    private restoreClockState(): void {
+        const savedStart = sessionStorage.getItem(this.CLOCK_KEY);
+        const savedActive = sessionStorage.getItem(this.CLOCK_ACTIVE_KEY);
+        if (savedStart) {
+            this.sessionStartTimeSignal.set(Number(savedStart));
+            this.isClockedInSignal.set(savedActive !== 'false');
+        } else {
+            this.startWorkShift();
+        }
+    }
+
+    public startWorkShift(): void {
+        const now = Date.now();
+        sessionStorage.setItem(this.CLOCK_KEY, String(now));
+        sessionStorage.setItem(this.CLOCK_ACTIVE_KEY, 'true');
+        this.sessionStartTimeSignal.set(now);
+        this.isClockedInSignal.set(true);
+    }
+
+    public toggleClockInOut(): void {
+        if (this.isClockedInSignal()) {
+            sessionStorage.setItem(this.CLOCK_ACTIVE_KEY, 'false');
+            this.isClockedInSignal.set(false);
+        } else {
+            this.startWorkShift();
+        }
+    }
+
+    public updateAvatarUrl(newAvatarUrl: string): void {
+        const current = this.currentProfileSignal();
+        if (!current) return;
+        const usernameKey = current.role === 'admin' ? 'admin' : 'operador';
+        localStorage.setItem(`STOCKFLOW_AVATAR_${usernameKey}`, newAvatarUrl);
+        this.currentProfileSignal.set({
+            ...current,
+            avatar_url: newAvatarUrl
+        });
+    }
+
+    /**
      * Establece la sesión en memoria para los usuarios simulados del laboratorio
      */
     private setLocalUserSession(sessionData: UserSession): void {
+        const isAdminUser = sessionData.role === 'admin';
+        const usernameKey = isAdminUser ? 'admin' : 'operador';
+        const savedAvatar = localStorage.getItem(`STOCKFLOW_AVATAR_${usernameKey}`);
+
+        const defaultAdminAvatar = 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=300&q=80';
+        const defaultOperadorAvatar = 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=300&q=80';
+
         const mockUser: User = {
             id: 'mock-' + sessionData.username,
             app_metadata: {},
@@ -86,8 +143,10 @@ export class AuthService {
         const mockProfile: UserProfile = {
             id: mockUser.id,
             email: mockUser.email || `${sessionData.username}@stockflow.local`,
-            full_name: sessionData.username === 'admin' ? 'Administrador DAM' : 'Operador DAM',
-            role: sessionData.role === 'admin' ? 'admin' : 'standard',
+            full_name: isAdminUser ? 'Ivanna Simosa (Admin)' : 'Carlos Méndez (Operador)',
+            position: isAdminUser ? 'Directora de Operaciones y Stock' : 'Técnico Logístico de Almacén',
+            avatar_url: savedAvatar || (isAdminUser ? defaultAdminAvatar : defaultOperadorAvatar),
+            role: isAdminUser ? 'admin' : 'standard',
             created_at: new Date().toISOString(),
             updated_at: new Date().toISOString()
         };
@@ -173,8 +232,9 @@ export class AuthService {
                 isAuthenticated: true
             };
 
-            // Guardar en memoria reactiva (Signals)
+            // Guardar en memoria reactiva (Signals) e iniciar cronómetro de sesión
             this.setLocalUserSession(sessionData);
+            this.startWorkShift();
 
             // Persistir en sessionStorage bajo DAM2_AUTH_SESSION
             sessionStorage.setItem(this.STORAGE_KEY, JSON.stringify(sessionData));
@@ -190,6 +250,7 @@ export class AuthService {
         const response = await this.supabase.auth.signInWithPassword({ email: userOrEmail, password: pass });
         if (response.error) throw response.error;
         await this.updateUserState(response.data.session);
+        this.startWorkShift();
 
         return response.data;
     }
@@ -218,6 +279,8 @@ export class AuthService {
      */
     async logout(): Promise<void> {
         sessionStorage.removeItem(this.STORAGE_KEY);
+        sessionStorage.removeItem(this.CLOCK_KEY);
+        sessionStorage.removeItem(this.CLOCK_ACTIVE_KEY);
         try {
             await this.supabase.auth.signOut();
         } catch {
@@ -225,6 +288,8 @@ export class AuthService {
         }
         this.currentUserSignal.set(null);
         this.currentProfileSignal.set(null);
+        this.sessionStartTimeSignal.set(null);
+        this.isClockedInSignal.set(false);
     }
 
     /**

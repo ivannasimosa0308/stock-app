@@ -129,7 +129,19 @@ export interface ColumnDef {
 
               <!-- Cuerpo Principal: Nombre y Categoría -->
               <div class="card-body">
-                <h4 class="card-title">{{ item.name || item.productName || 'Sin título' }}</h4>
+                @if (item.image_url) {
+                  <div class="d-flex align-items-center gap-3 mb-2">
+                    <img
+                      [src]="item.image_url"
+                      [alt]="item.name || 'Producto'"
+                      class="rounded-3 border"
+                      style="width: 52px; height: 52px; object-fit: cover; flex-shrink: 0;"
+                    />
+                    <h4 class="card-title mb-0">{{ item.name || item.productName || 'Sin título' }}</h4>
+                  </div>
+                } @else {
+                  <h4 class="card-title">{{ item.name || item.productName || 'Sin título' }}</h4>
+                }
                 @if (item.category?.name) {
                   <span class="category-tag">{{ item.category.name }}</span>
                 } @else if (item.reason) {
