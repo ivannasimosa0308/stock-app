@@ -8,8 +8,7 @@ import {
   playCircleOutline,
   stopCircleOutline,
   shieldCheckmarkOutline,
-  personCircleOutline,
-  cloudUploadOutline
+  personCircleOutline
 } from 'ionicons/icons';
 import { AuthService } from '../../../core/services/auth.service';
 import { StorageService } from '../../../core/services/storage.service';
@@ -19,140 +18,116 @@ import { StorageService } from '../../../core/services/storage.service';
   standalone: true,
   imports: [CommonModule, IonIcon, IonSpinner],
   template: `
-    <div class="invent-card p-4 h-100 d-flex flex-column justify-content-between">
-      <div>
-        <!-- Cabecera de tarjeta Profile -->
-        <div class="d-flex justify-content-between align-items-center mb-3">
-          <span class="fw-bold text-dark fs-6">Perfil de Empleado</span>
-          <span
-            class="badge rounded-pill px-3 py-1"
-            [ngClass]="authService.isAdmin() ? 'bg-primary' : 'bg-info text-dark'"
+    <div class="invent-card p-3 p-xl-4">
+      <!-- Cabecera de tarjeta Profile -->
+      <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3">
+        <span class="fw-bold text-dark fs-6">Perfil de empleado</span>
+        <span
+          class="badge rounded-pill px-3 py-1"
+          [ngClass]="authService.isAdmin() ? 'bg-primary text-white' : 'bg-info text-dark'"
+        >
+          {{ authService.isAdmin() ? 'Admin' : 'Operador' }}
+        </span>
+      </div>
+
+      <!-- Avatar circular del empleado -->
+      <div class="text-center my-3 position-relative px-1">
+        <div class="avatar-wrapper mx-auto position-relative">
+          <img
+            [src]="authService.currentProfile()?.avatar_url || defaultAvatar"
+            alt="Foto del empleado"
+            class="rounded-circle shadow-sm avatar-img"
+          />
+          <button
+            type="button"
+            class="btn btn-sm btn-primary rounded-circle avatar-upload-btn shadow"
+            (click)="fileInput.click()"
+            title="Cambiar foto de perfil"
+            [disabled]="isUploading()"
           >
-            {{ authService.isAdmin() ? 'ADMIN' : 'OPERADOR' }}
-          </span>
+            @if (isUploading()) {
+              <ion-spinner name="crescent" style="width: 14px; height: 14px;"></ion-spinner>
+            } @else {
+              <ion-icon name="camera-outline"></ion-icon>
+            }
+          </button>
+          <input
+            #fileInput
+            type="file"
+            accept="image/*"
+            class="d-none"
+            (change)="onAvatarSelected($event)"
+          />
         </div>
 
-        <!-- Avatar circular con subida a Supabase Storage -->
-        <div class="text-center my-3 position-relative">
-          <div class="avatar-wrapper mx-auto position-relative">
-            <img
-              [src]="authService.currentProfile()?.avatar_url || defaultAvatar"
-              alt="Foto del empleado"
-              class="rounded-circle shadow-sm avatar-img"
-            />
-            <button
-              type="button"
-              class="btn btn-sm btn-primary rounded-circle avatar-upload-btn shadow"
-              (click)="fileInput.click()"
-              title="Subir foto de empleado a Supabase Storage"
-              [disabled]="isUploading()"
-            >
-              @if (isUploading()) {
-                <ion-spinner name="crescent" style="width: 14px; height: 14px;"></ion-spinner>
-              } @else {
-                <ion-icon name="camera-outline"></ion-icon>
-              }
-            </button>
-            <input
-              #fileInput
-              type="file"
-              accept="image/*"
-              class="d-none"
-              (change)="onAvatarSelected($event)"
-            />
-          </div>
-
-          <h5 class="fw-bold text-dark mt-3 mb-1">
-            {{ authService.currentProfile()?.full_name || 'Empleado Activo' }}
-          </h5>
-          <p class="text-muted small mb-1">
-            {{ '@' + (authService.currentProfile()?.email?.split('@')?.[0] || 'stockflow') }}
-          </p>
-          <span class="badge bg-light text-secondary border px-2 py-1">
+        <h5 class="fw-bold text-dark mt-3 mb-1 text-break">
+          {{ authService.currentProfile()?.full_name || 'Empleado Activo' }}
+        </h5>
+        <p class="text-muted small mb-2 text-break">
+          {{ '@' + (authService.currentProfile()?.email?.split('@')?.[0] || 'stockflow') }}
+        </p>
+        <div class="px-2">
+          <span class="badge bg-light text-secondary border px-2 py-1 d-inline-block text-wrap mw-100">
             {{ authService.currentProfile()?.position || 'Personal Logístico' }}
           </span>
         </div>
+      </div>
 
-        <!-- Métricas rápidas estilo Store Inventory Dashboard -->
-        <div class="row text-center border-top border-bottom py-3 my-3 g-0">
-          <div class="col-6 border-end">
-            <div class="fw-bold fs-5 text-dark">{{ totalProducts }}</div>
-            <div class="text-muted small">Productos</div>
-          </div>
-          <div class="col-6">
-            <div class="fw-bold fs-5 text-primary">{{ totalMovements }}</div>
-            <div class="text-muted small">Operaciones</div>
-          </div>
+      <!-- Métricas rápidas -->
+      <div class="row text-center border-top border-bottom py-3 my-3 g-0">
+        <div class="col-6 border-end px-1">
+          <div class="fw-bold fs-5 text-dark">{{ totalProducts }}</div>
+          <div class="text-muted extra-small text-truncate">Productos</div>
         </div>
-
-        <!-- Cronómetro de Sesión y Control de Turno (Clock-In / Clock-Out) -->
-        <div class="clock-box p-3 rounded-4 mb-3 text-center">
-          <div class="d-flex justify-content-between align-items-center mb-2">
-            <span class="small fw-semibold text-uppercase tracking-wide text-secondary">
-              <ion-icon name="time-outline" class="me-1 align-middle"></ion-icon>
-              Tiempo de Sesión
-            </span>
-            <span
-              class="badge rounded-pill"
-              [ngClass]="authService.isClockedIn() ? 'bg-success' : 'bg-warning text-dark'"
-            >
-              {{ authService.isClockedIn() ? '● En Turno' : '❚❚ En Pausa' }}
-            </span>
-          </div>
-
-          <div class="timer-display fw-bold my-2">
-            {{ elapsedFormatted() }}
-          </div>
-
-          <div class="text-muted extra-small mb-3">
-            Inicio de jornada: {{ startTimeFormatted() }}
-          </div>
-
-          <button
-            type="button"
-            class="btn w-100 fw-semibold rounded-3 d-flex align-items-center justify-content-center gap-2 py-2"
-            [ngClass]="authService.isClockedIn() ? 'btn-outline-danger' : 'btn-success text-white'"
-            (click)="onToggleClock()"
-          >
-            <ion-icon [name]="authService.isClockedIn() ? 'stop-circle-outline' : 'play-circle-outline'"></ion-icon>
-            {{ authService.isClockedIn() ? 'Finalizar Turno (Clock-Out)' : 'Iniciar Turno (Clock-In)' }}
-          </button>
-        </div>
-
-        <!-- Etiquetas tecnológicas del entorno -->
-        <div class="mb-2">
-          <div class="text-uppercase text-muted extra-small fw-bold mb-2 text-center">
-            Tecnologías Activas
-          </div>
-          <div class="d-flex flex-wrap justify-content-center gap-1">
-            <span class="tag-pill">Bootstrap 5 SCSS</span>
-            <span class="tag-pill">Supabase Storage</span>
-            <span class="tag-pill">Angular Signals</span>
-            <span class="tag-pill">RBAC Guards</span>
-          </div>
+        <div class="col-6 px-1">
+          <div class="fw-bold fs-5 text-primary">{{ totalMovements }}</div>
+          <div class="text-muted extra-small text-truncate">Operaciones</div>
         </div>
       </div>
 
-      <!-- Pie de tarjeta con subida rápida de foto -->
-      <div class="update-banner p-3 rounded-3 text-center mt-3">
-        <div class="small fw-semibold text-primary mb-1">
-          <ion-icon name="cloud-upload-outline" class="me-1 align-middle"></ion-icon>
-          Supabase Storage Activo
+      <!-- Cronómetro de Sesión y Control de Turno (Clock-In / Clock-Out) -->
+      <div class="clock-box p-3 rounded-4 text-center">
+        <div class="d-flex flex-wrap justify-content-center justify-content-sm-between align-items-center gap-1 mb-2">
+          <span class="extra-small fw-semibold text-secondary">
+            <ion-icon name="time-outline" class="me-1 align-middle"></ion-icon>
+            Tiempo de sesión
+          </span>
+          <span
+            class="badge rounded-pill"
+            [ngClass]="authService.isClockedIn() ? 'bg-success' : 'bg-warning text-dark'"
+          >
+            {{ authService.isClockedIn() ? 'En turno' : 'En pausa' }}
+          </span>
         </div>
-        <div class="extra-small text-muted">
-          Pulsa el icono de cámara sobre tu foto para actualizar tu avatar en la nube.
+
+        <div class="timer-display fw-bold my-2">
+          {{ elapsedFormatted() }}
         </div>
+
+        <div class="text-muted extra-small mb-3">
+          Inicio: {{ startTimeFormatted() }}
+        </div>
+
+        <button
+          type="button"
+          class="btn btn-sm w-100 fw-semibold rounded-3 d-flex flex-wrap align-items-center justify-content-center gap-1 py-2 px-2"
+          [ngClass]="authService.isClockedIn() ? 'btn-outline-danger' : 'btn-success text-white'"
+          (click)="onToggleClock()"
+        >
+          <ion-icon [name]="authService.isClockedIn() ? 'stop-circle-outline' : 'play-circle-outline'"></ion-icon>
+          <span>{{ authService.isClockedIn() ? 'Finalizar turno' : 'Iniciar turno' }}</span>
+        </button>
       </div>
     </div>
   `,
   styles: [`
     .avatar-wrapper {
-      width: 96px;
-      height: 96px;
+      width: 92px;
+      height: 92px;
     }
     .avatar-img {
-      width: 96px;
-      height: 96px;
+      width: 92px;
+      height: 92px;
       object-fit: cover;
       border: 3px solid #5b47fb;
     }
@@ -160,8 +135,8 @@ import { StorageService } from '../../../core/services/storage.service';
       position: absolute;
       bottom: 0;
       right: 0;
-      width: 32px;
-      height: 32px;
+      width: 30px;
+      height: 30px;
       padding: 0;
       display: flex;
       align-items: center;
@@ -174,24 +149,12 @@ import { StorageService } from '../../../core/services/storage.service';
     }
     .timer-display {
       font-family: 'Consolas', 'Courier New', monospace;
-      font-size: 1.75rem;
+      font-size: clamp(1.25rem, 2vw, 1.65rem);
       color: #1e1b4b;
-      letter-spacing: 1.5px;
+      letter-spacing: 1px;
     }
     .extra-small {
       font-size: 0.75rem;
-    }
-    .tag-pill {
-      font-size: 0.7rem;
-      padding: 4px 10px;
-      border-radius: 999px;
-      background-color: #f1f5f9;
-      color: #475569;
-      font-weight: 600;
-    }
-    .update-banner {
-      background-color: #f5f3ff;
-      border: 1px dashed #c4b5fd;
     }
   `]
 })
@@ -217,8 +180,7 @@ export class EmployeeProfileCardComponent implements OnInit, OnDestroy {
       playCircleOutline,
       stopCircleOutline,
       shieldCheckmarkOutline,
-      personCircleOutline,
-      cloudUploadOutline
+      personCircleOutline
     });
   }
 

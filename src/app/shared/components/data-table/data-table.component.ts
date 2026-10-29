@@ -250,7 +250,7 @@ export interface ColumnDef {
       display: flex;
       flex-wrap: wrap;
       align-items: center;
-      justify-content: space-between;
+      justify-content: space-between; flex-wrap: wrap; gap: 6px;
       gap: 12px;
       margin-bottom: 18px;
     }
@@ -297,7 +297,7 @@ export interface ColumnDef {
       /* En móvil < 600px: 1 columna de 100% de ancho */
       /* En tablets 600-900px: 2 columnas */
       /* En escritorio > 1000px: 3 o 4 columnas automáticas */
-      grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(min(100%, 280px), 1fr));
       gap: 16px;
     }
 
@@ -309,11 +309,11 @@ export interface ColumnDef {
       padding: 16px;
       display: flex;
       flex-direction: column;
-      justify-content: space-between;
+      justify-content: space-between; flex-wrap: wrap; gap: 6px;
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
       transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
       cursor: pointer;
-      outline: none;
+      outline: none; overflow: hidden;
     }
 
     .inventory-card:hover {
@@ -329,7 +329,7 @@ export interface ColumnDef {
 
     .card-top {
       display: flex;
-      justify-content: space-between;
+      justify-content: space-between; flex-wrap: wrap; gap: 6px;
       align-items: center;
       margin-bottom: 12px;
     }
@@ -378,7 +378,7 @@ export interface ColumnDef {
     /* Detalles y Métricas de la Tarjeta */
     .card-meta {
       display: flex;
-      justify-content: space-between;
+      justify-content: space-between; flex-wrap: wrap; gap: 6px;
       align-items: baseline;
       background: #f8fafc;
       padding: 10px 12px;
@@ -420,7 +420,7 @@ export interface ColumnDef {
       display: flex;
       align-items: center;
       gap: 8px;
-      border-top: 1px solid #f1f5f9;
+      border-top: 1px solid #f1f5f9; flex-wrap: wrap;
       padding-top: 10px;
     }
 
@@ -438,7 +438,7 @@ export interface ColumnDef {
     /* Pie de Paginación */
     .pagination-footer {
       display: flex;
-      justify-content: space-between;
+      justify-content: space-between; flex-wrap: wrap; gap: 6px;
       align-items: center;
       margin-top: 20px;
       flex-wrap: wrap;
@@ -467,7 +467,16 @@ export interface ColumnDef {
 })
 export class DataTableComponent {
   // Inputs (Props recibidas del componente padre)
-  @Input({ required: true }) data: any[] = [];
+  private dataSignal = signal<any[]>([]);
+
+  @Input({ required: true })
+  set data(value: any[]) {
+    this.dataSignal.set(value || []);
+    this.currentPage.set(1);
+  }
+  get data(): any[] {
+    return this.dataSignal();
+  }
   @Input({ required: true }) columns: ColumnDef[] = [];
   @Input() title?: string;
   @Input() searchPlaceholder: string = 'Buscar por SKU o nombre...';
@@ -509,7 +518,7 @@ export class DataTableComponent {
   // Filtrado y ordenación reactiva de la cuadrícula
   readonly filteredData = computed(() => {
     const term = this.searchTerm().toLowerCase().trim();
-    let result = [...this.data];
+    let result = [...this.dataSignal()];
 
     if (term) {
       result = result.filter(item => {

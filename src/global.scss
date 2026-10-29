@@ -82,6 +82,37 @@ $box-shadow: 0 8px 24px rgba(30, 27, 75, 0.08);
   border-radius: 1rem;
   box-shadow: 0 6px 20px rgba(30, 27, 75, 0.05);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
+  overflow: hidden;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
+// Garantía responsive para que ningún botón, badge o etiqueta sobresalga de las cards
+.invent-card .btn,
+.invent-shell .btn {
+  max-width: 100%;
+  white-space: normal;
+  word-break: break-word;
+  line-height: 1.25;
+}
+
+.btn-primary {
+  color: #ffffff !important;
+}
+
+.invent-card .badge,
+.invent-shell .badge {
+  white-space: normal;
+  word-break: break-word;
+  overflow-wrap: anywhere;
+  max-width: 100%;
+  line-height: 1.3;
+  text-align: center;
+}
+
+.invent-card .btn-group {
+  flex-wrap: wrap;
+  max-width: 100%;
 }
 
 .invent-kpi-coral {
@@ -89,6 +120,8 @@ $box-shadow: 0 8px 24px rgba(30, 27, 75, 0.08);
   color: #ffffff;
   border-radius: 1rem;
   box-shadow: 0 8px 20px rgba(255, 107, 74, 0.28);
+  overflow: hidden;
+  word-wrap: break-word;
 }
 
 .invent-kpi-amber {
@@ -96,6 +129,8 @@ $box-shadow: 0 8px 24px rgba(30, 27, 75, 0.08);
   color: #ffffff;
   border-radius: 1rem;
   box-shadow: 0 8px 20px rgba(255, 170, 44, 0.28);
+  overflow: hidden;
+  word-wrap: break-word;
 }
 
 .invent-kpi-indigo {
@@ -103,6 +138,8 @@ $box-shadow: 0 8px 24px rgba(30, 27, 75, 0.08);
   color: #ffffff;
   border-radius: 1rem;
   box-shadow: 0 8px 20px rgba(79, 57, 246, 0.28);
+  overflow: hidden;
+  word-wrap: break-word;
 }
 
 .invent-kpi-emerald {
@@ -110,4 +147,6 @@ $box-shadow: 0 8px 24px rgba(30, 27, 75, 0.08);
   color: #ffffff;
   border-radius: 1rem;
   box-shadow: 0 8px 20px rgba(16, 185, 129, 0.25);
+  overflow: hidden;
+  word-wrap: break-word;
 }

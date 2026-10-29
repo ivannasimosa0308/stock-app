@@ -155,7 +155,7 @@ import { Category } from '../../../../core/models/product.model';
                     }
                     @if (productForm.get('sku')?.hasError('skuTaken')) {
                       <div class="text-danger extra-small mt-1 fw-semibold">
-                        ⚠️ Este SKU ya existe en el catálogo de Supabase.
+                        Este código SKU ya existe en el catálogo.
                       </div>
                     }
                   </div>

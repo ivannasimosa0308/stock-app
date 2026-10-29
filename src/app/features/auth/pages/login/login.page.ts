@@ -26,7 +26,7 @@ import { AuthService } from '../../../../core/services/auth.service';
   template: `
     <ion-header>
       <ion-toolbar color="dark">
-        <ion-title>StockFlow S.L</ion-title>
+        <ion-title>INVENT — StockFlow Enterprise</ion-title>
       </ion-toolbar>
     </ion-header>
 
@@ -40,55 +40,13 @@ import { AuthService } from '../../../../core/services/auth.service';
                 <div class="brand-badge mx-auto mb-3 d-flex align-items-center justify-content-center">
                   <ion-icon name="cube-outline" class="fs-2 text-white"></ion-icon>
                 </div>
-                <h3 class="fw-bold text-dark mb-1">Control de Acceso</h3>
+                <h3 class="fw-bold text-dark mb-1">Iniciar Sesión</h3>
                 <p class="text-muted small mb-0">
-                  Sistema de Gestión de Inventario y Turnos en Tiempo Real
+                  Sistema de Gestión de Inventario y Control de Turnos
                 </p>
               </div>
 
-              <!-- Acceso Rápido -->
-              <div class="demo-panel p-3 rounded-4 mb-4">
-                <div class="d-flex align-items-center justify-content-between mb-2">
-                  <span class="small fw-bold text-primary text-uppercase">
-                    <ion-icon name="flash-outline" class="me-1 align-middle"></ion-icon>
-                    Acceso Rápido 
-                  </span>
-                  <span class="badge bg-primary-subtle text-primary rounded-pill">1-Clic</span>
-                </div>
-                <p class="extra-small text-muted mb-3">
-                  Inicia sesión automáticamente e inicia el cronómetro de jornada laboral:
-                </p>
-                <div class="row g-2">
-                  <div class="col-6">
-                    <button
-                      type="button"
-                      class="btn btn-primary w-100 fw-semibold py-2 rounded-3 d-flex align-items-center justify-content-center gap-1 shadow-sm"
-                      (click)="loginDemo('admin')"
-                      [disabled]="isLoading()"
-                    >
-                      <ion-icon name="shield-checkmark-outline"></ion-icon>
-                      <span>Demo Admin</span>
-                    </button>
-                  </div>
-                  <div class="col-6">
-                    <button
-                      type="button"
-                      class="btn btn-outline-dark w-100 fw-semibold py-2 rounded-3 d-flex align-items-center justify-content-center gap-1"
-                      (click)="loginDemo('operador')"
-                      [disabled]="isLoading()"
-                    >
-                      <ion-icon name="person-outline"></ion-icon>
-                      <span>Demo Operador</span>
-                    </button>
-                  </div>
-                </div>
-              </div>
-
-              <div class="divider-text text-center my-3">
-                <span class="bg-white px-3 text-muted small">o acceso manual</span>
-              </div>
-
-              <!-- Formulario Reactivo Estándar -->
+              <!-- Formulario Reactivo Principal -->
               <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
                 <div class="mb-3">
                   <label class="form-label fw-semibold small text-secondary">
@@ -110,7 +68,7 @@ import { AuthService } from '../../../../core/services/auth.service';
                     type="password"
                     class="form-control form-control-lg fs-6 rounded-3"
                     formControlName="password"
-                    placeholder="•••••••• (123 para demo)"
+                    placeholder="••••••••"
                   />
                 </div>
 
@@ -122,7 +80,7 @@ import { AuthService } from '../../../../core/services/auth.service';
 
                 <button
                   type="submit"
-                  class="btn btn-dark w-100 py-2 fw-bold rounded-3 mt-2"
+                  class="btn btn-primary w-100 py-2 fw-bold rounded-3 mt-2 shadow-sm"
                   [disabled]="loginForm.invalid || isLoading()"
                 >
                   @if (isLoading()) {
@@ -132,6 +90,36 @@ import { AuthService } from '../../../../core/services/auth.service';
                   }
                 </button>
               </form>
+
+              <div class="divider-text text-center my-4">
+                <span class="bg-white px-3 text-muted small">Acceso Rápido Demo</span>
+              </div>
+
+              <!-- Botones Demo Debajo del Inicio de Sesión (Izquierda: Admin | Derecha: Operador) -->
+              <div class="row g-2 justify-content-center">
+                <div class="col-6">
+                  <button
+                    type="button"
+                    class="btn btn-outline-primary w-100 fw-semibold py-2 rounded-3 d-flex align-items-center justify-content-center gap-1"
+                    (click)="loginDemo('admin')"
+                    [disabled]="isLoading()"
+                  >
+                    <ion-icon name="shield-checkmark-outline"></ion-icon>
+                    <span>Demo Admin</span>
+                  </button>
+                </div>
+                <div class="col-6">
+                  <button
+                    type="button"
+                    class="btn btn-outline-secondary w-100 fw-semibold py-2 rounded-3 d-flex align-items-center justify-content-center gap-1"
+                    (click)="loginDemo('operador')"
+                    [disabled]="isLoading()"
+                  >
+                    <ion-icon name="person-outline"></ion-icon>
+                    <span>Demo Operador</span>
+                  </button>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -145,13 +133,6 @@ import { AuthService } from '../../../../core/services/auth.service';
         border-radius: 16px;
         background: linear-gradient(135deg, #5b47fb 0%, #3b28cc 100%);
         box-shadow: 0 8px 20px rgba(91, 71, 251, 0.3);
-      }
-      .demo-panel {
-        background-color: #f5f3ff;
-        border: 1px solid #ddd6fe;
-      }
-      .extra-small {
-        font-size: 0.76rem;
       }
       .divider-text {
         position: relative;

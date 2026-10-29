@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit, ViewChild, ElementRef, inject, signal } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ViewChild, ElementRef, inject, signal, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import {
@@ -25,7 +25,8 @@ import {
   addCircleOutline,
   cubeOutline,
   trendingUpOutline,
-  alertCircleOutline
+  alertCircleOutline,
+  barChartOutline
 } from 'ionicons/icons';
 
 import { Chart, registerables } from 'chart.js';
@@ -37,6 +38,8 @@ import { ExportService } from '../../../core/services/export.service';
 import { Product, Category } from '../../../core/models/product.model';
 import { MovementLog } from '../../../core/models/inventory-log.model';
 import { EmployeeProfileCardComponent } from '../../../shared/components/employee-profile-card/employee-profile-card.component';
+
+export type DashboardFilterMode = 'units' | 'valuation' | 'low-stock';
 
 @Component({
   selector: 'app-admin-dashboard',
@@ -56,17 +59,19 @@ import { EmployeeProfileCardComponent } from '../../../shared/components/employe
   template: `
     <ion-header>
       <ion-toolbar color="dark">
-        <ion-buttons slot="start">
-          <ion-button (click)="router.navigate(['/inventory'])" title="Ir al Catálogo de Inventario">
-            <ion-icon name="cube-outline" slot="start"></ion-icon>
-            Catálogo
-          </ion-button>
-        </ion-buttons>
-        <ion-title>INVENT — Store Inventory Dashboard (Admin)</ion-title>
+        <ion-title>INVENT — Panel de administración</ion-title>
         <ion-buttons slot="end">
+          <ion-button (click)="router.navigate(['/admin'])" color="primary">
+            <ion-icon name="bar-chart-outline" slot="start"></ion-icon>
+            Dashboard
+          </ion-button>
           <ion-button (click)="router.navigate(['/movements'])">
             <ion-icon name="time-outline" slot="start"></ion-icon>
             Movimientos
+          </ion-button>
+          <ion-button (click)="router.navigate(['/inventory'])">
+            <ion-icon name="cube-outline" slot="start"></ion-icon>
+            Catálogo
           </ion-button>
           <ion-button (click)="onLogout()" aria-label="Cerrar sesión" color="danger">
             <ion-icon name="log-out-outline" slot="start"></ion-icon>
@@ -78,12 +83,12 @@ import { EmployeeProfileCardComponent } from '../../../shared/components/employe
 
     <ion-content class="invent-shell">
       <div class="container-fluid py-4 px-3 px-lg-4">
-        <!-- Barra Superior de Acciones y Exportación -->
+        <!-- Barra superior de acciones y exportación -->
         <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
           <div>
-            <h4 class="fw-bold text-dark mb-0">Cuadro de Mando Ejecutivo</h4>
+            <h4 class="fw-bold text-dark mb-0">Cuadro de mando ejecutivo</h4>
             <p class="text-muted small mb-0">
-              Control de flujo de stock, comportamiento mensual y almacenamiento multimedia en Supabase
+              Control de flujo de stock, comportamiento mensual y métricas de inventario
             </p>
           </div>
           <div class="d-flex flex-wrap gap-2">
@@ -117,7 +122,7 @@ import { EmployeeProfileCardComponent } from '../../../shared/components/employe
               (click)="router.navigate(['/inventory/new'])"
             >
               <ion-icon name="add-circle-outline"></ion-icon>
-              <span>Nuevo Producto</span>
+              <span>Nuevo producto</span>
             </button>
           </div>
         </div>
@@ -125,12 +130,12 @@ import { EmployeeProfileCardComponent } from '../../../shared/components/employe
         @if (isLoading()) {
           <div class="invent-card p-5 text-center my-4">
             <ion-spinner name="crescent" color="primary"></ion-spinner>
-            <p class="text-muted mt-2 mb-0">Sincronizando métricas e imágenes desde Supabase...</p>
+            <p class="text-muted mt-2 mb-0">Cargando métricas del inventario...</p>
           </div>
         } @else {
-          <!-- Layout en 3 Columnas con Bootstrap 5 Grid (Inspirado en Store Inventory Dashboard) -->
-          <div class="row g-4">
-            <!-- COLUMNA IZQUIERDA: Perfil de Empleado + Foto + Cronómetro Clock-In/Out -->
+          <!-- FILA SUPERIOR: Perfil de empleado (izquierda) + Overview de lado (centro) + Cuota por categoría (derecha) -->
+          <div class="row g-4 align-items-stretch mb-4">
+            <!-- Columna izquierda: Perfil de empleado + cronómetro -->
             <div class="col-12 col-lg-3">
               <app-employee-profile-card
                 [totalProducts]="products().length"
@@ -138,68 +143,23 @@ import { EmployeeProfileCardComponent } from '../../../shared/components/employe
               ></app-employee-profile-card>
             </div>
 
-            <!-- COLUMNA CENTRAL: Tarjetas KPI + Gráfico de Flujo (Overview) + Featured Products -->
+            <!-- Columna central superior: Overview — Flujo y comportamiento de stock -->
             <div class="col-12 col-lg-6">
-              <!-- 3 Tarjetas KPI con Degradado -->
-              <div class="row g-3 mb-4">
-                <div class="col-12 col-sm-4">
-                  <div class="invent-kpi-coral p-3 h-100 d-flex flex-column justify-content-between">
-                    <div class="d-flex justify-content-between align-items-center">
-                      <span class="small opacity-75 fw-semibold">Valoración Stock</span>
-                      <span class="badge bg-white text-danger rounded-pill">+12%</span>
-                    </div>
-                    <div class="fs-4 fw-bold my-2">
-                      {{ (totalValue() | currency:'EUR':'symbol':'1.0-0') || '0 €' }}
-                    </div>
-                    <div class="extra-small opacity-75">Capital activo en almacén</div>
-                  </div>
-                </div>
-
-                <div class="col-12 col-sm-4">
-                  <div class="invent-kpi-amber p-3 h-100 d-flex flex-column justify-content-between">
-                    <div class="d-flex justify-content-between align-items-center">
-                      <span class="small opacity-75 fw-semibold">Unidades Físicas</span>
-                      <span class="badge bg-white text-warning rounded-pill">+5%</span>
-                    </div>
-                    <div class="fs-4 fw-bold my-2">
-                      {{ totalUnits() }} uds.
-                    </div>
-                    <div class="extra-small opacity-75">{{ products().length }} referencias activas</div>
-                  </div>
-                </div>
-
-                <div class="col-12 col-sm-4">
-                  <div class="invent-kpi-indigo p-3 h-100 d-flex flex-column justify-content-between">
-                    <div class="d-flex justify-content-between align-items-center">
-                      <span class="small opacity-75 fw-semibold">Alertas Críticas</span>
-                      <span class="badge bg-white text-primary rounded-pill">
-                        {{ lowStockCount() > 0 ? 'Atención' : 'Óptimo' }}
-                      </span>
-                    </div>
-                    <div class="fs-4 fw-bold my-2">
-                      {{ lowStockCount() }} ítems
-                    </div>
-                    <div class="extra-small opacity-75">Por debajo de stock mínimo</div>
-                  </div>
-                </div>
-              </div>
-
-              <!-- GRÁFICO DE FLUJO (OVERVIEW) — Sin barras/torres, curva suave con degradado -->
-              <div class="invent-card p-4 mb-4">
-                <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3">
+              <div class="invent-card p-4 h-100 d-flex flex-column justify-content-between">
+                <div class="d-flex flex-wrap justify-content-between align-items-start gap-2 mb-3">
                   <div>
-                    <h5 class="fw-bold text-dark mb-0">
+                    <h5 class="fw-bold text-dark mb-1">
                       <ion-icon name="analytics-outline" class="text-primary me-1 align-middle"></ion-icon>
-                      Overview — Flujo y Comportamiento de Stock
+                      Overview — Flujo y comportamiento de stock
                     </h5>
                     <p class="text-muted extra-small mb-0">
                       {{ chartMode() === 'months'
-                        ? 'Evolución mensual de entradas, salidas y nivel de inventario (Ene - Jun)'
-                        : 'Comparativa de comportamiento de stock actual vs umbral mínimo por producto' }}
+                        ? 'Evolución mensual de entradas, salidas y nivel de inventario (enero - junio)'
+                        : 'Comparativa de comportamiento de stock actual frente a umbral mínimo por producto' }}
                     </p>
                   </div>
 
-                  <!-- Selector interactivo: Por Meses vs Por Productos -->
+                  <!-- Selector interactivo: Por meses / Por productos -->
                   <div class="btn-group btn-group-sm" role="group" aria-label="Selector de modo de gráfico">
                     <button
                       type="button"
@@ -207,7 +167,7 @@ import { EmployeeProfileCardComponent } from '../../../shared/components/employe
                       [ngClass]="chartMode() === 'months' ? 'btn-primary' : 'btn-outline-primary'"
                       (click)="switchFlowMode('months')"
                     >
-                      Por Meses
+                      Por meses
                     </button>
                     <button
                       type="button"
@@ -215,149 +175,210 @@ import { EmployeeProfileCardComponent } from '../../../shared/components/employe
                       [ngClass]="chartMode() === 'products' ? 'btn-primary' : 'btn-outline-primary'"
                       (click)="switchFlowMode('products')"
                     >
-                      Por Productos
+                      Por productos
                     </button>
                   </div>
                 </div>
 
-                <div class="chart-flow-box">
+                <div class="chart-flow-box flex-grow-1">
                   <canvas #flowChartCanvas></canvas>
-                </div>
-              </div>
-
-              <!-- FEATURED PRODUCTS — Lista visual con miniaturas de Supabase Storage -->
-              <div class="invent-card p-4">
-                <div class="d-flex justify-content-between align-items-center mb-3">
-                  <div>
-                    <h5 class="fw-bold text-dark mb-0">Productos Destacados (Catálogo Visual)</h5>
-                    <p class="text-muted extra-small mb-0">Imágenes sincronizadas con Supabase Storage</p>
-                  </div>
-                  <button
-                    type="button"
-                    class="btn btn-sm btn-outline-primary rounded-pill px-3 fw-semibold"
-                    (click)="router.navigate(['/inventory'])"
-                  >
-                    Ver Catálogo Completo
-                  </button>
-                </div>
-
-                <div class="table-responsive">
-                  <table class="table align-middle mb-0">
-                    <thead class="table-light">
-                      <tr class="text-muted extra-small text-uppercase">
-                        <th>Producto</th>
-                        <th>Categoría</th>
-                        <th class="text-center">Stock</th>
-                        <th class="text-end">Precio</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      @for (prod of products().slice(0, 5); track prod.id) {
-                        <tr
-                          class="product-row"
-                          style="cursor: pointer;"
-                          (click)="router.navigate(['/inventory/edit', prod.id])"
-                        >
-                          <td>
-                            <div class="d-flex align-items-center gap-3">
-                              <img
-                                [src]="prod.image_url"
-                                [alt]="prod.name"
-                                class="rounded-3 border product-thumb"
-                              />
-                              <div>
-                                <div class="fw-semibold text-dark small">{{ prod.name }}</div>
-                                <div class="text-muted extra-small">{{ prod.sku }}</div>
-                              </div>
-                            </div>
-                          </td>
-                          <td>
-                            <span class="badge bg-light text-secondary border">
-                              {{ prod.category?.name || 'General' }}
-                            </span>
-                          </td>
-                          <td class="text-center">
-                            <span
-                              class="badge rounded-pill px-2 py-1"
-                              [ngClass]="prod.stock <= prod.min_stock ? 'bg-danger-subtle text-danger' : 'bg-success-subtle text-success'"
-                            >
-                              {{ prod.stock }} uds.
-                            </span>
-                          </td>
-                          <td class="text-end fw-bold text-dark small">
-                            {{ prod.unit_price | currency:'EUR':'symbol':'1.0-0' }}
-                          </td>
-                        </tr>
-                      }
-                    </tbody>
-                  </table>
                 </div>
               </div>
             </div>
 
-            <!-- COLUMNA DERECHA: Distribución Categorías + Personal en Turno & Últimos Movimientos -->
+            <!-- Columna derecha superior: Cuota mensual por categoría -->
             <div class="col-12 col-lg-3">
-              <!-- Tarjeta de Distribución por Categorías -->
-              <div class="invent-card p-4 mb-4">
-                <div class="d-flex justify-content-between align-items-center mb-2">
-                  <span class="fw-bold text-dark">Cuota por Categoría</span>
-                  <span class="badge bg-primary-subtle text-primary rounded-pill">Catálogo</span>
+              <div class="invent-card p-4 h-100 d-flex flex-column justify-content-between">
+                <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-2">
+                  <div>
+                    <span class="fw-bold text-dark d-block">Cuota por categoría</span>
+                    <span class="text-muted extra-small">Distribución mensual de stock</span>
+                  </div>
+                  <select
+                    class="form-select form-select-sm w-auto mw-100 fw-semibold text-primary border-primary-subtle"
+                    [value]="selectedCategoryMonth()"
+                    (change)="onCategoryMonthChange($event)"
+                    aria-label="Seleccionar mes de categoría"
+                  >
+                    <option value="Enero">Enero</option>
+                    <option value="Febrero">Febrero</option>
+                    <option value="Marzo">Marzo</option>
+                    <option value="Abril">Abril</option>
+                    <option value="Mayo">Mayo</option>
+                    <option value="Junio">Junio (actual)</option>
+                  </select>
                 </div>
-                <div class="chart-doughnut-box">
+                <div class="chart-doughnut-box my-auto">
                   <canvas #categoryChartCanvas></canvas>
                 </div>
               </div>
+            </div>
+          </div>
 
-              <!-- Tarjeta de Personal / Operadores Recientes (Estilo "Valuable Customer" de la referencia) -->
-              <div class="invent-card p-4 mb-4">
-                <div class="d-flex justify-content-between align-items-center mb-3">
-                  <span class="fw-bold text-dark">Equipo y Actividad</span>
-                  <span class="badge bg-success-subtle text-success rounded-pill">En vivo</span>
+          <!-- SECCIÓN INFERIOR: 3 Tarjetas de filtro directo + Lista desplegada justo debajo -->
+          <div class="row g-3 mb-4">
+            <div class="col-12 col-md-4">
+              <div
+                class="invent-kpi-coral p-3 h-100 d-flex flex-column justify-content-between kpi-clickable"
+                [class.kpi-selected]="activeFilter() === 'valuation'"
+                style="cursor: pointer;"
+                (click)="setDashboardFilter('valuation')"
+              >
+                <div class="d-flex flex-wrap justify-content-between align-items-start gap-1">
+                  <span class="small opacity-75 fw-semibold">Valoración de stock</span>
+                  <span class="badge bg-white text-danger rounded-pill">
+                    {{ activeFilter() === 'valuation' ? 'Filtro activo' : 'Filtrar por valor' }}
+                  </span>
                 </div>
-
-                <!-- Empleados con foto -->
-                <div class="d-flex flex-column gap-3 mb-3">
-                  @for (emp of teamMembers; track emp.name) {
-                    <div class="d-flex align-items-center justify-content-between">
-                      <div class="d-flex align-items-center gap-2">
-                        <img
-                          [src]="emp.avatar"
-                          [alt]="emp.name"
-                          class="rounded-circle border"
-                          style="width: 38px; height: 38px; object-fit: cover;"
-                        />
-                        <div>
-                          <div class="fw-semibold text-dark small leading-tight">{{ emp.name }}</div>
-                          <div class="text-muted extra-small">{{ emp.role }}</div>
-                        </div>
-                      </div>
-                      <span class="badge rounded-pill" [ngClass]="emp.badgeClass">
-                        {{ emp.status }}
-                      </span>
-                    </div>
-                  }
+                <div class="fs-4 fw-bold my-2 text-break">
+                  {{ (totalValue() | currency:'EUR':'symbol':'1.0-0') || '0 €' }}
                 </div>
-
-                <hr class="my-3 text-muted" />
-
-                <div class="fw-bold text-dark small mb-2">Últimos Movimientos</div>
-                <div class="d-flex flex-column gap-2">
-                  @for (mov of recentMovements(); track mov.id) {
-                    <div class="p-2 rounded-3 bg-light border d-flex justify-content-between align-items-center">
-                      <div class="text-truncate pe-2">
-                        <div class="fw-semibold text-dark extra-small text-truncate">{{ mov.productName }}</div>
-                        <div class="text-muted" style="font-size: 0.68rem;">{{ mov.reason }}</div>
-                      </div>
-                      <span
-                        class="badge rounded-pill"
-                        [ngClass]="mov.movementType === 'IN' ? 'bg-success' : 'bg-danger'"
-                      >
-                        {{ mov.movementType === 'IN' ? '+' : '-' }}{{ mov.quantity }}
-                      </span>
-                    </div>
-                  }
-                </div>
+                <div class="extra-small opacity-75">Pulsa para ordenar por valoración económica</div>
               </div>
+            </div>
+
+            <div class="col-12 col-md-4">
+              <div
+                class="invent-kpi-amber p-3 h-100 d-flex flex-column justify-content-between kpi-clickable"
+                [class.kpi-selected]="activeFilter() === 'units'"
+                style="cursor: pointer;"
+                (click)="setDashboardFilter('units')"
+              >
+                <div class="d-flex flex-wrap justify-content-between align-items-start gap-1">
+                  <span class="small opacity-75 fw-semibold">Unidades físicas</span>
+                  <span class="badge bg-white text-warning rounded-pill">
+                    {{ activeFilter() === 'units' ? 'Filtro activo' : 'Ver unidades' }}
+                  </span>
+                </div>
+                <div class="fs-4 fw-bold my-2 text-break">
+                  {{ totalUnits() }} uds.
+                </div>
+                <div class="extra-small opacity-75">{{ products().length }} referencias activas en almacén</div>
+              </div>
+            </div>
+
+            <div class="col-12 col-md-4">
+              <div
+                class="invent-kpi-indigo p-3 h-100 d-flex flex-column justify-content-between kpi-clickable"
+                [class.kpi-selected]="activeFilter() === 'low-stock'"
+                style="cursor: pointer;"
+                (click)="setDashboardFilter('low-stock')"
+              >
+                <div class="d-flex flex-wrap justify-content-between align-items-start gap-1">
+                  <span class="small opacity-75 fw-semibold">Alertas de stock bajo</span>
+                  <span class="badge bg-white text-primary rounded-pill">
+                    {{ activeFilter() === 'low-stock' ? 'Filtro activo' : 'Ver faltantes' }}
+                  </span>
+                </div>
+                <div class="fs-4 fw-bold my-2 text-break">
+                  {{ lowStockCount() }} ítems
+                </div>
+                <div class="extra-small opacity-75">Pulsa para ver productos con stock bajo</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- LISTA DINÁMICA DE PRODUCTOS (Justo debajo de los filtros) -->
+          <div class="invent-card p-4" id="dashboard-products-section">
+            <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3">
+              <div>
+                @if (activeFilter() === 'low-stock') {
+                  <h5 class="fw-bold text-danger mb-0">
+                    Productos en alerta de stock bajo ({{ filteredDashboardProducts().length }})
+                  </h5>
+                  <p class="text-muted extra-small mb-0">
+                    Artículos con existencias iguales o inferiores al stock mínimo requerido
+                  </p>
+                } @else if (activeFilter() === 'valuation') {
+                  <h5 class="fw-bold text-dark mb-0">
+                    Productos por valoración de stock ({{ filteredDashboardProducts().length }})
+                  </h5>
+                  <p class="text-muted extra-small mb-0">
+                    Artículos ordenados de mayor a menor capital inmovilizado en almacén
+                  </p>
+                } @else {
+                  <h5 class="fw-bold text-dark mb-0">
+                    Productos por unidades físicas ({{ filteredDashboardProducts().length }})
+                  </h5>
+                  <p class="text-muted extra-small mb-0">
+                    Listado general de existencias físicas y valoración unitaria
+                  </p>
+                }
+              </div>
+              <div class="d-flex flex-wrap gap-2">
+                @if (activeFilter() !== 'units') {
+                  <button
+                    type="button"
+                    class="btn btn-sm btn-outline-secondary rounded-pill px-3 fw-semibold"
+                    (click)="setDashboardFilter('units')"
+                  >
+                    Ver todos ({{ products().length }})
+                  </button>
+                }
+                <button
+                  type="button"
+                  class="btn btn-sm btn-outline-primary rounded-pill px-3 fw-semibold"
+                  (click)="router.navigate(['/inventory'])"
+                >
+                  Ir al catálogo completo
+                </button>
+              </div>
+            </div>
+
+            <div class="table-responsive">
+              <table class="table align-middle mb-0">
+                <thead class="table-light">
+                  <tr class="text-muted extra-small">
+                    <th>Producto</th>
+                    <th>Categoría</th>
+                    <th class="text-center">Stock / Mínimo</th>
+                    <th class="text-end">Precio unitario</th>
+                    <th class="text-end">Valoración total</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  @for (prod of filteredDashboardProducts(); track prod.id) {
+                    <tr
+                      class="product-row"
+                      style="cursor: pointer;"
+                      (click)="router.navigate(['/inventory/edit', prod.id])"
+                    >
+                      <td>
+                        <div class="d-flex align-items-center gap-3">
+                          <img
+                            [src]="prod.image_url"
+                            [alt]="prod.name"
+                            class="rounded-3 border product-thumb"
+                          />
+                          <div>
+                            <div class="fw-semibold text-dark small">{{ prod.name }}</div>
+                            <div class="text-muted extra-small">{{ prod.sku }}</div>
+                          </div>
+                        </div>
+                      </td>
+                      <td>
+                        <span class="badge bg-light text-secondary border">
+                          {{ prod.category?.name || 'General' }}
+                        </span>
+                      </td>
+                      <td class="text-center">
+                        <span
+                          class="badge rounded-pill px-2 py-1"
+                          [ngClass]="prod.stock <= prod.min_stock ? 'bg-danger text-white' : 'bg-success-subtle text-success'"
+                        >
+                          {{ prod.stock }} / mín. {{ prod.min_stock }}
+                        </span>
+                      </td>
+                      <td class="text-end text-secondary small">
+                        {{ prod.unit_price | currency:'EUR':'symbol':'1.0-0' }}
+                      </td>
+                      <td class="text-end fw-bold text-dark small">
+                        {{ (prod.stock * prod.unit_price) | currency:'EUR':'symbol':'1.0-0' }}
+                      </td>
+                    </tr>
+                  }
+                </tbody>
+              </table>
             </div>
           </div>
         }
@@ -370,12 +391,12 @@ import { EmployeeProfileCardComponent } from '../../../shared/components/employe
     }
     .chart-flow-box {
       position: relative;
-      height: 265px;
+      min-height: 250px;
       width: 100%;
     }
     .chart-doughnut-box {
       position: relative;
-      height: 210px;
+      height: 240px;
       width: 100%;
     }
     .product-thumb {
@@ -386,6 +407,16 @@ import { EmployeeProfileCardComponent } from '../../../shared/components/employe
     }
     .product-row:hover {
       background-color: #f8fafc;
+    }
+    .kpi-clickable {
+      transition: transform 0.18s ease, outline 0.18s ease;
+    }
+    .kpi-clickable:hover {
+      transform: translateY(-2px);
+    }
+    .kpi-selected {
+      outline: 3px solid #1e1b4b;
+      outline-offset: 2px;
     }
   `]
 })
@@ -403,6 +434,8 @@ export class AdminDashboardPage implements OnInit, AfterViewInit {
 
   isLoading = signal<boolean>(true);
   chartMode = signal<'months' | 'products'>('months');
+  selectedCategoryMonth = signal<string>('Junio');
+  activeFilter = signal<DashboardFilterMode>('units');
 
   products = signal<Product[]>([]);
   categories = signal<Category[]>([]);
@@ -412,31 +445,28 @@ export class AdminDashboardPage implements OnInit, AfterViewInit {
   totalUnits = signal<number>(0);
   lowStockCount = signal<number>(0);
   movementsCount = signal<number>(0);
-  recentMovements = signal<MovementLog[]>([]);
 
-  teamMembers = [
-    {
-      name: 'Ivanna Simosa',
-      role: 'Directora Logística (Admin)',
-      avatar: 'https://rxhsemwcylhhbgfnogle.supabase.co/storage/v1/object/public/stockflow-media/employees/admin-ivanna.jpg',
-      status: 'En turno',
-      badgeClass: 'bg-success-subtle text-success'
-    },
-    {
-      name: 'Carlos Méndez',
-      role: 'Operador Planta 1',
-      avatar: 'https://rxhsemwcylhhbgfnogle.supabase.co/storage/v1/object/public/stockflow-media/employees/operador-carlos.jpg',
-      status: 'Activo',
-      badgeClass: 'bg-primary-subtle text-primary'
-    },
-    {
-      name: 'Laura Gómez',
-      role: 'Auditora de Recepción',
-      avatar: 'https://rxhsemwcylhhbgfnogle.supabase.co/storage/v1/object/public/stockflow-media/employees/auditora-laura.jpg',
-      status: 'Almacén B',
-      badgeClass: 'bg-secondary-subtle text-secondary'
+  readonly filteredDashboardProducts = computed(() => {
+    const all = [...this.products()];
+    const mode = this.activeFilter();
+    if (mode === 'low-stock') {
+      return all.filter(p => p.stock <= p.min_stock);
     }
-  ];
+    if (mode === 'valuation') {
+      return all.sort((a, b) => (b.stock * b.unit_price) - (a.stock * a.unit_price));
+    }
+    return all.sort((a, b) => b.stock - a.stock);
+  });
+
+  // Datos mensuales por categoría (enero a junio) para la gráfica de cuota mensual por categoría
+  private readonly monthlyCategoryDistribution: Record<string, number[]> = {
+    'Enero':   [10, 14, 18, 5],
+    'Febrero': [12, 18, 22, 6],
+    'Marzo':   [11, 20, 19, 4],
+    'Abril':   [15, 25, 28, 6],
+    'Mayo':    [16, 24, 25, 5],
+    'Junio':   [18, 30, 32, 3]
+  };
 
   constructor() {
     addIcons({
@@ -452,7 +482,8 @@ export class AdminDashboardPage implements OnInit, AfterViewInit {
       addCircleOutline,
       cubeOutline,
       trendingUpOutline,
-      alertCircleOutline
+      alertCircleOutline,
+      barChartOutline
     });
   }
 
@@ -475,7 +506,6 @@ export class AdminDashboardPage implements OnInit, AfterViewInit {
       this.products.set(fetchedProducts);
       this.categories.set(fetchedCategories);
       this.movements.set(fetchedLogs);
-      this.recentMovements.set(fetchedLogs.slice(0, 4));
 
       this.totalValue.set(fetchedProducts.reduce((acc, p) => acc + (p.stock * p.unit_price), 0));
       this.totalUnits.set(fetchedProducts.reduce((acc, p) => acc + p.stock, 0));
@@ -486,7 +516,7 @@ export class AdminDashboardPage implements OnInit, AfterViewInit {
 
       setTimeout(() => {
         this.renderFlowChart();
-        this.renderCategoryChart(fetchedProducts, fetchedCategories);
+        this.renderCategoryChart();
       }, 80);
 
     } catch (error) {
@@ -495,15 +525,21 @@ export class AdminDashboardPage implements OnInit, AfterViewInit {
     }
   }
 
+  setDashboardFilter(mode: DashboardFilterMode): void {
+    this.activeFilter.set(mode);
+  }
+
   switchFlowMode(mode: 'months' | 'products'): void {
     this.chartMode.set(mode);
     setTimeout(() => this.renderFlowChart(), 30);
   }
 
-  /**
-   * Renderiza el gráfico de flujo tipo onda suavizada (Spline Area Chart)
-   * inspirado en el bloque "Overview" de la imagen de referencia.
-   */
+  onCategoryMonthChange(event: Event): void {
+    const select = event.target as HTMLSelectElement;
+    this.selectedCategoryMonth.set(select.value);
+    this.renderCategoryChart();
+  }
+
   private renderFlowChart(): void {
     if (!this.flowCanvas) return;
 
@@ -514,7 +550,6 @@ export class AdminDashboardPage implements OnInit, AfterViewInit {
     const canvas = this.flowCanvas.nativeElement;
     const ctx = canvas.getContext('2d');
 
-    // Crear degradado vertical morado/índigo como en la imagen de referencia
     let purpleGradient: string | CanvasGradient = 'rgba(91, 71, 251, 0.25)';
     let coralGradient: string | CanvasGradient = 'rgba(255, 107, 74, 0.12)';
     if (ctx) {
@@ -549,7 +584,7 @@ export class AdminDashboardPage implements OnInit, AfterViewInit {
         labels,
         datasets: [
           {
-            label: isMonthly ? 'Flujo de Existencias (Stock Activo)' : 'Stock Actual (Unidades)',
+            label: isMonthly ? 'Flujo de existencias (stock activo)' : 'Stock actual (unidades)',
             data: primarySeries,
             borderColor: '#5b47fb',
             backgroundColor: purpleGradient,
@@ -563,7 +598,7 @@ export class AdminDashboardPage implements OnInit, AfterViewInit {
             fill: true
           },
           {
-            label: isMonthly ? 'Salidas / Demanda Mensual' : 'Umbral Mínimo de Seguridad',
+            label: isMonthly ? 'Salidas / demanda mensual' : 'Umbral mínimo de seguridad',
             data: secondarySeries,
             borderColor: '#ff6b4a',
             backgroundColor: coralGradient,
@@ -609,36 +644,35 @@ export class AdminDashboardPage implements OnInit, AfterViewInit {
     });
   }
 
-  private renderCategoryChart(products: Product[], categories: Category[]): void {
+  private renderCategoryChart(): void {
     if (!this.categoryCanvas) return;
 
     if (this.categoryChartInstance) {
       this.categoryChartInstance.destroy();
     }
 
-    const categoryCounts: Record<string, number> = {};
-    categories.forEach(c => categoryCounts[c.name] = 0);
+    const month = this.selectedCategoryMonth();
+    const labels = [
+      'Portátiles y workstations',
+      'Monitores y pantallas',
+      'Periféricos y accesorios',
+      'Redes y servidores'
+    ];
 
-    products.forEach(p => {
-      const catName = p.category?.name || 'General';
-      categoryCounts[catName] = (categoryCounts[catName] || 0) + p.stock;
-    });
-
-    const labels = Object.keys(categoryCounts);
-    const data = Object.values(categoryCounts);
+    const data = this.monthlyCategoryDistribution[month] || [18, 30, 32, 3];
 
     this.categoryChartInstance = new Chart(this.categoryCanvas.nativeElement, {
       type: 'doughnut',
       data: {
         labels,
         datasets: [{
+          label: `Unidades (${month})`,
           data,
           backgroundColor: [
             '#5b47fb',
             '#ff6b4a',
             '#ffaa2c',
-            '#10b981',
-            '#0ea5e9'
+            '#10b981'
           ],
           borderWidth: 2,
           borderColor: '#ffffff'
@@ -647,13 +681,13 @@ export class AdminDashboardPage implements OnInit, AfterViewInit {
       options: {
         responsive: true,
         maintainAspectRatio: false,
-        cutout: '66%',
+        cutout: '64%',
         plugins: {
           legend: {
             position: 'bottom',
             labels: {
               boxWidth: 10,
-              font: { size: 11 }
+              font: { size: 10 }
             }
           }
         }
@@ -662,11 +696,11 @@ export class AdminDashboardPage implements OnInit, AfterViewInit {
   }
 
   exportPdf(): void {
-    this.exportService.exportInventoryToPdf(this.products());
+    this.exportService.exportInventoryToPdf(this.filteredDashboardProducts());
   }
 
   exportCsv(): void {
-    this.exportService.exportProductsToCsv(this.products());
+    this.exportService.exportProductsToCsv(this.filteredDashboardProducts());
   }
 
   async onLogout(): Promise<void> {
