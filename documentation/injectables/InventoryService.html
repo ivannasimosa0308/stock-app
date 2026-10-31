@@ -1,0 +1,2125 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>stock-app documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+          <script>
+              // --- Iframe navigation tracking for Template Playground ---
+              function sendCurrentUrlToParent() {
+                  if (window.parent && window.parent !== window) {
+                      window.parent.postMessage({
+                          type: 'compodoc-iframe-navigate',
+                          url: window.location.pathname + window.location.hash
+                      }, '*');
+                  }
+              }
+              window.addEventListener('hashchange', sendCurrentUrlToParent, false);
+              window.addEventListener('popstate', sendCurrentUrlToParent, false);
+              window.addEventListener('DOMContentLoaded', sendCurrentUrlToParent, false);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">stock-app documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search">
+    <button type="button"
+        class="search-input-clear"
+        aria-label="Clear search"
+        data-search-input-clear>&times;</button>
+</div>
+            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content injectable">
+                   <div class="content-data">
+
+
+
+
+
+
+
+
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Injectables</li>
+  <li class="breadcrumb-item" >InventoryService</li>
+</ol>
+
+<div class="io-file io-file-path" data-compodoc="entity-file-path">
+    <span class="icon ion-ios-document" aria-hidden="true"></span>
+    <code>src/app/core/services/inventory.service.ts</code>
+</div>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" 
+                class="nav-link"
+                class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#api" 
+                class="nav-link"
+                
+                role="tab" id="api-tab" data-bs-toggle="tab" data-link="api">API</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" 
+                class="nav-link"
+                
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info">
+
+
+
+        <section data-compodoc="block-metadata">
+            <h3>Metadata</h3>
+            <table class="table table-sm table-hover metadata">
+                <tbody>
+                    <tr>
+                        <td class="col-md-3">providedIn</td>
+                        <td class="col-md-9"><code>root</code></td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+
+            </div>
+
+    <div class="tab-pane fade " id="api">
+            <section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+        <table class="table table-sm table-bordered index-table">
+            <tbody>
+                <tr>
+                    <td class="col-md-3">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                    <td class="col-md-9">
+                        <ul class="index-list">
+                            <li>
+                                <span class="reference-badge reference-badge--property" aria-hidden="true">P</span>
+                                    <span class="modifier">Private</span>
+                                <a href="#authService" >authService</a>
+                            </li>
+                            <li>
+                                <span class="reference-badge reference-badge--property" aria-hidden="true">P</span>
+                                    <span class="modifier">Private</span>
+                                    <span class="modifier">Readonly</span>
+                                <a href="#defaultCategories" >defaultCategories</a>
+                            </li>
+                            <li>
+                                <span class="reference-badge reference-badge--property" aria-hidden="true">P</span>
+                                    <span class="modifier">Private</span>
+                                <a href="#localImagesKey" >localImagesKey</a>
+                            </li>
+                            <li>
+                                <span class="reference-badge reference-badge--property" aria-hidden="true">P</span>
+                                    <span class="modifier">Private</span>
+                                <a href="#localMovementsKey" >localMovementsKey</a>
+                            </li>
+                            <li>
+                                <span class="reference-badge reference-badge--property" aria-hidden="true">P</span>
+                                    <span class="modifier">Private</span>
+                                <a href="#localProductsKey" >localProductsKey</a>
+                            </li>
+                            <li>
+                                <span class="reference-badge reference-badge--property" aria-hidden="true">P</span>
+                                    <span class="modifier">Private</span>
+                                    <span class="modifier">Readonly</span>
+                                <a href="#seedProducts" >seedProducts</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <table class="table table-sm table-bordered index-table">
+            <tbody>
+                <tr>
+                    <td class="col-md-3">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                    <td class="col-md-9">
+                        <ul class="index-list">
+                            <li>
+                                <span class="reference-badge reference-badge--method" aria-hidden="true">M</span>
+                                    <span class="modifier">Async</span>
+                                <a href="#checkSkuExists" >checkSkuExists</a>
+                            </li>
+                            <li>
+                                <span class="reference-badge reference-badge--method" aria-hidden="true">M</span>
+                                    <span class="modifier">Async</span>
+                                <a href="#createProduct" >createProduct</a>
+                            </li>
+                            <li>
+                                <span class="reference-badge reference-badge--method" aria-hidden="true">M</span>
+                                    <span class="modifier">Async</span>
+                                <a href="#deleteProduct" >deleteProduct</a>
+                            </li>
+                            <li>
+                                <span class="reference-badge reference-badge--method" aria-hidden="true">M</span>
+                                    <span class="modifier">Async</span>
+                                <a href="#getCategories" >getCategories</a>
+                            </li>
+                            <li>
+                                <span class="reference-badge reference-badge--method" aria-hidden="true">M</span>
+                                    <span class="modifier">Private</span>
+                                <a href="#getImageMap" >getImageMap</a>
+                            </li>
+                            <li>
+                                <span class="reference-badge reference-badge--method" aria-hidden="true">M</span>
+                                    <span class="modifier">Private</span>
+                                <a href="#getLocalMovements" >getLocalMovements</a>
+                            </li>
+                            <li>
+                                <span class="reference-badge reference-badge--method" aria-hidden="true">M</span>
+                                    <span class="modifier">Private</span>
+                                <a href="#getLocalProducts" >getLocalProducts</a>
+                            </li>
+                            <li>
+                                <span class="reference-badge reference-badge--method" aria-hidden="true">M</span>
+                                    <span class="modifier">Async</span>
+                                <a href="#getMovements" >getMovements</a>
+                            </li>
+                            <li>
+                                <span class="reference-badge reference-badge--method" aria-hidden="true">M</span>
+                                    <span class="modifier">Async</span>
+                                <a href="#getProducts" >getProducts</a>
+                            </li>
+                            <li>
+                                <span class="reference-badge reference-badge--method" aria-hidden="true">M</span>
+                                    <span class="modifier">Async</span>
+                                <a href="#registerMovement" >registerMovement</a>
+                            </li>
+                            <li>
+                                <span class="reference-badge reference-badge--method" aria-hidden="true">M</span>
+                                    <span class="modifier">Private</span>
+                                <a href="#saveImageForSku" >saveImageForSku</a>
+                            </li>
+                            <li>
+                                <span class="reference-badge reference-badge--method" aria-hidden="true">M</span>
+                                    <span class="modifier">Private</span>
+                                <a href="#saveLocalMovement" >saveLocalMovement</a>
+                            </li>
+                            <li>
+                                <span class="reference-badge reference-badge--method" aria-hidden="true">M</span>
+                                    <span class="modifier">Private</span>
+                                <a href="#saveLocalProducts" >saveLocalProducts</a>
+                            </li>
+                            <li>
+                                <span class="reference-badge reference-badge--method" aria-hidden="true">M</span>
+                                    <span class="modifier">Async</span>
+                                <a href="#updateProduct" >updateProduct</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+
+
+
+
+        <table class="table table-sm table-bordered index-table">
+            <tbody>
+                <tr>
+                    <td class="col-md-3">
+                        <h6><b>Accessors</b></h6>
+                    </td>
+                    <td class="col-md-9">
+                        <ul class="index-list">
+                            <li>
+                                <span class="reference-badge reference-badge--accessor" aria-hidden="true">A</span>
+                                <a href="#supabase" >supabase</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+
+            <section data-compodoc="block-methods">
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="checkSkuExists"></a>
+                    <span class="name">
+                            <span class="modifier">Async</span>
+                        <span ><b>checkSkuExists</b></span>
+                        <a href="#checkSkuExists"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>checkSkuExists(sku: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, excludeProductId?: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="195"
+                                    class="link-to-prism">src/app/core/services/inventory.service.ts:195</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Validador de SKU único contra la base de datos de Supabase y catálogo local</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>sku</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>excludeProductId</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    Yes
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>Promise&lt;boolean&gt;</code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="createProduct"></a>
+                    <span class="name">
+                            <span class="modifier">Async</span>
+                        <span ><b>createProduct</b></span>
+                        <a href="#createProduct"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>createProduct(product: <a href="../interfaces/Product.html" target="_self">Omit&lt;Product, &quot;id&quot; | &quot;created_at&quot; | &quot;updated_at&quot; | &quot;category&quot;&gt;</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="226"
+                                    class="link-to-prism">src/app/core/services/inventory.service.ts:226</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Inserta un nuevo producto en Supabase y en el catálogo local sincronizado</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>product</td>
+                                            <td>
+                                                            <code><a href="../interfaces/Product.html" target="_self" >Omit&lt;Product, &quot;id&quot; | &quot;created_at&quot; | &quot;updated_at&quot; | &quot;category&quot;&gt;</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="../interfaces/Product.html" target="_self" >Promise&lt;Product&gt;</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="deleteProduct"></a>
+                    <span class="name">
+                            <span class="modifier">Async</span>
+                        <span ><b>deleteProduct</b></span>
+                        <a href="#deleteProduct"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>deleteProduct(id: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="310"
+                                    class="link-to-prism">src/app/core/services/inventory.service.ts:310</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Elimina un producto por su ID</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>id</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>Promise&lt;void&gt;</code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getCategories"></a>
+                    <span class="name">
+                            <span class="modifier">Async</span>
+                        <span ><b>getCategories</b></span>
+                        <a href="#getCategories"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>getCategories()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="176"
+                                    class="link-to-prism">src/app/core/services/inventory.service.ts:176</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Obtiene todas las categorías disponibles en el catálogo</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="../interfaces/Category.html" target="_self" >Promise&lt;Category[]&gt;</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getImageMap"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>getImageMap</b></span>
+                        <a href="#getImageMap"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>getImageMap()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="107"
+                                    class="link-to-prism">src/app/core/services/inventory.service.ts:107</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>Record&lt;string, string&gt;</code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getLocalMovements"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>getLocalMovements</b></span>
+                        <a href="#getLocalMovements"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>getLocalMovements()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="420"
+                                    class="link-to-prism">src/app/core/services/inventory.service.ts:420</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="../interfaces/MovementLog.html" target="_self" >MovementLog[]</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getLocalProducts"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>getLocalProducts</b></span>
+                        <a href="#getLocalProducts"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>getLocalProducts()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="121"
+                                    class="link-to-prism">src/app/core/services/inventory.service.ts:121</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="../interfaces/Product.html" target="_self" >Product[]</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getMovements"></a>
+                    <span class="name">
+                            <span class="modifier">Async</span>
+                        <span ><b>getMovements</b></span>
+                        <a href="#getMovements"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>getMovements(limit?: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="327"
+                                    class="link-to-prism">src/app/core/services/inventory.service.ts:327</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Obtiene el historial de movimientos de inventario</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>limit</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                            </td>
+
+                                            <td>
+                                                    Yes
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="../interfaces/MovementLog.html" target="_self" >Promise&lt;MovementLog[]&gt;</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getProducts"></a>
+                    <span class="name">
+                            <span class="modifier">Async</span>
+                        <span ><b>getProducts</b></span>
+                        <a href="#getProducts"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>getProducts()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="142"
+                                    class="link-to-prism">src/app/core/services/inventory.service.ts:142</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Obtiene todos los productos con los datos de su categoría e imagen asociada</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="../interfaces/Product.html" target="_self" >Promise&lt;Product[]&gt;</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="registerMovement"></a>
+                    <span class="name">
+                            <span class="modifier">Async</span>
+                        <span ><b>registerMovement</b></span>
+                        <a href="#registerMovement"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>registerMovement(movementData: <a href="../miscellaneous/typealiases.html#MovementType" target="_self">{ productId: string; sku: string; productName: string; movementType: MovementType; quantity: number; previousStock: number; newStock: number; reason: string }</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="367"
+                                    class="link-to-prism">src/app/core/services/inventory.service.ts:367</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Registra un movimiento de stock</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>movementData</td>
+                                            <td>
+                                                            <code><a href="../miscellaneous/typealiases.html#MovementType" target="_self" >{ productId: string; sku: string; productName: string; movementType: MovementType; quantity: number; previousStock: number; newStock: number; reason: string }</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="../interfaces/MovementLog.html" target="_self" >Promise&lt;MovementLog&gt;</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="saveImageForSku"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>saveImageForSku</b></span>
+                        <a href="#saveImageForSku"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>saveImageForSku(sku: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, imageUrl: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="115"
+                                    class="link-to-prism">src/app/core/services/inventory.service.ts:115</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>sku</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>imageUrl</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="saveLocalMovement"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>saveLocalMovement</b></span>
+                        <a href="#saveLocalMovement"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>saveLocalMovement(log: <a href="../interfaces/MovementLog.html" target="_self">MovementLog</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="500"
+                                    class="link-to-prism">src/app/core/services/inventory.service.ts:500</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>log</td>
+                                            <td>
+                                                            <code><a href="../interfaces/MovementLog.html" target="_self" >MovementLog</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="saveLocalProducts"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>saveLocalProducts</b></span>
+                        <a href="#saveLocalProducts"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>saveLocalProducts(products: <a href="../interfaces/Product.html" target="_self">Product[]</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="135"
+                                    class="link-to-prism">src/app/core/services/inventory.service.ts:135</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>products</td>
+                                            <td>
+                                                            <code><a href="../interfaces/Product.html" target="_self" >Product[]</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="updateProduct"></a>
+                    <span class="name">
+                            <span class="modifier">Async</span>
+                        <span ><b>updateProduct</b></span>
+                        <a href="#updateProduct"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>updateProduct(id: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, updates: <a href="../interfaces/Product.html" target="_self">Partial&lt;Product&gt;</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="266"
+                                    class="link-to-prism">src/app/core/services/inventory.service.ts:266</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Actualiza un producto existente</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>id</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>updates</td>
+                                            <td>
+                                                            <code><a href="../interfaces/Product.html" target="_self" >Partial&lt;Product&gt;</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="../interfaces/Product.html" target="_self" >Promise&lt;Product&gt;</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+
+            <section data-compodoc="block-properties">
+    
+    <h3 id="inputs">
+        Properties
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="authService"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>authService</b></span>
+                        <a href="#authService"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>inject(AuthService)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="10" class="link-to-prism">src/app/core/services/inventory.service.ts:10</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="defaultCategories"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                            <span class="modifier">Readonly</span>
+                        <span ><b>defaultCategories</b></span>
+                        <a href="#defaultCategories"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../interfaces/Category.html" target="_self" >Category[]</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[
+    { id: &#x27;cat-1&#x27;, name: &#x27;Portátiles &amp; Workstations&#x27;, description: &#x27;Equipos informáticos portátiles de alto rendimiento&#x27; },
+    { id: &#x27;cat-2&#x27;, name: &#x27;Monitores &amp; Pantallas&#x27;, description: &#x27;Monitores 4K UHD y paneles profesionales&#x27; },
+    { id: &#x27;cat-3&#x27;, name: &#x27;Periféricos &amp; Accesorios&#x27;, description: &#x27;Teclados mecánicos, ratones y docks USB-C&#x27; },
+    { id: &#x27;cat-4&#x27;, name: &#x27;Redes &amp; Servidores&#x27;, description: &#x27;Switches gestionables, routers y almacenamiento NAS&#x27; }
+  ]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="19" class="link-to-prism">src/app/core/services/inventory.service.ts:19</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="localImagesKey"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>localImagesKey</b></span>
+                        <a href="#localImagesKey"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;stockflow_product_images_map&#x27;</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="13" class="link-to-prism">src/app/core/services/inventory.service.ts:13</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="localMovementsKey"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>localMovementsKey</b></span>
+                        <a href="#localMovementsKey"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;stockflow_supabase_movements_cache&#x27;</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="11" class="link-to-prism">src/app/core/services/inventory.service.ts:11</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="localProductsKey"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>localProductsKey</b></span>
+                        <a href="#localProductsKey"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;stockflow_products_catalog_v3&#x27;</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="12" class="link-to-prism">src/app/core/services/inventory.service.ts:12</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="seedProducts"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                            <span class="modifier">Readonly</span>
+                        <span ><b>seedProducts</b></span>
+                        <a href="#seedProducts"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../interfaces/Product.html" target="_self" >Product[]</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[
+    {
+      id: &#x27;prod-1&#x27;,
+      sku: &#x27;LAP-DELL-XPS15&#x27;,
+      name: &#x27;Portátil Dell XPS 15 OLED&#x27;,
+      description: &#x27;Intel Core i7 13700H, 32GB RAM, 1TB NVMe SSD&#x27;,
+      category_id: &#x27;cat-1&#x27;,
+      category: { id: &#x27;cat-1&#x27;, name: &#x27;Portátiles &amp; Workstations&#x27; },
+      stock: 14,
+      min_stock: 5,
+      unit_price: 1890,
+      image_url: &#x27;https://rxhsemwcylhhbgfnogle.supabase.co/storage/v1/object/public/stockflow-media/products/dell-xps-15.jpg&#x27;,
+      created_at: &#x27;2026-01-15T10:00:00Z&#x27;
+    },
+    {
+      id: &#x27;prod-2&#x27;,
+      sku: &#x27;LAP-MAC-PRO14&#x27;,
+      name: &#x27;MacBook Pro 14&quot; M3 Pro&#x27;,
+      description: &#x27;Chip Apple M3 Pro, 18GB memoria unificada, 512GB SSD&#x27;,
+      category_id: &#x27;cat-1&#x27;,
+      category: { id: &#x27;cat-1&#x27;, name: &#x27;Portátiles &amp; Workstations&#x27; },
+      stock: 4,
+      min_stock: 6,
+      unit_price: 2249,
+      image_url: &#x27;https://rxhsemwcylhhbgfnogle.supabase.co/storage/v1/object/public/stockflow-media/products/macbook-pro-14.jpg&#x27;,
+      created_at: &#x27;2026-02-10T11:30:00Z&#x27;
+    },
+    {
+      id: &#x27;prod-3&#x27;,
+      sku: &#x27;MON-LG-32UN880&#x27;,
+      name: &#x27;Monitor LG UltraFine 32&quot; 4K Ergo&#x27;,
+      description: &#x27;Panel IPS 4K UHD, USB-C 60W PD, brazo ergonómico&#x27;,
+      category_id: &#x27;cat-2&#x27;,
+      category: { id: &#x27;cat-2&#x27;, name: &#x27;Monitores &amp; Pantallas&#x27; },
+      stock: 19,
+      min_stock: 8,
+      unit_price: 589,
+      image_url: &#x27;https://rxhsemwcylhhbgfnogle.supabase.co/storage/v1/object/public/stockflow-media/products/monitor-lg-32.jpg&#x27;,
+      created_at: &#x27;2026-03-04T09:15:00Z&#x27;
+    },
+    {
+      id: &#x27;prod-4&#x27;,
+      sku: &#x27;PER-LOG-MXM3S&#x27;,
+      name: &#x27;Kit Logitech MX Keys &amp; Master 3S&#x27;,
+      description: &#x27;Combo inalámbrico avanzado para desarrollo y diseño&#x27;,
+      category_id: &#x27;cat-3&#x27;,
+      category: { id: &#x27;cat-3&#x27;, name: &#x27;Periféricos &amp; Accesorios&#x27; },
+      stock: 32,
+      min_stock: 10,
+      unit_price: 215,
+      image_url: &#x27;https://rxhsemwcylhhbgfnogle.supabase.co/storage/v1/object/public/stockflow-media/products/logitech-mx-kit.jpg&#x27;,
+      created_at: &#x27;2026-04-12T14:20:00Z&#x27;
+    },
+    {
+      id: &#x27;prod-5&#x27;,
+      sku: &#x27;NET-SYN-DS923&#x27;,
+      name: &#x27;Servidor NAS Synology DiskStation DS923+&#x27;,
+      description: &#x27;4 bahías RAID empresarial, 2x 1GbE LAN, caché NVMe&#x27;,
+      category_id: &#x27;cat-4&#x27;,
+      category: { id: &#x27;cat-4&#x27;, name: &#x27;Redes &amp; Servidores&#x27; },
+      stock: 3,
+      min_stock: 5,
+      unit_price: 645,
+      image_url: &#x27;https://rxhsemwcylhhbgfnogle.supabase.co/storage/v1/object/public/stockflow-media/products/synology-nas.jpg&#x27;,
+      created_at: &#x27;2026-05-20T16:40:00Z&#x27;
+    },
+    {
+      id: &#x27;prod-6&#x27;,
+      sku: &#x27;MON-DELL-U2723QE&#x27;,
+      name: &#x27;Monitor Dell UltraSharp 27&quot; 4K Hub&#x27;,
+      description: &#x27;IPS Black 2000:1, Hub RJ45 y USB-C 90W integrado&#x27;,
+      category_id: &#x27;cat-2&#x27;,
+      category: { id: &#x27;cat-2&#x27;, name: &#x27;Monitores &amp; Pantallas&#x27; },
+      stock: 11,
+      min_stock: 5,
+      unit_price: 679,
+      image_url: &#x27;https://rxhsemwcylhhbgfnogle.supabase.co/storage/v1/object/public/stockflow-media/products/monitor-dell-27.jpg&#x27;,
+      created_at: &#x27;2026-06-08T12:10:00Z&#x27;
+    }
+  ]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="26" class="link-to-prism">src/app/core/services/inventory.service.ts:26</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+</section>
+
+            <section data-compodoc="block-accessors">
+    <h3 id="accessors">
+        Accessors
+    </h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="supabase"></a>
+                        <span class="name"><b>supabase</b><a href="#supabase"><span class="icon ion-ios-link"></span></a></span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <span class="accessor"><b>get</b><code>supabase()</code></span>
+                    </td>
+                </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="15" class="link-to-prism">src/app/core/services/inventory.service.ts:15</a></div>
+                                </td>
+                            </tr>
+
+            </tbody>
+        </table>
+</section>
+    </div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Injectable, inject } from &#x27;@angular/core&#x27;;
+import { AuthService } from &#x27;./auth.service&#x27;;
+import { Product, Category } from &#x27;../models/product.model&#x27;;
+import { MovementLog, MovementType } from &#x27;../models/inventory-log.model&#x27;;
+
+@Injectable({
+  providedIn: &#x27;root&#x27;
+})
+export class InventoryService {
+  private authService &#x3D; inject(AuthService);
+  private localMovementsKey &#x3D; &#x27;stockflow_supabase_movements_cache&#x27;;
+  private localProductsKey &#x3D; &#x27;stockflow_products_catalog_v3&#x27;;
+  private localImagesKey &#x3D; &#x27;stockflow_product_images_map&#x27;;
+
+  private get supabase() {
+    return this.authService.client;
+  }
+
+  private readonly defaultCategories: Category[] &#x3D; [
+    { id: &#x27;cat-1&#x27;, name: &#x27;Portátiles &amp; Workstations&#x27;, description: &#x27;Equipos informáticos portátiles de alto rendimiento&#x27; },
+    { id: &#x27;cat-2&#x27;, name: &#x27;Monitores &amp; Pantallas&#x27;, description: &#x27;Monitores 4K UHD y paneles profesionales&#x27; },
+    { id: &#x27;cat-3&#x27;, name: &#x27;Periféricos &amp; Accesorios&#x27;, description: &#x27;Teclados mecánicos, ratones y docks USB-C&#x27; },
+    { id: &#x27;cat-4&#x27;, name: &#x27;Redes &amp; Servidores&#x27;, description: &#x27;Switches gestionables, routers y almacenamiento NAS&#x27; }
+  ];
+
+  private readonly seedProducts: Product[] &#x3D; [
+    {
+      id: &#x27;prod-1&#x27;,
+      sku: &#x27;LAP-DELL-XPS15&#x27;,
+      name: &#x27;Portátil Dell XPS 15 OLED&#x27;,
+      description: &#x27;Intel Core i7 13700H, 32GB RAM, 1TB NVMe SSD&#x27;,
+      category_id: &#x27;cat-1&#x27;,
+      category: { id: &#x27;cat-1&#x27;, name: &#x27;Portátiles &amp; Workstations&#x27; },
+      stock: 14,
+      min_stock: 5,
+      unit_price: 1890,
+      image_url: &#x27;https://rxhsemwcylhhbgfnogle.supabase.co/storage/v1/object/public/stockflow-media/products/dell-xps-15.jpg&#x27;,
+      created_at: &#x27;2026-01-15T10:00:00Z&#x27;
+    },
+    {
+      id: &#x27;prod-2&#x27;,
+      sku: &#x27;LAP-MAC-PRO14&#x27;,
+      name: &#x27;MacBook Pro 14&quot; M3 Pro&#x27;,
+      description: &#x27;Chip Apple M3 Pro, 18GB memoria unificada, 512GB SSD&#x27;,
+      category_id: &#x27;cat-1&#x27;,
+      category: { id: &#x27;cat-1&#x27;, name: &#x27;Portátiles &amp; Workstations&#x27; },
+      stock: 4,
+      min_stock: 6,
+      unit_price: 2249,
+      image_url: &#x27;https://rxhsemwcylhhbgfnogle.supabase.co/storage/v1/object/public/stockflow-media/products/macbook-pro-14.jpg&#x27;,
+      created_at: &#x27;2026-02-10T11:30:00Z&#x27;
+    },
+    {
+      id: &#x27;prod-3&#x27;,
+      sku: &#x27;MON-LG-32UN880&#x27;,
+      name: &#x27;Monitor LG UltraFine 32&quot; 4K Ergo&#x27;,
+      description: &#x27;Panel IPS 4K UHD, USB-C 60W PD, brazo ergonómico&#x27;,
+      category_id: &#x27;cat-2&#x27;,
+      category: { id: &#x27;cat-2&#x27;, name: &#x27;Monitores &amp; Pantallas&#x27; },
+      stock: 19,
+      min_stock: 8,
+      unit_price: 589,
+      image_url: &#x27;https://rxhsemwcylhhbgfnogle.supabase.co/storage/v1/object/public/stockflow-media/products/monitor-lg-32.jpg&#x27;,
+      created_at: &#x27;2026-03-04T09:15:00Z&#x27;
+    },
+    {
+      id: &#x27;prod-4&#x27;,
+      sku: &#x27;PER-LOG-MXM3S&#x27;,
+      name: &#x27;Kit Logitech MX Keys &amp; Master 3S&#x27;,
+      description: &#x27;Combo inalámbrico avanzado para desarrollo y diseño&#x27;,
+      category_id: &#x27;cat-3&#x27;,
+      category: { id: &#x27;cat-3&#x27;, name: &#x27;Periféricos &amp; Accesorios&#x27; },
+      stock: 32,
+      min_stock: 10,
+      unit_price: 215,
+      image_url: &#x27;https://rxhsemwcylhhbgfnogle.supabase.co/storage/v1/object/public/stockflow-media/products/logitech-mx-kit.jpg&#x27;,
+      created_at: &#x27;2026-04-12T14:20:00Z&#x27;
+    },
+    {
+      id: &#x27;prod-5&#x27;,
+      sku: &#x27;NET-SYN-DS923&#x27;,
+      name: &#x27;Servidor NAS Synology DiskStation DS923+&#x27;,
+      description: &#x27;4 bahías RAID empresarial, 2x 1GbE LAN, caché NVMe&#x27;,
+      category_id: &#x27;cat-4&#x27;,
+      category: { id: &#x27;cat-4&#x27;, name: &#x27;Redes &amp; Servidores&#x27; },
+      stock: 3,
+      min_stock: 5,
+      unit_price: 645,
+      image_url: &#x27;https://rxhsemwcylhhbgfnogle.supabase.co/storage/v1/object/public/stockflow-media/products/synology-nas.jpg&#x27;,
+      created_at: &#x27;2026-05-20T16:40:00Z&#x27;
+    },
+    {
+      id: &#x27;prod-6&#x27;,
+      sku: &#x27;MON-DELL-U2723QE&#x27;,
+      name: &#x27;Monitor Dell UltraSharp 27&quot; 4K Hub&#x27;,
+      description: &#x27;IPS Black 2000:1, Hub RJ45 y USB-C 90W integrado&#x27;,
+      category_id: &#x27;cat-2&#x27;,
+      category: { id: &#x27;cat-2&#x27;, name: &#x27;Monitores &amp; Pantallas&#x27; },
+      stock: 11,
+      min_stock: 5,
+      unit_price: 679,
+      image_url: &#x27;https://rxhsemwcylhhbgfnogle.supabase.co/storage/v1/object/public/stockflow-media/products/monitor-dell-27.jpg&#x27;,
+      created_at: &#x27;2026-06-08T12:10:00Z&#x27;
+    }
+  ];
+
+  private getImageMap(): Record&lt;string, string&gt; {
+    try {
+      return JSON.parse(localStorage.getItem(this.localImagesKey) || &#x27;{}&#x27;);
+    } catch {
+      return {};
+    }
+  }
+
+  private saveImageForSku(sku: string, imageUrl: string): void {
+    const map &#x3D; this.getImageMap();
+    map[sku] &#x3D; imageUrl;
+    localStorage.setItem(this.localImagesKey, JSON.stringify(map));
+  }
+
+  private getLocalProducts(): Product[] {
+    const raw &#x3D; localStorage.getItem(this.localProductsKey);
+    if (!raw) {
+      localStorage.setItem(this.localProductsKey, JSON.stringify(this.seedProducts));
+      return [...this.seedProducts];
+    }
+    try {
+      const parsed &#x3D; JSON.parse(raw) as Product[];
+      return parsed.length &gt; 0 ? parsed : [...this.seedProducts];
+    } catch {
+      return [...this.seedProducts];
+    }
+  }
+
+  private saveLocalProducts(products: Product[]): void {
+    localStorage.setItem(this.localProductsKey, JSON.stringify(products));
+  }
+
+  /**
+   * Obtiene todos los productos con los datos de su categoría e imagen asociada
+   */
+  async getProducts(): Promise&lt;Product[]&gt; {
+    const imgMap &#x3D; this.getImageMap();
+    const fallbackImages &#x3D; [
+      &#x27;https://rxhsemwcylhhbgfnogle.supabase.co/storage/v1/object/public/stockflow-media/products/dell-xps-15.jpg&#x27;,
+      &#x27;https://rxhsemwcylhhbgfnogle.supabase.co/storage/v1/object/public/stockflow-media/products/macbook-pro-14.jpg&#x27;,
+      &#x27;https://rxhsemwcylhhbgfnogle.supabase.co/storage/v1/object/public/stockflow-media/products/monitor-lg-32.jpg&#x27;,
+      &#x27;https://rxhsemwcylhhbgfnogle.supabase.co/storage/v1/object/public/stockflow-media/products/logitech-mx-kit.jpg&#x27;
+    ];
+
+    try {
+      const { data, error } &#x3D; await this.supabase
+        .from(&#x27;products&#x27;)
+        .select(&#x27;*, category:categories(id, name, description)&#x27;)
+        .order(&#x27;name&#x27;, { ascending: true });
+
+      if (!error &amp;&amp; data &amp;&amp; data.length &gt; 0) {
+        return (data as Product[]).map((p, idx) &#x3D;&gt; ({
+          ...p,
+          image_url: p.image_url || imgMap[p.sku] || fallbackImages[idx % fallbackImages.length]
+        }));
+      }
+    } catch (err) {
+      console.warn(&#x27;Usando catálogo local de respaldo:&#x27;, err);
+    }
+
+    return this.getLocalProducts().map((p, idx) &#x3D;&gt; ({
+      ...p,
+      image_url: p.image_url || imgMap[p.sku] || fallbackImages[idx % fallbackImages.length]
+    }));
+  }
+
+  /**
+   * Obtiene todas las categorías disponibles en el catálogo
+   */
+  async getCategories(): Promise&lt;Category[]&gt; {
+    try {
+      const { data, error } &#x3D; await this.supabase
+        .from(&#x27;categories&#x27;)
+        .select(&#x27;*&#x27;)
+        .order(&#x27;name&#x27;, { ascending: true });
+
+      if (!error &amp;&amp; data &amp;&amp; data.length &gt; 0) {
+        return data as Category[];
+      }
+    } catch {
+      // Fallback a categorías por defecto
+    }
+    return this.defaultCategories;
+  }
+
+  /**
+   * Validador de SKU único contra la base de datos de Supabase y catálogo local
+   */
+  async checkSkuExists(sku: string, excludeProductId?: string): Promise&lt;boolean&gt; {
+    if (!sku || sku.trim().length &#x3D;&#x3D;&#x3D; 0) return false;
+    const cleanSku &#x3D; sku.trim().toUpperCase();
+
+    try {
+      let query &#x3D; this.supabase
+        .from(&#x27;products&#x27;)
+        .select(&#x27;id&#x27;)
+        .ilike(&#x27;sku&#x27;, cleanSku);
+
+      if (excludeProductId) {
+        query &#x3D; query.neq(&#x27;id&#x27;, excludeProductId);
+      }
+
+      const { data, error } &#x3D; await query;
+      if (!error &amp;&amp; data &amp;&amp; data.length &gt; 0) {
+        return true;
+      }
+    } catch {
+      // Continuar con validación local
+    }
+
+    const localMatch &#x3D; this.getLocalProducts().some(
+      p &#x3D;&gt; p.sku.toUpperCase() &#x3D;&#x3D;&#x3D; cleanSku &amp;&amp; p.id !&#x3D;&#x3D; excludeProductId
+    );
+    return localMatch;
+  }
+
+  /**
+   * Inserta un nuevo producto en Supabase y en el catálogo local sincronizado
+   */
+  async createProduct(product: Omit&lt;Product, &#x27;id&#x27; | &#x27;created_at&#x27; | &#x27;updated_at&#x27; | &#x27;category&#x27;&gt;): Promise&lt;Product&gt; {
+    if (product.image_url) {
+      this.saveImageForSku(product.sku, product.image_url);
+    }
+
+    const categories &#x3D; await this.getCategories();
+    const matchedCat &#x3D; categories.find(c &#x3D;&gt; c.id &#x3D;&#x3D;&#x3D; product.category_id) || categories[0];
+
+    try {
+      const dbPayload &#x3D; { ...product };
+      const { data, error } &#x3D; await this.supabase
+        .from(&#x27;products&#x27;)
+        .insert([dbPayload])
+        .select(&#x27;*, category:categories(id, name, description)&#x27;)
+        .single();
+
+      if (!error &amp;&amp; data) {
+        return { ...(data as Product), image_url: product.image_url };
+      }
+    } catch {
+      // Si la sesión es Demo, persistimos en catálogo local
+    }
+
+    const newProduct: Product &#x3D; {
+      ...product,
+      id: &#x27;prod-&#x27; + Date.now(),
+      category: matchedCat,
+      created_at: new Date().toISOString(),
+      updated_at: new Date().toISOString()
+    };
+
+    const current &#x3D; this.getLocalProducts();
+    current.unshift(newProduct);
+    this.saveLocalProducts(current);
+    return newProduct;
+  }
+
+  /**
+   * Actualiza un producto existente
+   */
+  async updateProduct(id: string, updates: Partial&lt;Product&gt;): Promise&lt;Product&gt; {
+    if (updates.sku &amp;&amp; updates.image_url) {
+      this.saveImageForSku(updates.sku, updates.image_url);
+    }
+
+    const current &#x3D; this.getLocalProducts();
+    const idx &#x3D; current.findIndex(p &#x3D;&gt; p.id &#x3D;&#x3D;&#x3D; id);
+    if (idx !&#x3D;&#x3D; -1) {
+      const categories &#x3D; await this.getCategories();
+      const matchedCat &#x3D; updates.category_id
+        ? categories.find(c &#x3D;&gt; c.id &#x3D;&#x3D;&#x3D; updates.category_id) || current[idx].category
+        : current[idx].category;
+
+      current[idx] &#x3D; {
+        ...current[idx],
+        ...updates,
+        category: matchedCat,
+        updated_at: new Date().toISOString()
+      };
+      this.saveLocalProducts(current);
+    }
+
+    try {
+      const { category, ...dbUpdates } &#x3D; updates as any;
+      const { data, error } &#x3D; await this.supabase
+        .from(&#x27;products&#x27;)
+        .update(dbUpdates)
+        .eq(&#x27;id&#x27;, id)
+        .select(&#x27;*, category:categories(id, name, description)&#x27;)
+        .single();
+
+      if (!error &amp;&amp; data) {
+        return { ...(data as Product), image_url: updates.image_url };
+      }
+    } catch {
+      // Continuar con copia local actualizada
+    }
+
+    return current[idx !&#x3D;&#x3D; -1 ? idx : 0];
+  }
+
+  /**
+   * Elimina un producto por su ID
+   */
+  async deleteProduct(id: string): Promise&lt;void&gt; {
+    const current &#x3D; this.getLocalProducts().filter(p &#x3D;&gt; p.id !&#x3D;&#x3D; id);
+    this.saveLocalProducts(current);
+
+    try {
+      await this.supabase
+        .from(&#x27;products&#x27;)
+        .delete()
+        .eq(&#x27;id&#x27;, id);
+    } catch {
+      // Eliminado en modo Demo local
+    }
+  }
+
+  /**
+   * Obtiene el historial de movimientos de inventario
+   */
+  async getMovements(limit?: number): Promise&lt;MovementLog[]&gt; {
+    try {
+      let query &#x3D; this.supabase
+        .from(&#x27;stock_movements&#x27;)
+        .select(&#x27;*&#x27;)
+        .order(&#x27;created_at&#x27;, { ascending: false });
+
+      if (limit) {
+        query &#x3D; query.limit(limit);
+      }
+
+      const { data, error } &#x3D; await query;
+
+      if (!error &amp;&amp; data &amp;&amp; data.length &gt; 0) {
+        return data.map(row &#x3D;&gt; ({
+          id: row.id,
+          productId: row.product_id,
+          sku: row.sku,
+          productName: row.product_name,
+          movementType: row.movement_type as MovementType,
+          quantity: row.quantity,
+          previousStock: row.previous_stock,
+          newStock: row.new_stock,
+          reason: row.reason,
+          userId: row.user_id,
+          userEmail: row.user_email,
+          timestamp: row.created_at
+        }));
+      }
+    } catch {
+      // Usar caché local enriquecida
+    }
+
+    const local &#x3D; this.getLocalMovements();
+    return limit ? local.slice(0, limit) : local;
+  }
+
+  /**
+   * Registra un movimiento de stock
+   */
+  async registerMovement(movementData: {
+    productId: string;
+    sku: string;
+    productName: string;
+    movementType: MovementType;
+    quantity: number;
+    previousStock: number;
+    newStock: number;
+    reason: string;
+  }): Promise&lt;MovementLog&gt; {
+    const user &#x3D; this.authService.currentUser();
+    const userEmail &#x3D; user?.email || &#x27;operador@stockflow.local&#x27;;
+
+    await this.updateProduct(movementData.productId, {
+      stock: movementData.newStock
+    });
+
+    const newLog: MovementLog &#x3D; {
+      id: &#x27;mov_&#x27; + Date.now(),
+      productId: movementData.productId,
+      sku: movementData.sku,
+      productName: movementData.productName,
+      movementType: movementData.movementType,
+      quantity: movementData.quantity,
+      previousStock: movementData.previousStock,
+      newStock: movementData.newStock,
+      reason: movementData.reason,
+      userId: user?.id,
+      userEmail: userEmail,
+      timestamp: new Date().toISOString()
+    };
+
+    try {
+      await this.supabase.from(&#x27;stock_movements&#x27;).insert([{
+        product_id: movementData.productId,
+        sku: movementData.sku,
+        product_name: movementData.productName,
+        movement_type: movementData.movementType,
+        quantity: movementData.quantity,
+        previous_stock: movementData.previousStock,
+        new_stock: movementData.newStock,
+        reason: movementData.reason,
+        user_id: user?.id,
+        user_email: userEmail
+      }]);
+    } catch {
+      // Guardado local garantizado
+    }
+
+    this.saveLocalMovement(newLog);
+    return newLog;
+  }
+
+  private getLocalMovements(): MovementLog[] {
+    const raw &#x3D; localStorage.getItem(this.localMovementsKey);
+    if (!raw) {
+      const initial: MovementLog[] &#x3D; [
+        {
+          id: &#x27;seed_mov_1&#x27;,
+          productId: &#x27;prod-1&#x27;,
+          sku: &#x27;LAP-DELL-XPS15&#x27;,
+          productName: &#x27;Portátil Dell XPS 15 OLED&#x27;,
+          movementType: &#x27;IN&#x27;,
+          quantity: 10,
+          previousStock: 4,
+          newStock: 14,
+          reason: &#x27;Recepción albarán proveedor #PO-9912&#x27;,
+          userEmail: &#x27;admin@stockflow.local&#x27;,
+          timestamp: new Date(Date.now() - 3600000 * 72).toISOString()
+        },
+        {
+          id: &#x27;seed_mov_2&#x27;,
+          productId: &#x27;prod-2&#x27;,
+          sku: &#x27;LAP-MAC-PRO14&#x27;,
+          productName: &#x27;MacBook Pro 14&quot; M3 Pro&#x27;,
+          movementType: &#x27;OUT&#x27;,
+          quantity: 3,
+          previousStock: 7,
+          newStock: 4,
+          reason: &#x27;Asignación departamento diseño UI/UX&#x27;,
+          userEmail: &#x27;operador@stockflow.local&#x27;,
+          timestamp: new Date(Date.now() - 3600000 * 48).toISOString()
+        },
+        {
+          id: &#x27;seed_mov_3&#x27;,
+          productId: &#x27;prod-3&#x27;,
+          sku: &#x27;MON-LG-32UN880&#x27;,
+          productName: &#x27;Monitor LG UltraFine 32&quot; 4K Ergo&#x27;,
+          movementType: &#x27;IN&#x27;,
+          quantity: 8,
+          previousStock: 11,
+          newStock: 19,
+          reason: &#x27;Reposición trimestral de pantallas 4K&#x27;,
+          userEmail: &#x27;admin@stockflow.local&#x27;,
+          timestamp: new Date(Date.now() - 3600000 * 24).toISOString()
+        },
+        {
+          id: &#x27;seed_mov_4&#x27;,
+          productId: &#x27;prod-4&#x27;,
+          sku: &#x27;PER-LOG-MXM3S&#x27;,
+          productName: &#x27;Kit Logitech MX Keys &amp; Master 3S&#x27;,
+          movementType: &#x27;OUT&#x27;,
+          quantity: 5,
+          previousStock: 37,
+          newStock: 32,
+          reason: &#x27;Entrega a nuevos ingresos IT&#x27;,
+          userEmail: &#x27;operador@stockflow.local&#x27;,
+          timestamp: new Date(Date.now() - 3600000 * 6).toISOString()
+        },
+        {
+          id: &#x27;seed_mov_5&#x27;,
+          productId: &#x27;prod-5&#x27;,
+          sku: &#x27;NET-SYN-DS923&#x27;,
+          productName: &#x27;Servidor NAS Synology DiskStation DS923+&#x27;,
+          movementType: &#x27;OUT&#x27;,
+          quantity: 2,
+          previousStock: 5,
+          newStock: 3,
+          reason: &#x27;Instalación en rack principal planta 2&#x27;,
+          userEmail: &#x27;admin@stockflow.local&#x27;,
+          timestamp: new Date(Date.now() - 3600000 * 2).toISOString()
+        }
+      ];
+      localStorage.setItem(this.localMovementsKey, JSON.stringify(initial));
+      return initial;
+    }
+    try {
+      return JSON.parse(raw);
+    } catch {
+      return [];
+    }
+  }
+
+  private saveLocalMovement(log: MovementLog): void {
+    const current &#x3D; this.getLocalMovements();
+    current.unshift(log);
+    localStorage.setItem(this.localMovementsKey, JSON.stringify(current));
+  }
+}
+</code></pre>
+    </div>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'injectable';
+            var COMPODOC_CURRENT_PAGE_URL = 'InventoryService.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var updateDarkModeSwitchOffset = function () {
+                    var content = document.querySelector('.content');
+                    var scrollbarWidth = 0;
+
+                    if (content) {
+                         scrollbarWidth = Math.max(0, content.offsetWidth - content.clientWidth);
+                    }
+
+                    document.documentElement.style.setProperty(
+                         '--content-scrollbar-width',
+                         scrollbarWidth + 'px'
+                    );
+               };
+
+               updateDarkModeSwitchOffset();
+               requestAnimationFrame(updateDarkModeSwitchOffset);
+               window.addEventListener('resize', updateDarkModeSwitchOffset);
+
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

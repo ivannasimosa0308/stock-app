@@ -1,0 +1,2099 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>stock-app documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+          <script>
+              // --- Iframe navigation tracking for Template Playground ---
+              function sendCurrentUrlToParent() {
+                  if (window.parent && window.parent !== window) {
+                      window.parent.postMessage({
+                          type: 'compodoc-iframe-navigate',
+                          url: window.location.pathname + window.location.hash
+                      }, '*');
+                  }
+              }
+              window.addEventListener('hashchange', sendCurrentUrlToParent, false);
+              window.addEventListener('popstate', sendCurrentUrlToParent, false);
+              window.addEventListener('DOMContentLoaded', sendCurrentUrlToParent, false);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">stock-app documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search">
+    <button type="button"
+        class="search-input-clear"
+        aria-label="Clear search"
+        data-search-input-clear>&times;</button>
+</div>
+            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Components</li>
+  <li class="breadcrumb-item"
+  >
+  ProductFormPage</li>
+</ol>
+
+<div class="io-file io-file-path" data-compodoc="entity-file-path">
+    <span class="icon ion-ios-document" aria-hidden="true"></span>
+    <code>src/app/features/inventory/pages/product-form/product-form.page.ts</code>
+</div>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#api" class="nav-link"
+                role="tab" id="api-tab" data-bs-toggle="tab" data-link="api">API</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" class="nav-link"
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li class="nav-item">
+            <a href="#styleData" class="nav-link"
+                role="tab" id="styleData-tab" data-bs-toggle="tab" data-link="style">Styles</a>
+        </li>
+        <li class="nav-item">
+            <a href="#tree" class="nav-link"
+                role="tab" id="tree-tab" data-bs-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info">
+
+
+    <p class="comment">
+        <h3>Implements</h3>
+    </p>
+    <p class="comment">
+                    <code><a href="https://angular.dev/api/core/OnInit" target="_blank" >OnInit</a></code>
+    </p>
+
+
+<section data-compodoc="block-metadata">
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover metadata">
+        <tbody>
+
+            <tr>
+                <td class="col-md-3">changeDetection</td>
+                <td class="col-md-9"><code>ChangeDetectionStrategy.OnPush</code></td>
+            </tr>
+
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>app-product-form</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">standalone</td>
+                <td class="col-md-9"><code>true</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">imports</td>
+                <td class="col-md-9">
+                        <div>        <code><a href="https://angular.dev/api/common/CommonModule" target="_blank" >CommonModule</a></code>
+</div>
+                        <div>        <code><a href="https://angular.dev/api/forms/ReactiveFormsModule" target="_blank" >ReactiveFormsModule</a></code>
+</div>
+                        <div>    <code>IonHeader</code>
+</div>
+                        <div>    <code>IonToolbar</code>
+</div>
+                        <div>    <code>IonTitle</code>
+</div>
+                        <div>    <code>IonContent</code>
+</div>
+                        <div>    <code>IonButton</code>
+</div>
+                        <div>    <code>IonButtons</code>
+</div>
+                        <div>    <code>IonSpinner</code>
+</div>
+                        <div>    <code>IonIcon</code>
+</div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-3">styles</td>
+                <td class="col-md-9"><code>
+    .storage-upload-box {
+      background-color: #eef5f9;
+      border: 1px dashed #2889b8;
+    }
+    .extra-small {
+      font-size: 0.75rem;
+    }
+  </code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">template</td>
+                <td class="col-md-9"><pre class="line-numbers"><code class="language-html">&lt;ion-header&gt;
+  &lt;ion-toolbar color&#x3D;&quot;dark&quot;&gt;
+    &lt;ion-buttons slot&#x3D;&quot;start&quot;&gt;
+      &lt;ion-button (click)&#x3D;&quot;goBack()&quot;&gt;
+        &lt;ion-icon name&#x3D;&quot;arrow-back-outline&quot; slot&#x3D;&quot;start&quot;&gt;&lt;/ion-icon&gt;
+        Volver
+      &lt;/ion-button&gt;
+    &lt;/ion-buttons&gt;
+    &lt;ion-title&gt;{{ isEditMode() ? &#x27;Actualizar producto&#x27; : &#x27;Nuevo producto en catálogo&#x27; }}&lt;/ion-title&gt;
+  &lt;/ion-toolbar&gt;
+&lt;/ion-header&gt;
+
+&lt;ion-content class&#x3D;&quot;invent-shell&quot;&gt;
+  &lt;div class&#x3D;&quot;container py-4&quot;&gt;
+    &lt;div class&#x3D;&quot;row justify-content-center&quot;&gt;
+      &lt;div class&#x3D;&quot;col-12 col-lg-8&quot;&gt;
+        &lt;div class&#x3D;&quot;invent-card p-4 p-md-5&quot;&gt;
+          &lt;div class&#x3D;&quot;d-flex flex-wrap justify-content-between align-items-center gap-2 mb-4 border-bottom pb-3&quot;&gt;
+            &lt;div&gt;
+              &lt;h4 class&#x3D;&quot;fw-bold text-dark mb-1&quot;&gt;
+                @if (isEditMode()) {
+                  {{ authService.isAdmin() ? &#x27;Modificar información maestra del producto&#x27; : &#x27;Actualización operativa de existencias y ficha de almacén&#x27; }}
+                } @else {
+                  Alta de producto en almacén
+                }
+              &lt;/h4&gt;
+              &lt;p class&#x3D;&quot;text-muted small mb-0&quot;&gt;
+                @if (isEditMode() &amp;&amp; !authService.isAdmin()) {
+                  Como operador puedes actualizar stock físico, categoría, descripción e imagen. El precio unitario y el SKU están protegidos.
+                } @else {
+                  Formulario reactivo con validador asíncrono de SKU único y almacenamiento multimedia
+                }
+              &lt;/p&gt;
+            &lt;/div&gt;
+            &lt;span class&#x3D;&quot;badge bg-primary-subtle text-primary rounded-pill px-3 py-2&quot;&gt;
+              {{ isEditMode() ? (authService.isAdmin() ? &#x27;Edición completa (Admin)&#x27; : &#x27;Edición operativa (Operador)&#x27;) : &#x27;Nuevo registro&#x27; }}
+            &lt;/span&gt;
+          &lt;/div&gt;
+
+          &lt;form [formGroup]&#x3D;&quot;productForm&quot; (ngSubmit)&#x3D;&quot;onSubmit()&quot;&gt;
+            &lt;!-- Bloque de imagen del producto (Supabase Storage) --&gt;
+            &lt;div class&#x3D;&quot;storage-upload-box p-3 rounded-4 mb-4&quot;&gt;
+              &lt;div class&#x3D;&quot;row align-items-center g-3&quot;&gt;
+                &lt;div class&#x3D;&quot;col-12 col-sm-auto text-center&quot;&gt;
+                  &lt;img
+                    [src]&#x3D;&quot;productForm.get(&#x27;image_url&#x27;)?.value || defaultProductImage&quot;
+                    alt&#x3D;&quot;Vista previa del producto&quot;
+                    class&#x3D;&quot;rounded-3 border shadow-sm&quot;
+                    style&#x3D;&quot;width: 96px; height: 96px; object-fit: cover; background: #fff;&quot;
+                  /&gt;
+                &lt;/div&gt;
+                &lt;div class&#x3D;&quot;col&quot;&gt;
+                  &lt;label class&#x3D;&quot;form-label fw-bold text-dark small mb-1&quot;&gt;
+                    &lt;ion-icon name&#x3D;&quot;cloud-upload-outline&quot; class&#x3D;&quot;text-primary me-1 align-middle&quot;&gt;&lt;/ion-icon&gt;
+                    Imagen visual del producto (Supabase Storage)
+                  &lt;/label&gt;
+                  &lt;p class&#x3D;&quot;text-muted extra-small mb-2&quot;&gt;
+                    Sube una fotografía desde tu equipo al bucket &lt;code&gt;stockflow-media/products&lt;/code&gt; o introduce una URL directa.
+                  &lt;/p&gt;
+                  &lt;div class&#x3D;&quot;d-flex flex-wrap gap-2 align-items-center&quot;&gt;
+                    &lt;button
+                      type&#x3D;&quot;button&quot;
+                      class&#x3D;&quot;btn btn-sm btn-primary fw-semibold rounded-3 d-flex align-items-center gap-1&quot;
+                      (click)&#x3D;&quot;productImgInput.click()&quot;
+                      [disabled]&#x3D;&quot;isUploadingImage()&quot;
+                    &gt;
+                      @if (isUploadingImage()) {
+                        &lt;ion-spinner name&#x3D;&quot;crescent&quot; style&#x3D;&quot;width: 14px; height: 14px;&quot;&gt;&lt;/ion-spinner&gt;
+                        &lt;span&gt;Subiendo a Storage...&lt;/span&gt;
+                      } @else {
+                        &lt;ion-icon name&#x3D;&quot;image-outline&quot;&gt;&lt;/ion-icon&gt;
+                        &lt;span&gt;Subir imagen desde equipo&lt;/span&gt;
+                      }
+                    &lt;/button&gt;
+                    &lt;input
+                      #productImgInput
+                      type&#x3D;&quot;file&quot;
+                      accept&#x3D;&quot;image/*&quot;
+                      class&#x3D;&quot;d-none&quot;
+                      (change)&#x3D;&quot;onProductImageSelected($event)&quot;
+                    /&gt;
+                    &lt;input
+                      type&#x3D;&quot;text&quot;
+                      class&#x3D;&quot;form-control form-control-sm flex-grow-1&quot;
+                      formControlName&#x3D;&quot;image_url&quot;
+                      placeholder&#x3D;&quot;https://... (URL de imagen en Supabase Storage)&quot;
+                    /&gt;
+                  &lt;/div&gt;
+                &lt;/div&gt;
+              &lt;/div&gt;
+            &lt;/div&gt;
+
+            &lt;!-- SKU y Nombre --&gt;
+            &lt;div class&#x3D;&quot;row g-3 mb-3&quot;&gt;
+              &lt;div class&#x3D;&quot;col-12 col-md-5&quot;&gt;
+                &lt;label class&#x3D;&quot;form-label fw-semibold small text-secondary&quot;&gt;
+                  Código SKU * (validador asíncrono)
+                &lt;/label&gt;
+                &lt;div class&#x3D;&quot;input-group&quot;&gt;
+                  &lt;input
+                    type&#x3D;&quot;text&quot;
+                    class&#x3D;&quot;form-control&quot;
+                    [class.bg-light]&#x3D;&quot;isEditMode() &amp;&amp; !authService.isAdmin()&quot;
+                    formControlName&#x3D;&quot;sku&quot;
+                    placeholder&#x3D;&quot;Ej. LAP-DELL-001&quot;
+                    [readonly]&#x3D;&quot;isEditMode() &amp;&amp; !authService.isAdmin()&quot;
+                    (input)&#x3D;&quot;onSkuInput()&quot;
+                  /&gt;
+                  &lt;span class&#x3D;&quot;input-group-text bg-white&quot;&gt;
+                    @if (productForm.get(&#x27;sku&#x27;)?.pending) {
+                      &lt;ion-spinner name&#x3D;&quot;dots&quot; color&#x3D;&quot;primary&quot; style&#x3D;&quot;width: 18px; height: 18px;&quot;&gt;&lt;/ion-spinner&gt;
+                    } @else if (productForm.get(&#x27;sku&#x27;)?.valid &amp;&amp; productForm.get(&#x27;sku&#x27;)?.value) {
+                      &lt;ion-icon name&#x3D;&quot;checkmark-circle-outline&quot; color&#x3D;&quot;success&quot; class&#x3D;&quot;fs-5&quot;&gt;&lt;/ion-icon&gt;
+                    } @else if (productForm.get(&#x27;sku&#x27;)?.invalid &amp;&amp; productForm.get(&#x27;sku&#x27;)?.touched) {
+                      &lt;ion-icon name&#x3D;&quot;close-circle-outline&quot; color&#x3D;&quot;danger&quot; class&#x3D;&quot;fs-5&quot;&gt;&lt;/ion-icon&gt;
+                    }
+                  &lt;/span&gt;
+                &lt;/div&gt;
+                @if (productForm.get(&#x27;sku&#x27;)?.hasError(&#x27;required&#x27;) &amp;&amp; productForm.get(&#x27;sku&#x27;)?.touched) {
+                  &lt;div class&#x3D;&quot;text-danger extra-small mt-1 fw-semibold&quot;&gt;El código SKU es obligatorio.&lt;/div&gt;
+                }
+                @if (productForm.get(&#x27;sku&#x27;)?.hasError(&#x27;skuTaken&#x27;)) {
+                  &lt;div class&#x3D;&quot;text-danger extra-small mt-1 fw-semibold&quot;&gt;
+                    Este código SKU ya existe en el catálogo.
+                  &lt;/div&gt;
+                }
+              &lt;/div&gt;
+
+              &lt;div class&#x3D;&quot;col-12 col-md-7&quot;&gt;
+                &lt;label class&#x3D;&quot;form-label fw-semibold small text-secondary&quot;&gt;
+                  Nombre comercial del producto *
+                &lt;/label&gt;
+                &lt;input
+                  type&#x3D;&quot;text&quot;
+                  class&#x3D;&quot;form-control&quot;
+                  formControlName&#x3D;&quot;name&quot;
+                  placeholder&#x3D;&quot;Ej. Monitor LG UltraFine 32 4K&quot;
+                /&gt;
+                @if (productForm.get(&#x27;name&#x27;)?.invalid &amp;&amp; productForm.get(&#x27;name&#x27;)?.touched) {
+                  &lt;div class&#x3D;&quot;text-danger extra-small mt-1 fw-semibold&quot;&gt;
+                    El nombre es obligatorio (mínimo 3 caracteres).
+                  &lt;/div&gt;
+                }
+              &lt;/div&gt;
+            &lt;/div&gt;
+
+            &lt;!-- Categoría y Descripción --&gt;
+            &lt;div class&#x3D;&quot;row g-3 mb-3&quot;&gt;
+              &lt;div class&#x3D;&quot;col-12 col-md-5&quot;&gt;
+                &lt;label class&#x3D;&quot;form-label fw-semibold small text-secondary&quot;&gt;Categoría&lt;/label&gt;
+                &lt;select class&#x3D;&quot;form-select&quot; formControlName&#x3D;&quot;category_id&quot;&gt;
+                  &lt;option [ngValue]&#x3D;&quot;null&quot;&gt;Selecciona una categoría...&lt;/option&gt;
+                  @for (cat of categories(); track cat.id) {
+                    &lt;option [value]&#x3D;&quot;cat.id&quot;&gt;{{ cat.name }}&lt;/option&gt;
+                  }
+                &lt;/select&gt;
+              &lt;/div&gt;
+
+              &lt;div class&#x3D;&quot;col-12 col-md-7&quot;&gt;
+                &lt;label class&#x3D;&quot;form-label fw-semibold small text-secondary&quot;&gt;Descripción técnica / ubicación en pasillo&lt;/label&gt;
+                &lt;input
+                  type&#x3D;&quot;text&quot;
+                  class&#x3D;&quot;form-control&quot;
+                  formControlName&#x3D;&quot;description&quot;
+                  placeholder&#x3D;&quot;Especificaciones, pasillo, estantería o proveedor...&quot;
+                /&gt;
+              &lt;/div&gt;
+            &lt;/div&gt;
+
+            &lt;!-- Stock, Stock Mínimo y Precio --&gt;
+            &lt;div class&#x3D;&quot;row g-3 mb-4&quot;&gt;
+              &lt;div class&#x3D;&quot;col-12 col-sm-4&quot;&gt;
+                &lt;label class&#x3D;&quot;form-label fw-semibold small text-secondary&quot;&gt;Stock actual *&lt;/label&gt;
+                &lt;input type&#x3D;&quot;number&quot; class&#x3D;&quot;form-control&quot; formControlName&#x3D;&quot;stock&quot; min&#x3D;&quot;0&quot; /&gt;
+              &lt;/div&gt;
+
+              &lt;div class&#x3D;&quot;col-12 col-sm-4&quot;&gt;
+                &lt;label class&#x3D;&quot;form-label fw-semibold small text-secondary&quot;&gt;Stock mínimo (alerta) *&lt;/label&gt;
+                &lt;input type&#x3D;&quot;number&quot; class&#x3D;&quot;form-control&quot; formControlName&#x3D;&quot;min_stock&quot; min&#x3D;&quot;0&quot; /&gt;
+              &lt;/div&gt;
+
+              &lt;div class&#x3D;&quot;col-12 col-sm-4&quot;&gt;
+                &lt;label class&#x3D;&quot;form-label fw-semibold small text-secondary d-flex align-items-center justify-content-between&quot;&gt;
+                  &lt;span&gt;Precio unitario (€) *&lt;/span&gt;
+                  @if (isEditMode() &amp;&amp; !authService.isAdmin()) {
+                    &lt;span class&#x3D;&quot;badge bg-secondary-subtle text-secondary extra-small&quot;&gt;Solo Admin&lt;/span&gt;
+                  }
+                &lt;/label&gt;
+                &lt;input
+                  type&#x3D;&quot;number&quot;
+                  step&#x3D;&quot;0.01&quot;
+                  class&#x3D;&quot;form-control&quot;
+                  [class.bg-light]&#x3D;&quot;isEditMode() &amp;&amp; !authService.isAdmin()&quot;
+                  formControlName&#x3D;&quot;unit_price&quot;
+                  [readonly]&#x3D;&quot;isEditMode() &amp;&amp; !authService.isAdmin()&quot;
+                  min&#x3D;&quot;0&quot;
+                /&gt;
+              &lt;/div&gt;
+            &lt;/div&gt;
+
+            @if (errorMessage()) {
+              &lt;div class&#x3D;&quot;alert alert-danger py-2 small rounded-3 mb-3&quot;&gt;
+                {{ errorMessage() }}
+              &lt;/div&gt;
+            }
+
+            &lt;div class&#x3D;&quot;d-flex flex-wrap justify-content-end gap-2 pt-3 border-top&quot;&gt;
+              &lt;button type&#x3D;&quot;button&quot; class&#x3D;&quot;btn btn-outline-secondary px-4 fw-semibold rounded-3&quot; (click)&#x3D;&quot;goBack()&quot;&gt;
+                Cancelar
+              &lt;/button&gt;
+              &lt;button
+                type&#x3D;&quot;submit&quot;
+                class&#x3D;&quot;btn btn-primary px-4 fw-bold rounded-3&quot;
+                [disabled]&#x3D;&quot;productForm.invalid || isSaving() || productForm.pending&quot;
+              &gt;
+                @if (isSaving()) {
+                  &lt;ion-spinner name&#x3D;&quot;crescent&quot; color&#x3D;&quot;light&quot; style&#x3D;&quot;width: 16px; height: 16px;&quot;&gt;&lt;/ion-spinner&gt;
+                } @else {
+                  {{ isEditMode() ? &#x27;Guardar cambios&#x27; : &#x27;Registrar producto&#x27; }}
+                }
+              &lt;/button&gt;
+            &lt;/div&gt;
+          &lt;/form&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/ion-content&gt;
+</code></pre></td>
+            </tr>
+
+
+
+
+
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+        <section data-compodoc="block-relationships">
+            <h3>Relationships</h3>
+
+            <div class="row pt-3">
+                <div class="col-sm-6">
+                    <h4>Used by</h4>
+                        <p class="comment"><i>No results matching.</i></p>
+                </div>
+
+                <div class="col-sm-6">
+                    <h4>Depends on</h4>
+                        <ul class="list-unstyled relationships-list">
+                                <li>
+                                            <code><a href="https://angular.dev/api/common/CommonModule" target="_blank" >CommonModule</a></code>
+                                </li>
+                                <li>
+                                            <code><a href="https://angular.dev/api/forms/ReactiveFormsModule" target="_blank" >ReactiveFormsModule</a></code>
+                                </li>
+                                <li>
+                                        <code>IonHeader</code>
+                                </li>
+                                <li>
+                                        <code>IonToolbar</code>
+                                </li>
+                                <li>
+                                        <code>IonTitle</code>
+                                </li>
+                                <li>
+                                        <code>IonContent</code>
+                                </li>
+                                <li>
+                                        <code>IonButton</code>
+                                </li>
+                                <li>
+                                        <code>IonButtons</code>
+                                </li>
+                                <li>
+                                        <code>IonSpinner</code>
+                                </li>
+                                <li>
+                                        <code>IonIcon</code>
+                                </li>
+                                <li>
+                                            <code><a href="https://angular.dev/api/core/OnInit" target="_blank" >OnInit</a></code>
+                                </li>
+                        </ul>
+                </div>
+            </div>
+        </section>
+</div>
+
+    <div class="tab-pane fade " id="api">    <section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+        <table class="table table-sm table-bordered index-table">
+            <tbody>
+                <tr>
+                    <td class="col-md-3">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                    <td class="col-md-9">
+                        <ul class="index-list">
+                            <li>
+                                <span class="reference-badge reference-badge--property" aria-hidden="true">P</span>
+                                <a href="#authService" >authService</a>
+                            </li>
+                            <li>
+                                <span class="reference-badge reference-badge--property" aria-hidden="true">P</span>
+                                <a href="#categories" >categories</a>
+                            </li>
+                            <li>
+                                <span class="reference-badge reference-badge--property" aria-hidden="true">P</span>
+                                <a href="#defaultProductImage" >defaultProductImage</a>
+                            </li>
+                            <li>
+                                <span class="reference-badge reference-badge--property" aria-hidden="true">P</span>
+                                <a href="#errorMessage" >errorMessage</a>
+                            </li>
+                            <li>
+                                <span class="reference-badge reference-badge--property" aria-hidden="true">P</span>
+                                    <span class="modifier">Private</span>
+                                <a href="#fb" >fb</a>
+                            </li>
+                            <li>
+                                <span class="reference-badge reference-badge--property" aria-hidden="true">P</span>
+                                    <span class="modifier">Private</span>
+                                <a href="#inventoryService" >inventoryService</a>
+                            </li>
+                            <li>
+                                <span class="reference-badge reference-badge--property" aria-hidden="true">P</span>
+                                <a href="#isEditMode" >isEditMode</a>
+                            </li>
+                            <li>
+                                <span class="reference-badge reference-badge--property" aria-hidden="true">P</span>
+                                <a href="#isSaving" >isSaving</a>
+                            </li>
+                            <li>
+                                <span class="reference-badge reference-badge--property" aria-hidden="true">P</span>
+                                <a href="#isUploadingImage" >isUploadingImage</a>
+                            </li>
+                            <li>
+                                <span class="reference-badge reference-badge--property" aria-hidden="true">P</span>
+                                <a href="#productForm" >productForm</a>
+                            </li>
+                            <li>
+                                <span class="reference-badge reference-badge--property" aria-hidden="true">P</span>
+                                <a href="#productId" >productId</a>
+                            </li>
+                            <li>
+                                <span class="reference-badge reference-badge--property" aria-hidden="true">P</span>
+                                    <span class="modifier">Private</span>
+                                <a href="#route" >route</a>
+                            </li>
+                            <li>
+                                <span class="reference-badge reference-badge--property" aria-hidden="true">P</span>
+                                    <span class="modifier">Private</span>
+                                <a href="#router" >router</a>
+                            </li>
+                            <li>
+                                <span class="reference-badge reference-badge--property" aria-hidden="true">P</span>
+                                    <span class="modifier">Private</span>
+                                <a href="#storageService" >storageService</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <table class="table table-sm table-bordered index-table">
+            <tbody>
+                <tr>
+                    <td class="col-md-3">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                    <td class="col-md-9">
+                        <ul class="index-list">
+                            <li>
+                                <span class="reference-badge reference-badge--method" aria-hidden="true">M</span>
+                                <a href="#goBack" >goBack</a>
+                            </li>
+                            <li>
+                                <span class="reference-badge reference-badge--method" aria-hidden="true">M</span>
+                                    <span class="modifier">Async</span>
+                                <a href="#loadCategories" >loadCategories</a>
+                            </li>
+                            <li>
+                                <span class="reference-badge reference-badge--method" aria-hidden="true">M</span>
+                                    <span class="modifier">Async</span>
+                                <a href="#loadProductData" >loadProductData</a>
+                            </li>
+                            <li>
+                                <span class="reference-badge reference-badge--method" aria-hidden="true">M</span>
+                                    <span class="modifier">Async</span>
+                                <a href="#ngOnInit" >ngOnInit</a>
+                            </li>
+                            <li>
+                                <span class="reference-badge reference-badge--method" aria-hidden="true">M</span>
+                                    <span class="modifier">Async</span>
+                                <a href="#onProductImageSelected" >onProductImageSelected</a>
+                            </li>
+                            <li>
+                                <span class="reference-badge reference-badge--method" aria-hidden="true">M</span>
+                                <a href="#onSkuInput" >onSkuInput</a>
+                            </li>
+                            <li>
+                                <span class="reference-badge reference-badge--method" aria-hidden="true">M</span>
+                                    <span class="modifier">Async</span>
+                                <a href="#onSubmit" >onSubmit</a>
+                            </li>
+                            <li>
+                                <span class="reference-badge reference-badge--method" aria-hidden="true">M</span>
+                                <a href="#skuAsyncValidator" >skuAsyncValidator</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+
+
+
+
+</section>
+
+    <section data-compodoc="block-constructor">
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor()</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="311" class="link-to-prism">src/app/features/inventory/pages/product-form/product-form.page.ts:311</a></div>
+                            </td>
+                        </tr>
+
+            </tbody>
+        </table>
+</section>
+
+
+
+
+
+    <section data-compodoc="block-methods">
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="goBack"></a>
+                    <span class="name">
+                        <span ><b>goBack</b></span>
+                        <a href="#goBack"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>goBack()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="424"
+                                    class="link-to-prism">src/app/features/inventory/pages/product-form/product-form.page.ts:424</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="loadCategories"></a>
+                    <span class="name">
+                            <span class="modifier">Async</span>
+                        <span ><b>loadCategories</b></span>
+                        <a href="#loadCategories"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>loadCategories()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="337"
+                                    class="link-to-prism">src/app/features/inventory/pages/product-form/product-form.page.ts:337</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>Promise&lt;void&gt;</code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="loadProductData"></a>
+                    <span class="name">
+                            <span class="modifier">Async</span>
+                        <span ><b>loadProductData</b></span>
+                        <a href="#loadProductData"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>loadProductData(id: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="346"
+                                    class="link-to-prism">src/app/features/inventory/pages/product-form/product-form.page.ts:346</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>id</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>Promise&lt;void&gt;</code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngOnInit"></a>
+                    <span class="name">
+                            <span class="modifier">Async</span>
+                        <span ><b>ngOnInit</b></span>
+                        <a href="#ngOnInit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>ngOnInit()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="324"
+                                    class="link-to-prism">src/app/features/inventory/pages/product-form/product-form.page.ts:324</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>Promise&lt;void&gt;</code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="onProductImageSelected"></a>
+                    <span class="name">
+                            <span class="modifier">Async</span>
+                        <span ><b>onProductImageSelected</b></span>
+                        <a href="#onProductImageSelected"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>onProductImageSelected(event: <a href="https://angular.dev/api/router/Event" target="_blank">Event</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="367"
+                                    class="link-to-prism">src/app/features/inventory/pages/product-form/product-form.page.ts:367</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>event</td>
+                                            <td>
+                                                            <code><a href="https://angular.dev/api/router/Event" target="_blank" >Event</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>Promise&lt;void&gt;</code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="onSkuInput"></a>
+                    <span class="name">
+                        <span ><b>onSkuInput</b></span>
+                        <a href="#onSkuInput"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>onSkuInput()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="398"
+                                    class="link-to-prism">src/app/features/inventory/pages/product-form/product-form.page.ts:398</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="onSubmit"></a>
+                    <span class="name">
+                            <span class="modifier">Async</span>
+                        <span ><b>onSubmit</b></span>
+                        <a href="#onSubmit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>onSubmit()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="402"
+                                    class="link-to-prism">src/app/features/inventory/pages/product-form/product-form.page.ts:402</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>Promise&lt;void&gt;</code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="skuAsyncValidator"></a>
+                    <span class="name">
+                        <span ><b>skuAsyncValidator</b></span>
+                        <a href="#skuAsyncValidator"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>skuAsyncValidator()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="381"
+                                    class="link-to-prism">src/app/features/inventory/pages/product-form/product-form.page.ts:381</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://angular.dev/api/forms/AsyncValidatorFn" target="_blank" >AsyncValidatorFn</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-properties">
+    
+    <h3 id="inputs">
+        Properties
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="authService"></a>
+                    <span class="name">
+                        <span ><b>authService</b></span>
+                        <a href="#authService"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>inject(AuthService)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="288" class="link-to-prism">src/app/features/inventory/pages/product-form/product-form.page.ts:288</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="categories"></a>
+                    <span class="name">
+                        <span ><b>categories</b></span>
+                        <a href="#categories"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>signal&lt;Category[]&gt;([])</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="295" class="link-to-prism">src/app/features/inventory/pages/product-form/product-form.page.ts:295</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="defaultProductImage"></a>
+                    <span class="name">
+                        <span ><b>defaultProductImage</b></span>
+                        <a href="#defaultProductImage"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;https://rxhsemwcylhhbgfnogle.supabase.co/storage/v1/object/public/stockflow-media/products/monitor-lg-32.jpg&#x27;</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="294" class="link-to-prism">src/app/features/inventory/pages/product-form/product-form.page.ts:294</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="errorMessage"></a>
+                    <span class="name">
+                        <span ><b>errorMessage</b></span>
+                        <a href="#errorMessage"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>signal&lt;string | null&gt;(null)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="300" class="link-to-prism">src/app/features/inventory/pages/product-form/product-form.page.ts:300</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="fb"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>fb</b></span>
+                        <a href="#fb"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>inject(FormBuilder)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="287" class="link-to-prism">src/app/features/inventory/pages/product-form/product-form.page.ts:287</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="inventoryService"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>inventoryService</b></span>
+                        <a href="#inventoryService"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>inject(InventoryService)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="289" class="link-to-prism">src/app/features/inventory/pages/product-form/product-form.page.ts:289</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="isEditMode"></a>
+                    <span class="name">
+                        <span ><b>isEditMode</b></span>
+                        <a href="#isEditMode"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>signal&lt;boolean&gt;(false)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="296" class="link-to-prism">src/app/features/inventory/pages/product-form/product-form.page.ts:296</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="isSaving"></a>
+                    <span class="name">
+                        <span ><b>isSaving</b></span>
+                        <a href="#isSaving"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>signal&lt;boolean&gt;(false)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="298" class="link-to-prism">src/app/features/inventory/pages/product-form/product-form.page.ts:298</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="isUploadingImage"></a>
+                    <span class="name">
+                        <span ><b>isUploadingImage</b></span>
+                        <a href="#isUploadingImage"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>signal&lt;boolean&gt;(false)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="299" class="link-to-prism">src/app/features/inventory/pages/product-form/product-form.page.ts:299</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="productForm"></a>
+                    <span class="name">
+                        <span ><b>productForm</b></span>
+                        <a href="#productForm"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://angular.dev/api/forms/FormGroup" target="_blank" >FormGroup</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>this.fb.group({
+    sku: [&#x27;&#x27;, [Validators.required]],
+    name: [&#x27;&#x27;, [Validators.required, Validators.minLength(3)]],
+    description: [&#x27;&#x27;],
+    image_url: [&#x27;https://rxhsemwcylhhbgfnogle.supabase.co/storage/v1/object/public/stockflow-media/products/dell-xps-15.jpg&#x27;],
+    category_id: [&#x27;cat-1&#x27;],
+    stock: [10, [Validators.required, Validators.min(0)]],
+    min_stock: [5, [Validators.required, Validators.min(0)]],
+    unit_price: [299, [Validators.required, Validators.min(0.01)]]
+  })</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="302" class="link-to-prism">src/app/features/inventory/pages/product-form/product-form.page.ts:302</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="productId"></a>
+                    <span class="name">
+                        <span ><b>productId</b></span>
+                        <a href="#productId"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>string | null</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>null</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="297" class="link-to-prism">src/app/features/inventory/pages/product-form/product-form.page.ts:297</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="route"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>route</b></span>
+                        <a href="#route"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>inject(ActivatedRoute)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="292" class="link-to-prism">src/app/features/inventory/pages/product-form/product-form.page.ts:292</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="router"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>router</b></span>
+                        <a href="#router"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>inject(Router)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="291" class="link-to-prism">src/app/features/inventory/pages/product-form/product-form.page.ts:291</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="storageService"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>storageService</b></span>
+                        <a href="#storageService"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>inject(StorageService)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="290" class="link-to-prism">src/app/features/inventory/pages/product-form/product-form.page.ts:290</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+</section>
+
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, OnInit, inject, signal } from &#x27;@angular/core&#x27;;
+import { CommonModule } from &#x27;@angular/common&#x27;;
+import { FormBuilder, FormGroup, Validators, ReactiveFormsModule, AbstractControl, AsyncValidatorFn, ValidationErrors } from &#x27;@angular/forms&#x27;;
+import { Router, ActivatedRoute } from &#x27;@angular/router&#x27;;
+import {
+  IonHeader,
+  IonToolbar,
+  IonTitle,
+  IonContent,
+  IonButton,
+  IonButtons,
+  IonSpinner,
+  IonIcon
+} from &#x27;@ionic/angular&#x27;;
+import { addIcons } from &#x27;ionicons&#x27;;
+import {
+  checkmarkCircleOutline,
+  closeCircleOutline,
+  arrowBackOutline,
+  cloudUploadOutline,
+  imageOutline,
+  lockClosedOutline
+} from &#x27;ionicons/icons&#x27;;
+import { Observable, from, of } from &#x27;rxjs&#x27;;
+import { map, catchError, debounceTime, switchMap, first } from &#x27;rxjs/operators&#x27;;
+import { AuthService } from &#x27;../../../../core/services/auth.service&#x27;;
+import { InventoryService } from &#x27;../../../../core/services/inventory.service&#x27;;
+import { StorageService } from &#x27;../../../../core/services/storage.service&#x27;;
+import { Category } from &#x27;../../../../core/models/product.model&#x27;;
+
+@Component({
+  selector: &#x27;app-product-form&#x27;,
+  standalone: true,
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    IonHeader,
+    IonToolbar,
+    IonTitle,
+    IonContent,
+    IonButton,
+    IonButtons,
+    IonSpinner,
+    IonIcon
+  ],
+  template: &#x60;
+    &lt;ion-header&gt;
+      &lt;ion-toolbar color&#x3D;&quot;dark&quot;&gt;
+        &lt;ion-buttons slot&#x3D;&quot;start&quot;&gt;
+          &lt;ion-button (click)&#x3D;&quot;goBack()&quot;&gt;
+            &lt;ion-icon name&#x3D;&quot;arrow-back-outline&quot; slot&#x3D;&quot;start&quot;&gt;&lt;/ion-icon&gt;
+            Volver
+          &lt;/ion-button&gt;
+        &lt;/ion-buttons&gt;
+        &lt;ion-title&gt;{{ isEditMode() ? &#x27;Actualizar producto&#x27; : &#x27;Nuevo producto en catálogo&#x27; }}&lt;/ion-title&gt;
+      &lt;/ion-toolbar&gt;
+    &lt;/ion-header&gt;
+
+    &lt;ion-content class&#x3D;&quot;invent-shell&quot;&gt;
+      &lt;div class&#x3D;&quot;container py-4&quot;&gt;
+        &lt;div class&#x3D;&quot;row justify-content-center&quot;&gt;
+          &lt;div class&#x3D;&quot;col-12 col-lg-8&quot;&gt;
+            &lt;div class&#x3D;&quot;invent-card p-4 p-md-5&quot;&gt;
+              &lt;div class&#x3D;&quot;d-flex flex-wrap justify-content-between align-items-center gap-2 mb-4 border-bottom pb-3&quot;&gt;
+                &lt;div&gt;
+                  &lt;h4 class&#x3D;&quot;fw-bold text-dark mb-1&quot;&gt;
+                    @if (isEditMode()) {
+                      {{ authService.isAdmin() ? &#x27;Modificar información maestra del producto&#x27; : &#x27;Actualización operativa de existencias y ficha de almacén&#x27; }}
+                    } @else {
+                      Alta de producto en almacén
+                    }
+                  &lt;/h4&gt;
+                  &lt;p class&#x3D;&quot;text-muted small mb-0&quot;&gt;
+                    @if (isEditMode() &amp;&amp; !authService.isAdmin()) {
+                      Como operador puedes actualizar stock físico, categoría, descripción e imagen. El precio unitario y el SKU están protegidos.
+                    } @else {
+                      Formulario reactivo con validador asíncrono de SKU único y almacenamiento multimedia
+                    }
+                  &lt;/p&gt;
+                &lt;/div&gt;
+                &lt;span class&#x3D;&quot;badge bg-primary-subtle text-primary rounded-pill px-3 py-2&quot;&gt;
+                  {{ isEditMode() ? (authService.isAdmin() ? &#x27;Edición completa (Admin)&#x27; : &#x27;Edición operativa (Operador)&#x27;) : &#x27;Nuevo registro&#x27; }}
+                &lt;/span&gt;
+              &lt;/div&gt;
+
+              &lt;form [formGroup]&#x3D;&quot;productForm&quot; (ngSubmit)&#x3D;&quot;onSubmit()&quot;&gt;
+                &lt;!-- Bloque de imagen del producto (Supabase Storage) --&gt;
+                &lt;div class&#x3D;&quot;storage-upload-box p-3 rounded-4 mb-4&quot;&gt;
+                  &lt;div class&#x3D;&quot;row align-items-center g-3&quot;&gt;
+                    &lt;div class&#x3D;&quot;col-12 col-sm-auto text-center&quot;&gt;
+                      &lt;img
+                        [src]&#x3D;&quot;productForm.get(&#x27;image_url&#x27;)?.value || defaultProductImage&quot;
+                        alt&#x3D;&quot;Vista previa del producto&quot;
+                        class&#x3D;&quot;rounded-3 border shadow-sm&quot;
+                        style&#x3D;&quot;width: 96px; height: 96px; object-fit: cover; background: #fff;&quot;
+                      /&gt;
+                    &lt;/div&gt;
+                    &lt;div class&#x3D;&quot;col&quot;&gt;
+                      &lt;label class&#x3D;&quot;form-label fw-bold text-dark small mb-1&quot;&gt;
+                        &lt;ion-icon name&#x3D;&quot;cloud-upload-outline&quot; class&#x3D;&quot;text-primary me-1 align-middle&quot;&gt;&lt;/ion-icon&gt;
+                        Imagen visual del producto (Supabase Storage)
+                      &lt;/label&gt;
+                      &lt;p class&#x3D;&quot;text-muted extra-small mb-2&quot;&gt;
+                        Sube una fotografía desde tu equipo al bucket &lt;code&gt;stockflow-media/products&lt;/code&gt; o introduce una URL directa.
+                      &lt;/p&gt;
+                      &lt;div class&#x3D;&quot;d-flex flex-wrap gap-2 align-items-center&quot;&gt;
+                        &lt;button
+                          type&#x3D;&quot;button&quot;
+                          class&#x3D;&quot;btn btn-sm btn-primary fw-semibold rounded-3 d-flex align-items-center gap-1&quot;
+                          (click)&#x3D;&quot;productImgInput.click()&quot;
+                          [disabled]&#x3D;&quot;isUploadingImage()&quot;
+                        &gt;
+                          @if (isUploadingImage()) {
+                            &lt;ion-spinner name&#x3D;&quot;crescent&quot; style&#x3D;&quot;width: 14px; height: 14px;&quot;&gt;&lt;/ion-spinner&gt;
+                            &lt;span&gt;Subiendo a Storage...&lt;/span&gt;
+                          } @else {
+                            &lt;ion-icon name&#x3D;&quot;image-outline&quot;&gt;&lt;/ion-icon&gt;
+                            &lt;span&gt;Subir imagen desde equipo&lt;/span&gt;
+                          }
+                        &lt;/button&gt;
+                        &lt;input
+                          #productImgInput
+                          type&#x3D;&quot;file&quot;
+                          accept&#x3D;&quot;image/*&quot;
+                          class&#x3D;&quot;d-none&quot;
+                          (change)&#x3D;&quot;onProductImageSelected($event)&quot;
+                        /&gt;
+                        &lt;input
+                          type&#x3D;&quot;text&quot;
+                          class&#x3D;&quot;form-control form-control-sm flex-grow-1&quot;
+                          formControlName&#x3D;&quot;image_url&quot;
+                          placeholder&#x3D;&quot;https://... (URL de imagen en Supabase Storage)&quot;
+                        /&gt;
+                      &lt;/div&gt;
+                    &lt;/div&gt;
+                  &lt;/div&gt;
+                &lt;/div&gt;
+
+                &lt;!-- SKU y Nombre --&gt;
+                &lt;div class&#x3D;&quot;row g-3 mb-3&quot;&gt;
+                  &lt;div class&#x3D;&quot;col-12 col-md-5&quot;&gt;
+                    &lt;label class&#x3D;&quot;form-label fw-semibold small text-secondary&quot;&gt;
+                      Código SKU * (validador asíncrono)
+                    &lt;/label&gt;
+                    &lt;div class&#x3D;&quot;input-group&quot;&gt;
+                      &lt;input
+                        type&#x3D;&quot;text&quot;
+                        class&#x3D;&quot;form-control&quot;
+                        [class.bg-light]&#x3D;&quot;isEditMode() &amp;&amp; !authService.isAdmin()&quot;
+                        formControlName&#x3D;&quot;sku&quot;
+                        placeholder&#x3D;&quot;Ej. LAP-DELL-001&quot;
+                        [readonly]&#x3D;&quot;isEditMode() &amp;&amp; !authService.isAdmin()&quot;
+                        (input)&#x3D;&quot;onSkuInput()&quot;
+                      /&gt;
+                      &lt;span class&#x3D;&quot;input-group-text bg-white&quot;&gt;
+                        @if (productForm.get(&#x27;sku&#x27;)?.pending) {
+                          &lt;ion-spinner name&#x3D;&quot;dots&quot; color&#x3D;&quot;primary&quot; style&#x3D;&quot;width: 18px; height: 18px;&quot;&gt;&lt;/ion-spinner&gt;
+                        } @else if (productForm.get(&#x27;sku&#x27;)?.valid &amp;&amp; productForm.get(&#x27;sku&#x27;)?.value) {
+                          &lt;ion-icon name&#x3D;&quot;checkmark-circle-outline&quot; color&#x3D;&quot;success&quot; class&#x3D;&quot;fs-5&quot;&gt;&lt;/ion-icon&gt;
+                        } @else if (productForm.get(&#x27;sku&#x27;)?.invalid &amp;&amp; productForm.get(&#x27;sku&#x27;)?.touched) {
+                          &lt;ion-icon name&#x3D;&quot;close-circle-outline&quot; color&#x3D;&quot;danger&quot; class&#x3D;&quot;fs-5&quot;&gt;&lt;/ion-icon&gt;
+                        }
+                      &lt;/span&gt;
+                    &lt;/div&gt;
+                    @if (productForm.get(&#x27;sku&#x27;)?.hasError(&#x27;required&#x27;) &amp;&amp; productForm.get(&#x27;sku&#x27;)?.touched) {
+                      &lt;div class&#x3D;&quot;text-danger extra-small mt-1 fw-semibold&quot;&gt;El código SKU es obligatorio.&lt;/div&gt;
+                    }
+                    @if (productForm.get(&#x27;sku&#x27;)?.hasError(&#x27;skuTaken&#x27;)) {
+                      &lt;div class&#x3D;&quot;text-danger extra-small mt-1 fw-semibold&quot;&gt;
+                        Este código SKU ya existe en el catálogo.
+                      &lt;/div&gt;
+                    }
+                  &lt;/div&gt;
+
+                  &lt;div class&#x3D;&quot;col-12 col-md-7&quot;&gt;
+                    &lt;label class&#x3D;&quot;form-label fw-semibold small text-secondary&quot;&gt;
+                      Nombre comercial del producto *
+                    &lt;/label&gt;
+                    &lt;input
+                      type&#x3D;&quot;text&quot;
+                      class&#x3D;&quot;form-control&quot;
+                      formControlName&#x3D;&quot;name&quot;
+                      placeholder&#x3D;&quot;Ej. Monitor LG UltraFine 32 4K&quot;
+                    /&gt;
+                    @if (productForm.get(&#x27;name&#x27;)?.invalid &amp;&amp; productForm.get(&#x27;name&#x27;)?.touched) {
+                      &lt;div class&#x3D;&quot;text-danger extra-small mt-1 fw-semibold&quot;&gt;
+                        El nombre es obligatorio (mínimo 3 caracteres).
+                      &lt;/div&gt;
+                    }
+                  &lt;/div&gt;
+                &lt;/div&gt;
+
+                &lt;!-- Categoría y Descripción --&gt;
+                &lt;div class&#x3D;&quot;row g-3 mb-3&quot;&gt;
+                  &lt;div class&#x3D;&quot;col-12 col-md-5&quot;&gt;
+                    &lt;label class&#x3D;&quot;form-label fw-semibold small text-secondary&quot;&gt;Categoría&lt;/label&gt;
+                    &lt;select class&#x3D;&quot;form-select&quot; formControlName&#x3D;&quot;category_id&quot;&gt;
+                      &lt;option [ngValue]&#x3D;&quot;null&quot;&gt;Selecciona una categoría...&lt;/option&gt;
+                      @for (cat of categories(); track cat.id) {
+                        &lt;option [value]&#x3D;&quot;cat.id&quot;&gt;{{ cat.name }}&lt;/option&gt;
+                      }
+                    &lt;/select&gt;
+                  &lt;/div&gt;
+
+                  &lt;div class&#x3D;&quot;col-12 col-md-7&quot;&gt;
+                    &lt;label class&#x3D;&quot;form-label fw-semibold small text-secondary&quot;&gt;Descripción técnica / ubicación en pasillo&lt;/label&gt;
+                    &lt;input
+                      type&#x3D;&quot;text&quot;
+                      class&#x3D;&quot;form-control&quot;
+                      formControlName&#x3D;&quot;description&quot;
+                      placeholder&#x3D;&quot;Especificaciones, pasillo, estantería o proveedor...&quot;
+                    /&gt;
+                  &lt;/div&gt;
+                &lt;/div&gt;
+
+                &lt;!-- Stock, Stock Mínimo y Precio --&gt;
+                &lt;div class&#x3D;&quot;row g-3 mb-4&quot;&gt;
+                  &lt;div class&#x3D;&quot;col-12 col-sm-4&quot;&gt;
+                    &lt;label class&#x3D;&quot;form-label fw-semibold small text-secondary&quot;&gt;Stock actual *&lt;/label&gt;
+                    &lt;input type&#x3D;&quot;number&quot; class&#x3D;&quot;form-control&quot; formControlName&#x3D;&quot;stock&quot; min&#x3D;&quot;0&quot; /&gt;
+                  &lt;/div&gt;
+
+                  &lt;div class&#x3D;&quot;col-12 col-sm-4&quot;&gt;
+                    &lt;label class&#x3D;&quot;form-label fw-semibold small text-secondary&quot;&gt;Stock mínimo (alerta) *&lt;/label&gt;
+                    &lt;input type&#x3D;&quot;number&quot; class&#x3D;&quot;form-control&quot; formControlName&#x3D;&quot;min_stock&quot; min&#x3D;&quot;0&quot; /&gt;
+                  &lt;/div&gt;
+
+                  &lt;div class&#x3D;&quot;col-12 col-sm-4&quot;&gt;
+                    &lt;label class&#x3D;&quot;form-label fw-semibold small text-secondary d-flex align-items-center justify-content-between&quot;&gt;
+                      &lt;span&gt;Precio unitario (€) *&lt;/span&gt;
+                      @if (isEditMode() &amp;&amp; !authService.isAdmin()) {
+                        &lt;span class&#x3D;&quot;badge bg-secondary-subtle text-secondary extra-small&quot;&gt;Solo Admin&lt;/span&gt;
+                      }
+                    &lt;/label&gt;
+                    &lt;input
+                      type&#x3D;&quot;number&quot;
+                      step&#x3D;&quot;0.01&quot;
+                      class&#x3D;&quot;form-control&quot;
+                      [class.bg-light]&#x3D;&quot;isEditMode() &amp;&amp; !authService.isAdmin()&quot;
+                      formControlName&#x3D;&quot;unit_price&quot;
+                      [readonly]&#x3D;&quot;isEditMode() &amp;&amp; !authService.isAdmin()&quot;
+                      min&#x3D;&quot;0&quot;
+                    /&gt;
+                  &lt;/div&gt;
+                &lt;/div&gt;
+
+                @if (errorMessage()) {
+                  &lt;div class&#x3D;&quot;alert alert-danger py-2 small rounded-3 mb-3&quot;&gt;
+                    {{ errorMessage() }}
+                  &lt;/div&gt;
+                }
+
+                &lt;div class&#x3D;&quot;d-flex flex-wrap justify-content-end gap-2 pt-3 border-top&quot;&gt;
+                  &lt;button type&#x3D;&quot;button&quot; class&#x3D;&quot;btn btn-outline-secondary px-4 fw-semibold rounded-3&quot; (click)&#x3D;&quot;goBack()&quot;&gt;
+                    Cancelar
+                  &lt;/button&gt;
+                  &lt;button
+                    type&#x3D;&quot;submit&quot;
+                    class&#x3D;&quot;btn btn-primary px-4 fw-bold rounded-3&quot;
+                    [disabled]&#x3D;&quot;productForm.invalid || isSaving() || productForm.pending&quot;
+                  &gt;
+                    @if (isSaving()) {
+                      &lt;ion-spinner name&#x3D;&quot;crescent&quot; color&#x3D;&quot;light&quot; style&#x3D;&quot;width: 16px; height: 16px;&quot;&gt;&lt;/ion-spinner&gt;
+                    } @else {
+                      {{ isEditMode() ? &#x27;Guardar cambios&#x27; : &#x27;Registrar producto&#x27; }}
+                    }
+                  &lt;/button&gt;
+                &lt;/div&gt;
+              &lt;/form&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/ion-content&gt;
+  &#x60;,
+  styles: [&#x60;
+    .storage-upload-box {
+      background-color: #eef5f9;
+      border: 1px dashed #2889b8;
+    }
+    .extra-small {
+      font-size: 0.75rem;
+    }
+  &#x60;]
+})
+export class ProductFormPage implements OnInit {
+  private fb &#x3D; inject(FormBuilder);
+  authService &#x3D; inject(AuthService);
+  private inventoryService &#x3D; inject(InventoryService);
+  private storageService &#x3D; inject(StorageService);
+  private router &#x3D; inject(Router);
+  private route &#x3D; inject(ActivatedRoute);
+
+  defaultProductImage &#x3D; &#x27;https://rxhsemwcylhhbgfnogle.supabase.co/storage/v1/object/public/stockflow-media/products/monitor-lg-32.jpg&#x27;;
+  categories &#x3D; signal&lt;Category[]&gt;([]);
+  isEditMode &#x3D; signal&lt;boolean&gt;(false);
+  productId: string | null &#x3D; null;
+  isSaving &#x3D; signal&lt;boolean&gt;(false);
+  isUploadingImage &#x3D; signal&lt;boolean&gt;(false);
+  errorMessage &#x3D; signal&lt;string | null&gt;(null);
+
+  productForm: FormGroup &#x3D; this.fb.group({
+    sku: [&#x27;&#x27;, [Validators.required]],
+    name: [&#x27;&#x27;, [Validators.required, Validators.minLength(3)]],
+    description: [&#x27;&#x27;],
+    image_url: [&#x27;https://rxhsemwcylhhbgfnogle.supabase.co/storage/v1/object/public/stockflow-media/products/dell-xps-15.jpg&#x27;],
+    category_id: [&#x27;cat-1&#x27;],
+    stock: [10, [Validators.required, Validators.min(0)]],
+    min_stock: [5, [Validators.required, Validators.min(0)]],
+    unit_price: [299, [Validators.required, Validators.min(0.01)]]
+  });
+
+  constructor() {
+    addIcons({
+      checkmarkCircleOutline,
+      closeCircleOutline,
+      arrowBackOutline,
+      cloudUploadOutline,
+      imageOutline,
+      lockClosedOutline
+    });
+  }
+
+  async ngOnInit(): Promise&lt;void&gt; {
+    await this.loadCategories();
+
+    this.productId &#x3D; this.route.snapshot.paramMap.get(&#x27;id&#x27;);
+    if (this.productId) {
+      this.isEditMode.set(true);
+      await this.loadProductData(this.productId);
+    }
+
+    this.productForm.get(&#x27;sku&#x27;)?.setAsyncValidators([this.skuAsyncValidator()]);
+    this.productForm.get(&#x27;sku&#x27;)?.updateValueAndValidity();
+  }
+
+  async loadCategories(): Promise&lt;void&gt; {
+    try {
+      const cats &#x3D; await this.inventoryService.getCategories();
+      this.categories.set(cats);
+    } catch (err) {
+      console.error(&#x27;Error cargando categorías:&#x27;, err);
+    }
+  }
+
+  async loadProductData(id: string): Promise&lt;void&gt; {
+    try {
+      const products &#x3D; await this.inventoryService.getProducts();
+      const product &#x3D; products.find(p &#x3D;&gt; p.id &#x3D;&#x3D;&#x3D; id);
+      if (product) {
+        this.productForm.patchValue({
+          sku: product.sku,
+          name: product.name,
+          description: product.description,
+          image_url: product.image_url || this.defaultProductImage,
+          category_id: product.category_id,
+          stock: product.stock,
+          min_stock: product.min_stock,
+          unit_price: product.unit_price
+        });
+      }
+    } catch (err) {
+      console.error(&#x27;Error cargando producto para editar:&#x27;, err);
+    }
+  }
+
+  async onProductImageSelected(event: Event): Promise&lt;void&gt; {
+    const input &#x3D; event.target as HTMLInputElement;
+    const file &#x3D; input.files?.[0];
+    if (!file) return;
+
+    this.isUploadingImage.set(true);
+    try {
+      const publicUrl &#x3D; await this.storageService.uploadImage(file, &#x27;products&#x27;);
+      this.productForm.patchValue({ image_url: publicUrl });
+    } finally {
+      this.isUploadingImage.set(false);
+    }
+  }
+
+  skuAsyncValidator(): AsyncValidatorFn {
+    return (control: AbstractControl): Observable&lt;ValidationErrors | null&gt; &#x3D;&gt; {
+      const value &#x3D; control.value;
+      if (!value || String(value).trim() &#x3D;&#x3D;&#x3D; &#x27;&#x27;) {
+        return of(null);
+      }
+
+      return of(value).pipe(
+        debounceTime(400),
+        switchMap(sku &#x3D;&gt; from(this.inventoryService.checkSkuExists(sku, this.productId || undefined))),
+        map(exists &#x3D;&gt; (exists ? { skuTaken: true } : null)),
+        catchError(() &#x3D;&gt; of(null)),
+        first()
+      );
+    };
+  }
+
+  onSkuInput(): void {
+    this.errorMessage.set(null);
+  }
+
+  async onSubmit(): Promise&lt;void&gt; {
+    if (this.productForm.invalid) return;
+
+    this.isSaving.set(true);
+    this.errorMessage.set(null);
+
+    const formValues &#x3D; this.productForm.value;
+
+    try {
+      if (this.isEditMode() &amp;&amp; this.productId) {
+        await this.inventoryService.updateProduct(this.productId, formValues);
+      } else {
+        await this.inventoryService.createProduct(formValues);
+      }
+      this.goBack();
+    } catch (err: any) {
+      this.errorMessage.set(err.message || &#x27;Error guardando producto.&#x27;);
+    } finally {
+      this.isSaving.set(false);
+    }
+  }
+
+  goBack(): void {
+    if (this.authService.isAdmin() &amp;&amp; this.isEditMode()) {
+      this.router.navigate([&#x27;/admin&#x27;]);
+    } else {
+      this.router.navigate([&#x27;/inventory&#x27;]);
+    }
+  }
+}
+</code></pre>
+    </div>
+
+
+    <div class="tab-pane fade " id="styleData">
+            <pre class="line-numbers"><code class="language-scss">
+    .storage-upload-box {
+      background-color: #eef5f9;
+      border: 1px dashed #2889b8;
+    }
+    .extra-small {
+      font-size: 0.75rem;
+    }
+  
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis-network.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><ion-header>  <ion-toolbar color="dark">    <ion-buttons slot="start">      <ion-button (click)="goBack()">        <ion-icon name="arrow-back-outline" slot="start"></ion-icon>        Volver      </ion-button>    </ion-buttons>    <ion-title>{{ isEditMode() ? \'Actualizar producto\' : \'Nuevo producto en catálogo\' }}</ion-title>  </ion-toolbar></ion-header><ion-content class="invent-shell">  <div class="container py-4">    <div class="row justify-content-center">      <div class="col-12 col-lg-8">        <div class="invent-card p-4 p-md-5">          <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-4 border-bottom pb-3">            <div>              <h4 class="fw-bold text-dark mb-1">                @if (isEditMode()) {                  {{ authService.isAdmin() ? \'Modificar información maestra del producto\' : \'Actualización operativa de existencias y ficha de almacén\' }}                } @else {                  Alta de producto en almacén                }              </h4>              <p class="text-muted small mb-0">                @if (isEditMode() && !authService.isAdmin()) {                  Como operador puedes actualizar stock físico, categoría, descripción e imagen. El precio unitario y el SKU están protegidos.                } @else {                  Formulario reactivo con validador asíncrono de SKU único y almacenamiento multimedia                }              </p>            </div>            <span class="badge bg-primary-subtle text-primary rounded-pill px-3 py-2">              {{ isEditMode() ? (authService.isAdmin() ? \'Edición completa (Admin)\' : \'Edición operativa (Operador)\') : \'Nuevo registro\' }}            </span>          </div>          <form [formGroup]="productForm" (ngSubmit)="onSubmit()">            <!-- Bloque de imagen del producto (Supabase Storage) -->            <div class="storage-upload-box p-3 rounded-4 mb-4">              <div class="row align-items-center g-3">                <div class="col-12 col-sm-auto text-center">                  <img                    [src]="productForm.get(\'image_url\')?.value || defaultProductImage"                    alt="Vista previa del producto"                    class="rounded-3 border shadow-sm"                    style="width: 96px; height: 96px; object-fit: cover; background: #fff;"                  />                </div>                <div class="col">                  <label class="form-label fw-bold text-dark small mb-1">                    <ion-icon name="cloud-upload-outline" class="text-primary me-1 align-middle"></ion-icon>                    Imagen visual del producto (Supabase Storage)                  </label>                  <p class="text-muted extra-small mb-2">                    Sube una fotografía desde tu equipo al bucket <code>stockflow-media/products</code> o introduce una URL directa.                  </p>                  <div class="d-flex flex-wrap gap-2 align-items-center">                    <button                      type="button"                      class="btn btn-sm btn-primary fw-semibold rounded-3 d-flex align-items-center gap-1"                      (click)="productImgInput.click()"                      [disabled]="isUploadingImage()"                    >                      @if (isUploadingImage()) {                        <ion-spinner name="crescent" style="width: 14px; height: 14px;"></ion-spinner>                        <span>Subiendo a Storage...</span>                      } @else {                        <ion-icon name="image-outline"></ion-icon>                        <span>Subir imagen desde equipo</span>                      }                    </button>                    <input                      #productImgInput                      type="file"                      accept="image/*"                      class="d-none"                      (change)="onProductImageSelected($event)"                    />                    <input                      type="text"                      class="form-control form-control-sm flex-grow-1"                      formControlName="image_url"                      placeholder="https://... (URL de imagen en Supabase Storage)"                    />                  </div>                </div>              </div>            </div>            <!-- SKU y Nombre -->            <div class="row g-3 mb-3">              <div class="col-12 col-md-5">                <label class="form-label fw-semibold small text-secondary">                  Código SKU * (validador asíncrono)                </label>                <div class="input-group">                  <input                    type="text"                    class="form-control"                    [class.bg-light]="isEditMode() && !authService.isAdmin()"                    formControlName="sku"                    placeholder="Ej. LAP-DELL-001"                    [readonly]="isEditMode() && !authService.isAdmin()"                    (input)="onSkuInput()"                  />                  <span class="input-group-text bg-white">                    @if (productForm.get(\'sku\')?.pending) {                      <ion-spinner name="dots" color="primary" style="width: 18px; height: 18px;"></ion-spinner>                    } @else if (productForm.get(\'sku\')?.valid && productForm.get(\'sku\')?.value) {                      <ion-icon name="checkmark-circle-outline" color="success" class="fs-5"></ion-icon>                    } @else if (productForm.get(\'sku\')?.invalid && productForm.get(\'sku\')?.touched) {                      <ion-icon name="close-circle-outline" color="danger" class="fs-5"></ion-icon>                    }                  </span>                </div>                @if (productForm.get(\'sku\')?.hasError(\'required\') && productForm.get(\'sku\')?.touched) {                  <div class="text-danger extra-small mt-1 fw-semibold">El código SKU es obligatorio.</div>                }                @if (productForm.get(\'sku\')?.hasError(\'skuTaken\')) {                  <div class="text-danger extra-small mt-1 fw-semibold">                    Este código SKU ya existe en el catálogo.                  </div>                }              </div>              <div class="col-12 col-md-7">                <label class="form-label fw-semibold small text-secondary">                  Nombre comercial del producto *                </label>                <input                  type="text"                  class="form-control"                  formControlName="name"                  placeholder="Ej. Monitor LG UltraFine 32 4K"                />                @if (productForm.get(\'name\')?.invalid && productForm.get(\'name\')?.touched) {                  <div class="text-danger extra-small mt-1 fw-semibold">                    El nombre es obligatorio (mínimo 3 caracteres).                  </div>                }              </div>            </div>            <!-- Categoría y Descripción -->            <div class="row g-3 mb-3">              <div class="col-12 col-md-5">                <label class="form-label fw-semibold small text-secondary">Categoría</label>                <select class="form-select" formControlName="category_id">                  <option [ngValue]="null">Selecciona una categoría...</option>                  @for (cat of categories(); track cat.id) {                    <option [value]="cat.id">{{ cat.name }}</option>                  }                </select>              </div>              <div class="col-12 col-md-7">                <label class="form-label fw-semibold small text-secondary">Descripción técnica / ubicación en pasillo</label>                <input                  type="text"                  class="form-control"                  formControlName="description"                  placeholder="Especificaciones, pasillo, estantería o proveedor..."                />              </div>            </div>            <!-- Stock, Stock Mínimo y Precio -->            <div class="row g-3 mb-4">              <div class="col-12 col-sm-4">                <label class="form-label fw-semibold small text-secondary">Stock actual *</label>                <input type="number" class="form-control" formControlName="stock" min="0" />              </div>              <div class="col-12 col-sm-4">                <label class="form-label fw-semibold small text-secondary">Stock mínimo (alerta) *</label>                <input type="number" class="form-control" formControlName="min_stock" min="0" />              </div>              <div class="col-12 col-sm-4">                <label class="form-label fw-semibold small text-secondary d-flex align-items-center justify-content-between">                  <span>Precio unitario (€) *</span>                  @if (isEditMode() && !authService.isAdmin()) {                    <span class="badge bg-secondary-subtle text-secondary extra-small">Solo Admin</span>                  }                </label>                <input                  type="number"                  step="0.01"                  class="form-control"                  [class.bg-light]="isEditMode() && !authService.isAdmin()"                  formControlName="unit_price"                  [readonly]="isEditMode() && !authService.isAdmin()"                  min="0"                />              </div>            </div>            @if (errorMessage()) {              <div class="alert alert-danger py-2 small rounded-3 mb-3">                {{ errorMessage() }}              </div>            }            <div class="d-flex flex-wrap justify-content-end gap-2 pt-3 border-top">              <button type="button" class="btn btn-outline-secondary px-4 fw-semibold rounded-3" (click)="goBack()">                Cancelar              </button>              <button                type="submit"                class="btn btn-primary px-4 fw-bold rounded-3"                [disabled]="productForm.invalid || isSaving() || productForm.pending"              >                @if (isSaving()) {                  <ion-spinner name="crescent" color="light" style="width: 16px; height: 16px;"></ion-spinner>                } @else {                  {{ isEditMode() ? \'Guardar cambios\' : \'Registrar producto\' }}                }              </button>            </div>          </form>        </div>      </div>    </div>  </div></ion-content></div>'
+    var COMPONENTS = [{'name': 'AdminDashboardPage', 'selector': 'app-admin-dashboard'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'DataTableComponent', 'selector': 'app-data-table'},{'name': 'EmployeeProfileCardComponent', 'selector': 'app-employee-profile-card'},{'name': 'HomePage', 'selector': 'app-home'},{'name': 'InventoryListPage', 'selector': 'app-inventory-list'},{'name': 'LoginPage', 'selector': 'app-login'},{'name': 'MovementHistoryPage', 'selector': 'app-movement-history'},{'name': 'ProductFormPage', 'selector': 'app-product-form'},{'name': 'StatWidgetComponent', 'selector': 'app-stat-widget'},{'name': 'TemplatePlaygroundComponent', 'selector': 'template-playground-root'},{'name': 'UnauthorizedPage', 'selector': 'app-unauthorized'}];
+    var DIRECTIVES = [];
+    var ACTUAL_COMPONENT = {'name': 'ProductFormPage'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'ProductFormPage.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var updateDarkModeSwitchOffset = function () {
+                    var content = document.querySelector('.content');
+                    var scrollbarWidth = 0;
+
+                    if (content) {
+                         scrollbarWidth = Math.max(0, content.offsetWidth - content.clientWidth);
+                    }
+
+                    document.documentElement.style.setProperty(
+                         '--content-scrollbar-width',
+                         scrollbarWidth + 'px'
+                    );
+               };
+
+               updateDarkModeSwitchOffset();
+               requestAnimationFrame(updateDarkModeSwitchOffset);
+               window.addEventListener('resize', updateDarkModeSwitchOffset);
+
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

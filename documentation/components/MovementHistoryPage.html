@@ -1,0 +1,2800 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>stock-app documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+          <script>
+              // --- Iframe navigation tracking for Template Playground ---
+              function sendCurrentUrlToParent() {
+                  if (window.parent && window.parent !== window) {
+                      window.parent.postMessage({
+                          type: 'compodoc-iframe-navigate',
+                          url: window.location.pathname + window.location.hash
+                      }, '*');
+                  }
+              }
+              window.addEventListener('hashchange', sendCurrentUrlToParent, false);
+              window.addEventListener('popstate', sendCurrentUrlToParent, false);
+              window.addEventListener('DOMContentLoaded', sendCurrentUrlToParent, false);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">stock-app documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search">
+    <button type="button"
+        class="search-input-clear"
+        aria-label="Clear search"
+        data-search-input-clear>&times;</button>
+</div>
+            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Components</li>
+  <li class="breadcrumb-item"
+  >
+  MovementHistoryPage</li>
+</ol>
+
+<div class="io-file io-file-path" data-compodoc="entity-file-path">
+    <span class="icon ion-ios-document" aria-hidden="true"></span>
+    <code>src/app/features/movements/pages/movement-history/movement-history.page.ts</code>
+</div>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#api" class="nav-link"
+                role="tab" id="api-tab" data-bs-toggle="tab" data-link="api">API</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" class="nav-link"
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li class="nav-item">
+            <a href="#styleData" class="nav-link"
+                role="tab" id="styleData-tab" data-bs-toggle="tab" data-link="style">Styles</a>
+        </li>
+        <li class="nav-item">
+            <a href="#tree" class="nav-link"
+                role="tab" id="tree-tab" data-bs-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info">
+
+
+    <p class="comment">
+        <h3>Implements</h3>
+    </p>
+    <p class="comment">
+                    <code><a href="https://angular.dev/api/core/OnInit" target="_blank" >OnInit</a></code>
+    </p>
+
+
+<section data-compodoc="block-metadata">
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover metadata">
+        <tbody>
+
+            <tr>
+                <td class="col-md-3">changeDetection</td>
+                <td class="col-md-9"><code>ChangeDetectionStrategy.OnPush</code></td>
+            </tr>
+
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>app-movement-history</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">standalone</td>
+                <td class="col-md-9"><code>true</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">imports</td>
+                <td class="col-md-9">
+                        <div>        <code><a href="https://angular.dev/api/common/CommonModule" target="_blank" >CommonModule</a></code>
+</div>
+                        <div>        <code><a href="https://angular.dev/api/forms/FormsModule" target="_blank" >FormsModule</a></code>
+</div>
+                        <div>    <code>IonHeader</code>
+</div>
+                        <div>    <code>IonToolbar</code>
+</div>
+                        <div>    <code>IonTitle</code>
+</div>
+                        <div>    <code>IonContent</code>
+</div>
+                        <div>    <code>IonButton</code>
+</div>
+                        <div>    <code>IonButtons</code>
+</div>
+                        <div>    <code>IonIcon</code>
+</div>
+                        <div>    <code>IonModal</code>
+</div>
+                        <div>    <code>IonToast</code>
+</div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-3">styles</td>
+                <td class="col-md-9"><code>
+    .extra-small {
+      font-size: 0.75rem;
+    }
+    .icon-circle {
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .product-thumb {
+      width: 48px;
+      height: 48px;
+      object-fit: cover;
+      background-color: #ffffff;
+      flex-shrink: 0;
+    }
+    .movement-item {
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+    }
+    .movement-item:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    }
+    .movement-in {
+      background-color: #eef6fa;
+      border: 1px solid #b8d9eb;
+    }
+    .movement-out {
+      background-color: #fdf6ec;
+      border: 1px solid #edd0a5;
+    }
+  </code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">template</td>
+                <td class="col-md-9"><pre class="line-numbers"><code class="language-html">&lt;ion-header&gt;
+  &lt;ion-toolbar color&#x3D;&quot;dark&quot;&gt;
+    &lt;ion-title&gt;Control de entradas y salidas&lt;/ion-title&gt;
+    &lt;ion-buttons slot&#x3D;&quot;end&quot;&gt;
+      @if (authService.isAdmin()) {
+        &lt;ion-button (click)&#x3D;&quot;router.navigate([&#x27;/admin&#x27;])&quot;&gt;
+          &lt;ion-icon name&#x3D;&quot;bar-chart-outline&quot; slot&#x3D;&quot;start&quot;&gt;&lt;/ion-icon&gt;
+          Dashboard
+        &lt;/ion-button&gt;
+      }
+      &lt;ion-button (click)&#x3D;&quot;router.navigate([&#x27;/movements&#x27;])&quot; color&#x3D;&quot;primary&quot;&gt;
+        &lt;ion-icon name&#x3D;&quot;time-outline&quot; slot&#x3D;&quot;start&quot;&gt;&lt;/ion-icon&gt;
+        Movimientos
+      &lt;/ion-button&gt;
+      &lt;ion-button (click)&#x3D;&quot;router.navigate([&#x27;/inventory&#x27;])&quot;&gt;
+        &lt;ion-icon name&#x3D;&quot;cube-outline&quot; slot&#x3D;&quot;start&quot;&gt;&lt;/ion-icon&gt;
+        Catálogo
+      &lt;/ion-button&gt;
+      &lt;ion-button (click)&#x3D;&quot;onLogout()&quot; color&#x3D;&quot;danger&quot;&gt;
+        &lt;ion-icon name&#x3D;&quot;log-out-outline&quot; slot&#x3D;&quot;start&quot;&gt;&lt;/ion-icon&gt;
+        Salir
+      &lt;/ion-button&gt;
+    &lt;/ion-buttons&gt;
+  &lt;/ion-toolbar&gt;
+&lt;/ion-header&gt;
+
+&lt;ion-content class&#x3D;&quot;invent-shell&quot;&gt;
+  &lt;div class&#x3D;&quot;container-fluid py-4 px-3 px-lg-4&quot;&gt;
+    &lt;!-- Encabezado y Acciones Rápidas --&gt;
+    &lt;div class&#x3D;&quot;d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4&quot;&gt;
+      &lt;div&gt;
+        &lt;h4 class&#x3D;&quot;fw-bold text-dark mb-0&quot;&gt;Registro de movimientos: entradas y salidas&lt;/h4&gt;
+        &lt;p class&#x3D;&quot;text-muted small mb-0&quot;&gt;
+          Panel dividido de recepciones de almacén (entradas) y despachos de mercancía (salidas)
+        &lt;/p&gt;
+      &lt;/div&gt;
+
+      &lt;div class&#x3D;&quot;d-flex flex-wrap gap-2&quot;&gt;
+        &lt;button
+          type&#x3D;&quot;button&quot;
+          class&#x3D;&quot;btn btn-outline-secondary btn-sm fw-semibold rounded-3 d-flex align-items-center gap-1 px-3 py-2 bg-white&quot;
+          (click)&#x3D;&quot;loadLogs()&quot;
+          [disabled]&#x3D;&quot;isLoading()&quot;
+        &gt;
+          &lt;ion-icon name&#x3D;&quot;refresh-outline&quot;&gt;&lt;/ion-icon&gt;
+          &lt;span&gt;Refrescar&lt;/span&gt;
+        &lt;/button&gt;
+        &lt;button
+          type&#x3D;&quot;button&quot;
+          class&#x3D;&quot;btn btn-outline-primary btn-sm fw-semibold rounded-3 d-flex align-items-center gap-1 px-3 py-2 bg-white&quot;
+          (click)&#x3D;&quot;exportService.exportMovementsToCsv(logs())&quot;
+        &gt;
+          &lt;ion-icon name&#x3D;&quot;download-outline&quot;&gt;&lt;/ion-icon&gt;
+          &lt;span&gt;Exportar CSV&lt;/span&gt;
+        &lt;/button&gt;
+        &lt;button
+          type&#x3D;&quot;button&quot;
+          class&#x3D;&quot;btn btn-success btn-sm fw-semibold rounded-3 d-flex align-items-center gap-1 px-3 py-2 text-white shadow-sm&quot;
+          (click)&#x3D;&quot;openMovementModal(&#x27;IN&#x27;)&quot;
+        &gt;
+          &lt;ion-icon name&#x3D;&quot;add-circle-outline&quot;&gt;&lt;/ion-icon&gt;
+          &lt;span&gt;Nueva entrada&lt;/span&gt;
+        &lt;/button&gt;
+        &lt;button
+          type&#x3D;&quot;button&quot;
+          class&#x3D;&quot;btn btn-danger btn-sm fw-semibold rounded-3 d-flex align-items-center gap-1 px-3 py-2 text-white shadow-sm&quot;
+          (click)&#x3D;&quot;openMovementModal(&#x27;OUT&#x27;)&quot;
+        &gt;
+          &lt;ion-icon name&#x3D;&quot;remove-circle-outline&quot;&gt;&lt;/ion-icon&gt;
+          &lt;span&gt;Nueva salida&lt;/span&gt;
+        &lt;/button&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;!-- Indicador superior de total real de existencias + buscador en tiempo real --&gt;
+    &lt;div class&#x3D;&quot;row g-3 mb-4 align-items-stretch&quot;&gt;
+      &lt;div class&#x3D;&quot;col-12 col-lg-4&quot;&gt;
+        &lt;div class&#x3D;&quot;invent-kpi-indigo p-3 h-100 d-flex justify-content-between align-items-center&quot;&gt;
+          &lt;div&gt;
+            &lt;div class&#x3D;&quot;small opacity-75 fw-semibold&quot;&gt;Total real de existencias&lt;/div&gt;
+            &lt;div class&#x3D;&quot;fs-3 fw-bold my-1&quot;&gt;{{ totalRealStock() }} unidades&lt;/div&gt;
+            &lt;div class&#x3D;&quot;extra-small opacity-75&quot;&gt;Stock físico actual consolidado en almacén ({{ products().length }} productos)&lt;/div&gt;
+          &lt;/div&gt;
+          &lt;div class&#x3D;&quot;bg-white bg-opacity-25 rounded-circle d-flex align-items-center justify-content-center flex-shrink-0&quot; style&#x3D;&quot;width: 48px; height: 48px;&quot;&gt;
+            &lt;ion-icon name&#x3D;&quot;cube-outline&quot; class&#x3D;&quot;fs-3 text-white&quot;&gt;&lt;/ion-icon&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+
+      &lt;div class&#x3D;&quot;col-12 col-lg-8&quot;&gt;
+        &lt;div class&#x3D;&quot;invent-card p-3 h-100 d-flex flex-column justify-content-center&quot;&gt;
+          &lt;label class&#x3D;&quot;form-label small fw-semibold text-secondary mb-2&quot;&gt;
+            Buscador en tiempo real de movimientos
+          &lt;/label&gt;
+          &lt;div class&#x3D;&quot;input-group&quot;&gt;
+            &lt;span class&#x3D;&quot;input-group-text bg-light border-end-0&quot;&gt;
+              &lt;ion-icon name&#x3D;&quot;search-outline&quot; class&#x3D;&quot;text-muted&quot;&gt;&lt;/ion-icon&gt;
+            &lt;/span&gt;
+            &lt;input
+              type&#x3D;&quot;text&quot;
+              class&#x3D;&quot;form-control border-start-0 bg-light&quot;
+              placeholder&#x3D;&quot;Filtrar entradas y salidas por producto, código SKU o motivo...&quot;
+              [ngModel]&#x3D;&quot;searchTerm()&quot;
+              (ngModelChange)&#x3D;&quot;searchTerm.set($event)&quot;
+            /&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;!-- PANEL DIVIDIDO EN DOS COLUMNAS: ENTRADAS (IZQUIERDA) | SALIDAS (DERECHA) --&gt;
+    &lt;div class&#x3D;&quot;row g-4&quot;&gt;
+      &lt;!-- COLUMNA 1: ENTRADAS DE MERCANCÍA (RECEPCIÓN) --&gt;
+      &lt;div class&#x3D;&quot;col-12 col-lg-6&quot;&gt;
+        &lt;div class&#x3D;&quot;invent-card p-4 h-100 border-top border-success border-4&quot;&gt;
+          &lt;!-- Cabecera Columna Entradas --&gt;
+          &lt;div class&#x3D;&quot;d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3 pb-3 border-bottom&quot;&gt;
+            &lt;div class&#x3D;&quot;d-flex align-items-center gap-2&quot;&gt;
+              &lt;div class&#x3D;&quot;icon-circle bg-success-subtle text-success&quot;&gt;
+                &lt;ion-icon name&#x3D;&quot;arrow-down-circle-outline&quot; class&#x3D;&quot;fs-4&quot;&gt;&lt;/ion-icon&gt;
+              &lt;/div&gt;
+              &lt;div&gt;
+                &lt;h5 class&#x3D;&quot;fw-bold text-dark mb-0&quot;&gt;Entradas de mercancía&lt;/h5&gt;
+                &lt;span class&#x3D;&quot;text-muted extra-small&quot;&gt;Recepción de proveedores y reposición de stock&lt;/span&gt;
+              &lt;/div&gt;
+            &lt;/div&gt;
+            &lt;button
+              type&#x3D;&quot;button&quot;
+              class&#x3D;&quot;btn btn-sm btn-success text-white fw-semibold rounded-pill px-3&quot;
+              (click)&#x3D;&quot;openMovementModal(&#x27;IN&#x27;)&quot;
+            &gt;
+              Registrar entrada
+            &lt;/button&gt;
+          &lt;/div&gt;
+
+          &lt;!-- Resumen rápido de entradas --&gt;
+          &lt;div class&#x3D;&quot;invent-kpi-emerald p-3 mb-3 d-flex flex-wrap justify-content-between align-items-center gap-2&quot;&gt;
+            &lt;div&gt;
+              &lt;div class&#x3D;&quot;small opacity-75 fw-semibold&quot;&gt;Total de unidades recibidas&lt;/div&gt;
+              &lt;div class&#x3D;&quot;fs-4 fw-bold&quot;&gt;+{{ totalUnitsIn() }} unidades&lt;/div&gt;
+            &lt;/div&gt;
+            &lt;div class&#x3D;&quot;text-end&quot;&gt;
+              &lt;span class&#x3D;&quot;badge bg-white text-success rounded-pill px-3 py-1 fw-bold&quot;&gt;
+                {{ entryLogs().length }} operaciones
+              &lt;/span&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+
+          &lt;!-- Lista Visual de Entradas --&gt;
+          &lt;div class&#x3D;&quot;d-flex flex-column gap-3&quot;&gt;
+            @if (entryLogs().length &#x3D;&#x3D;&#x3D; 0) {
+              &lt;div class&#x3D;&quot;text-center py-5 text-muted small&quot;&gt;
+                No hay registros de entrada que coincidan con la búsqueda.
+              &lt;/div&gt;
+            } @else {
+              @for (item of entryLogs(); track item.id) {
+                &lt;div class&#x3D;&quot;movement-item movement-in p-3 rounded-3&quot;&gt;
+                  &lt;div class&#x3D;&quot;d-flex flex-wrap justify-content-between align-items-start gap-2&quot;&gt;
+                    &lt;div class&#x3D;&quot;d-flex align-items-center gap-3&quot;&gt;
+                      &lt;img
+                        [src]&#x3D;&quot;getProductImage(item.sku)&quot;
+                        [alt]&#x3D;&quot;item.productName&quot;
+                        class&#x3D;&quot;rounded-3 border product-thumb&quot;
+                      /&gt;
+                      &lt;div&gt;
+                        &lt;div class&#x3D;&quot;d-flex align-items-center gap-2 mb-1&quot;&gt;
+                          &lt;span class&#x3D;&quot;badge bg-white text-secondary border extra-small&quot;&gt;{{ item.sku }}&lt;/span&gt;
+                          &lt;span class&#x3D;&quot;text-muted extra-small&quot;&gt;{{ item.timestamp | date:&#x27;dd/MM/yyyy HH:mm&#x27; }}&lt;/span&gt;
+                        &lt;/div&gt;
+                        &lt;h6 class&#x3D;&quot;fw-bold text-dark mb-1&quot;&gt;{{ item.productName }}&lt;/h6&gt;
+                        &lt;p class&#x3D;&quot;text-muted extra-small mb-0&quot;&gt;
+                          &lt;strong&gt;Motivo:&lt;/strong&gt; {{ item.reason }}
+                        &lt;/p&gt;
+                      &lt;/div&gt;
+                    &lt;/div&gt;
+
+                    &lt;div class&#x3D;&quot;text-end flex-shrink-0&quot;&gt;
+                      &lt;span class&#x3D;&quot;badge bg-success fs-6 px-3 py-1 rounded-pill&quot;&gt;
+                        +{{ item.quantity }} uds.
+                      &lt;/span&gt;
+                      &lt;div class&#x3D;&quot;text-muted extra-small mt-1&quot;&gt;
+                        Stock: {{ item.previousStock }} → &lt;strong&gt;{{ item.newStock }}&lt;/strong&gt;
+                      &lt;/div&gt;
+                    &lt;/div&gt;
+                  &lt;/div&gt;
+                &lt;/div&gt;
+              }
+            }
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+
+      &lt;!-- COLUMNA 2: SALIDAS DE MERCANCÍA (DESPACHO / BAJAS) --&gt;
+      &lt;div class&#x3D;&quot;col-12 col-lg-6&quot;&gt;
+        &lt;div class&#x3D;&quot;invent-card p-4 h-100 border-top border-danger border-4&quot;&gt;
+          &lt;!-- Cabecera Columna Salidas --&gt;
+          &lt;div class&#x3D;&quot;d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3 pb-3 border-bottom&quot;&gt;
+            &lt;div class&#x3D;&quot;d-flex align-items-center gap-2&quot;&gt;
+              &lt;div class&#x3D;&quot;icon-circle bg-danger-subtle text-danger&quot;&gt;
+                &lt;ion-icon name&#x3D;&quot;arrow-up-circle-outline&quot; class&#x3D;&quot;fs-4&quot;&gt;&lt;/ion-icon&gt;
+              &lt;/div&gt;
+              &lt;div&gt;
+                &lt;h5 class&#x3D;&quot;fw-bold text-dark mb-0&quot;&gt;Salidas de mercancía&lt;/h5&gt;
+                &lt;span class&#x3D;&quot;text-muted extra-small&quot;&gt;Despachos a clientes, asignaciones y bajas&lt;/span&gt;
+              &lt;/div&gt;
+            &lt;/div&gt;
+            &lt;button
+              type&#x3D;&quot;button&quot;
+              class&#x3D;&quot;btn btn-sm btn-danger text-white fw-semibold rounded-pill px-3&quot;
+              (click)&#x3D;&quot;openMovementModal(&#x27;OUT&#x27;)&quot;
+            &gt;
+              Registrar salida
+            &lt;/button&gt;
+          &lt;/div&gt;
+
+          &lt;!-- Resumen rápido de salidas --&gt;
+          &lt;div class&#x3D;&quot;invent-kpi-coral p-3 mb-3 d-flex flex-wrap justify-content-between align-items-center gap-2&quot;&gt;
+            &lt;div&gt;
+              &lt;div class&#x3D;&quot;small opacity-75 fw-semibold&quot;&gt;Total de unidades despachadas&lt;/div&gt;
+              &lt;div class&#x3D;&quot;fs-4 fw-bold&quot;&gt;-{{ totalUnitsOut() }} unidades&lt;/div&gt;
+            &lt;/div&gt;
+            &lt;div class&#x3D;&quot;text-end&quot;&gt;
+              &lt;span class&#x3D;&quot;badge bg-white text-danger rounded-pill px-3 py-1 fw-bold&quot;&gt;
+                {{ exitLogs().length }} operaciones
+              &lt;/span&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+
+          &lt;!-- Lista Visual de Salidas --&gt;
+          &lt;div class&#x3D;&quot;d-flex flex-column gap-3&quot;&gt;
+            @if (exitLogs().length &#x3D;&#x3D;&#x3D; 0) {
+              &lt;div class&#x3D;&quot;text-center py-5 text-muted small&quot;&gt;
+                No hay registros de salida que coincidan con la búsqueda.
+              &lt;/div&gt;
+            } @else {
+              @for (item of exitLogs(); track item.id) {
+                &lt;div class&#x3D;&quot;movement-item movement-out p-3 rounded-3&quot;&gt;
+                  &lt;div class&#x3D;&quot;d-flex flex-wrap justify-content-between align-items-start gap-2&quot;&gt;
+                    &lt;div class&#x3D;&quot;d-flex align-items-center gap-3&quot;&gt;
+                      &lt;img
+                        [src]&#x3D;&quot;getProductImage(item.sku)&quot;
+                        [alt]&#x3D;&quot;item.productName&quot;
+                        class&#x3D;&quot;rounded-3 border product-thumb&quot;
+                      /&gt;
+                      &lt;div&gt;
+                        &lt;div class&#x3D;&quot;d-flex align-items-center gap-2 mb-1&quot;&gt;
+                          &lt;span class&#x3D;&quot;badge bg-white text-secondary border extra-small&quot;&gt;{{ item.sku }}&lt;/span&gt;
+                          &lt;span class&#x3D;&quot;text-muted extra-small&quot;&gt;{{ item.timestamp | date:&#x27;dd/MM/yyyy HH:mm&#x27; }}&lt;/span&gt;
+                        &lt;/div&gt;
+                        &lt;h6 class&#x3D;&quot;fw-bold text-dark mb-1&quot;&gt;{{ item.productName }}&lt;/h6&gt;
+                        &lt;p class&#x3D;&quot;text-muted extra-small mb-0&quot;&gt;
+                          &lt;strong&gt;Motivo:&lt;/strong&gt; {{ item.reason }}
+                        &lt;/p&gt;
+                      &lt;/div&gt;
+                    &lt;/div&gt;
+
+                    &lt;div class&#x3D;&quot;text-end flex-shrink-0&quot;&gt;
+                      &lt;span class&#x3D;&quot;badge bg-danger fs-6 px-3 py-1 rounded-pill&quot;&gt;
+                        -{{ item.quantity }} uds.
+                      &lt;/span&gt;
+                      &lt;div class&#x3D;&quot;text-muted extra-small mt-1&quot;&gt;
+                        Stock: {{ item.previousStock }} → &lt;strong&gt;{{ item.newStock }}&lt;/strong&gt;
+                      &lt;/div&gt;
+                    &lt;/div&gt;
+                  &lt;/div&gt;
+                &lt;/div&gt;
+              }
+            }
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+
+  &lt;!-- Modal para Registrar Nueva Entrada o Salida --&gt;
+  &lt;ion-modal [isOpen]&#x3D;&quot;isModalOpen()&quot; (didDismiss)&#x3D;&quot;closeModal()&quot;&gt;
+    &lt;ng-template&gt;
+      &lt;ion-header&gt;
+        &lt;ion-toolbar [color]&#x3D;&quot;movementType &#x3D;&#x3D;&#x3D; &#x27;IN&#x27; ? &#x27;success&#x27; : &#x27;danger&#x27;&quot;&gt;
+          &lt;ion-title&gt;
+            {{ movementType &#x3D;&#x3D;&#x3D; &#x27;IN&#x27; ? &#x27;Registrar entrada de mercancía&#x27; : &#x27;Registrar salida de mercancía&#x27; }}
+          &lt;/ion-title&gt;
+          &lt;ion-buttons slot&#x3D;&quot;end&quot;&gt;
+            &lt;ion-button (click)&#x3D;&quot;closeModal()&quot;&gt;
+              &lt;ion-icon name&#x3D;&quot;close-outline&quot; slot&#x3D;&quot;icon-only&quot;&gt;&lt;/ion-icon&gt;
+            &lt;/ion-button&gt;
+          &lt;/ion-buttons&gt;
+        &lt;/ion-toolbar&gt;
+      &lt;/ion-header&gt;
+
+      &lt;ion-content class&#x3D;&quot;ion-padding invent-shell&quot;&gt;
+        &lt;div class&#x3D;&quot;invent-card p-4&quot;&gt;
+          &lt;form (ngSubmit)&#x3D;&quot;submitMovement()&quot;&gt;
+            &lt;!-- Selector rápido entrada vs salida --&gt;
+            &lt;div class&#x3D;&quot;mb-3&quot;&gt;
+              &lt;label class&#x3D;&quot;form-label fw-semibold small text-secondary&quot;&gt;Tipo de operación&lt;/label&gt;
+              &lt;div class&#x3D;&quot;row g-2&quot;&gt;
+                &lt;div class&#x3D;&quot;col-6&quot;&gt;
+                  &lt;button
+                    type&#x3D;&quot;button&quot;
+                    class&#x3D;&quot;btn w-100 fw-semibold&quot;
+                    [ngClass]&#x3D;&quot;movementType &#x3D;&#x3D;&#x3D; &#x27;IN&#x27; ? &#x27;btn-success text-white&#x27; : &#x27;btn-outline-success&#x27;&quot;
+                    (click)&#x3D;&quot;movementType &#x3D; &#x27;IN&#x27;&quot;
+                  &gt;
+                    Entrada (recepción)
+                  &lt;/button&gt;
+                &lt;/div&gt;
+                &lt;div class&#x3D;&quot;col-6&quot;&gt;
+                  &lt;button
+                    type&#x3D;&quot;button&quot;
+                    class&#x3D;&quot;btn w-100 fw-semibold&quot;
+                    [ngClass]&#x3D;&quot;movementType &#x3D;&#x3D;&#x3D; &#x27;OUT&#x27; ? &#x27;btn-danger text-white&#x27; : &#x27;btn-outline-danger&#x27;&quot;
+                    (click)&#x3D;&quot;movementType &#x3D; &#x27;OUT&#x27;&quot;
+                  &gt;
+                    Salida (despacho)
+                  &lt;/button&gt;
+                &lt;/div&gt;
+              &lt;/div&gt;
+            &lt;/div&gt;
+
+            &lt;!-- Selección de Producto --&gt;
+            &lt;div class&#x3D;&quot;mb-3&quot;&gt;
+              &lt;label class&#x3D;&quot;form-label fw-semibold small text-secondary&quot;&gt;Selecciona Producto *&lt;/label&gt;
+              &lt;select
+                class&#x3D;&quot;form-select&quot;
+                [(ngModel)]&#x3D;&quot;selectedProductId&quot;
+                name&#x3D;&quot;selectedProductId&quot;
+                required
+              &gt;
+                &lt;option value&#x3D;&quot;&quot;&gt;Elige un producto del catálogo...&lt;/option&gt;
+                @for (p of products(); track p.id) {
+                  &lt;option [value]&#x3D;&quot;p.id&quot;&gt;
+                    [{{ p.sku }}] {{ p.name }} (Stock actual: {{ p.stock }} uds.)
+                  &lt;/option&gt;
+                }
+              &lt;/select&gt;
+            &lt;/div&gt;
+
+            &lt;!-- Cantidad --&gt;
+            &lt;div class&#x3D;&quot;mb-3&quot;&gt;
+              &lt;label class&#x3D;&quot;form-label fw-semibold small text-secondary&quot;&gt;Cantidad de Unidades *&lt;/label&gt;
+              &lt;input
+                type&#x3D;&quot;number&quot;
+                class&#x3D;&quot;form-control&quot;
+                [(ngModel)]&#x3D;&quot;quantity&quot;
+                name&#x3D;&quot;quantity&quot;
+                min&#x3D;&quot;1&quot;
+                required
+              /&gt;
+            &lt;/div&gt;
+
+            &lt;!-- Motivo --&gt;
+            &lt;div class&#x3D;&quot;mb-4&quot;&gt;
+              &lt;label class&#x3D;&quot;form-label fw-semibold small text-secondary&quot;&gt;Motivo / Albarán de Referencia *&lt;/label&gt;
+              &lt;input
+                type&#x3D;&quot;text&quot;
+                class&#x3D;&quot;form-control&quot;
+                [(ngModel)]&#x3D;&quot;reason&quot;
+                name&#x3D;&quot;reason&quot;
+                [placeholder]&#x3D;&quot;movementType &#x3D;&#x3D;&#x3D; &#x27;IN&#x27; ? &#x27;Ej. Recepción albarán proveedor #PO-2041&#x27; : &#x27;Ej. Despacho pedido cliente #890&#x27;&quot;
+                required
+              /&gt;
+            &lt;/div&gt;
+
+            &lt;div class&#x3D;&quot;d-flex justify-content-end gap-2&quot;&gt;
+              &lt;button type&#x3D;&quot;button&quot; class&#x3D;&quot;btn btn-outline-secondary px-4 fw-semibold&quot; (click)&#x3D;&quot;closeModal()&quot;&gt;
+                Cancelar
+              &lt;/button&gt;
+              &lt;button
+                type&#x3D;&quot;submit&quot;
+                class&#x3D;&quot;btn px-4 fw-bold text-white&quot;
+                [ngClass]&#x3D;&quot;movementType &#x3D;&#x3D;&#x3D; &#x27;IN&#x27; ? &#x27;btn-success&#x27; : &#x27;btn-danger&#x27;&quot;
+                [disabled]&#x3D;&quot;!selectedProductId || quantity &lt; 1 || !reason || isSubmitting()&quot;
+              &gt;
+                {{ movementType &#x3D;&#x3D;&#x3D; &#x27;IN&#x27; ? &#x27;Confirmar Entrada&#x27; : &#x27;Confirmar Salida&#x27; }}
+              &lt;/button&gt;
+            &lt;/div&gt;
+          &lt;/form&gt;
+        &lt;/div&gt;
+      &lt;/ion-content&gt;
+    &lt;/ng-template&gt;
+  &lt;/ion-modal&gt;
+
+  &lt;ion-toast
+    [isOpen]&#x3D;&quot;toastMessage() !&#x3D;&#x3D; null&quot;
+    [message]&#x3D;&quot;toastMessage() || &#x27;&#x27;&quot;
+    [duration]&#x3D;&quot;3000&quot;
+    (didDismiss)&#x3D;&quot;toastMessage.set(null)&quot;
+  &gt;&lt;/ion-toast&gt;
+&lt;/ion-content&gt;
+</code></pre></td>
+            </tr>
+
+
+
+
+
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+        <section data-compodoc="block-relationships">
+            <h3>Relationships</h3>
+
+            <div class="row pt-3">
+                <div class="col-sm-6">
+                    <h4>Used by</h4>
+                        <p class="comment"><i>No results matching.</i></p>
+                </div>
+
+                <div class="col-sm-6">
+                    <h4>Depends on</h4>
+                        <ul class="list-unstyled relationships-list">
+                                <li>
+                                            <code><a href="https://angular.dev/api/common/CommonModule" target="_blank" >CommonModule</a></code>
+                                </li>
+                                <li>
+                                            <code><a href="https://angular.dev/api/forms/FormsModule" target="_blank" >FormsModule</a></code>
+                                </li>
+                                <li>
+                                        <code>IonHeader</code>
+                                </li>
+                                <li>
+                                        <code>IonToolbar</code>
+                                </li>
+                                <li>
+                                        <code>IonTitle</code>
+                                </li>
+                                <li>
+                                        <code>IonContent</code>
+                                </li>
+                                <li>
+                                        <code>IonButton</code>
+                                </li>
+                                <li>
+                                        <code>IonButtons</code>
+                                </li>
+                                <li>
+                                        <code>IonIcon</code>
+                                </li>
+                                <li>
+                                        <code>IonModal</code>
+                                </li>
+                                <li>
+                                        <code>IonToast</code>
+                                </li>
+                                <li>
+                                            <code><a href="https://angular.dev/api/core/OnInit" target="_blank" >OnInit</a></code>
+                                </li>
+                        </ul>
+                </div>
+            </div>
+        </section>
+</div>
+
+    <div class="tab-pane fade " id="api">    <section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+        <table class="table table-sm table-bordered index-table">
+            <tbody>
+                <tr>
+                    <td class="col-md-3">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                    <td class="col-md-9">
+                        <ul class="index-list">
+                            <li>
+                                <span class="reference-badge reference-badge--property" aria-hidden="true">P</span>
+                                <a href="#authService" >authService</a>
+                            </li>
+                            <li>
+                                <span class="reference-badge reference-badge--property" aria-hidden="true">P</span>
+                                    <span class="modifier">Readonly</span>
+                                <a href="#entryLogs" >entryLogs</a>
+                            </li>
+                            <li>
+                                <span class="reference-badge reference-badge--property" aria-hidden="true">P</span>
+                                    <span class="modifier">Readonly</span>
+                                <a href="#exitLogs" >exitLogs</a>
+                            </li>
+                            <li>
+                                <span class="reference-badge reference-badge--property" aria-hidden="true">P</span>
+                                <a href="#exportService" >exportService</a>
+                            </li>
+                            <li>
+                                <span class="reference-badge reference-badge--property" aria-hidden="true">P</span>
+                                    <span class="modifier">Readonly</span>
+                                <a href="#filteredLogs" >filteredLogs</a>
+                            </li>
+                            <li>
+                                <span class="reference-badge reference-badge--property" aria-hidden="true">P</span>
+                                <a href="#inventoryService" >inventoryService</a>
+                            </li>
+                            <li>
+                                <span class="reference-badge reference-badge--property" aria-hidden="true">P</span>
+                                <a href="#isLoading" >isLoading</a>
+                            </li>
+                            <li>
+                                <span class="reference-badge reference-badge--property" aria-hidden="true">P</span>
+                                <a href="#isModalOpen" >isModalOpen</a>
+                            </li>
+                            <li>
+                                <span class="reference-badge reference-badge--property" aria-hidden="true">P</span>
+                                <a href="#isSubmitting" >isSubmitting</a>
+                            </li>
+                            <li>
+                                <span class="reference-badge reference-badge--property" aria-hidden="true">P</span>
+                                <a href="#logs" >logs</a>
+                            </li>
+                            <li>
+                                <span class="reference-badge reference-badge--property" aria-hidden="true">P</span>
+                                <a href="#movementType" >movementType</a>
+                            </li>
+                            <li>
+                                <span class="reference-badge reference-badge--property" aria-hidden="true">P</span>
+                                <a href="#products" >products</a>
+                            </li>
+                            <li>
+                                <span class="reference-badge reference-badge--property" aria-hidden="true">P</span>
+                                <a href="#quantity" >quantity</a>
+                            </li>
+                            <li>
+                                <span class="reference-badge reference-badge--property" aria-hidden="true">P</span>
+                                <a href="#reason" >reason</a>
+                            </li>
+                            <li>
+                                <span class="reference-badge reference-badge--property" aria-hidden="true">P</span>
+                                <a href="#router" >router</a>
+                            </li>
+                            <li>
+                                <span class="reference-badge reference-badge--property" aria-hidden="true">P</span>
+                                <a href="#searchTerm" >searchTerm</a>
+                            </li>
+                            <li>
+                                <span class="reference-badge reference-badge--property" aria-hidden="true">P</span>
+                                <a href="#selectedProductId" >selectedProductId</a>
+                            </li>
+                            <li>
+                                <span class="reference-badge reference-badge--property" aria-hidden="true">P</span>
+                                <a href="#toastMessage" >toastMessage</a>
+                            </li>
+                            <li>
+                                <span class="reference-badge reference-badge--property" aria-hidden="true">P</span>
+                                    <span class="modifier">Readonly</span>
+                                <a href="#totalRealStock" >totalRealStock</a>
+                            </li>
+                            <li>
+                                <span class="reference-badge reference-badge--property" aria-hidden="true">P</span>
+                                    <span class="modifier">Readonly</span>
+                                <a href="#totalUnitsIn" >totalUnitsIn</a>
+                            </li>
+                            <li>
+                                <span class="reference-badge reference-badge--property" aria-hidden="true">P</span>
+                                    <span class="modifier">Readonly</span>
+                                <a href="#totalUnitsOut" >totalUnitsOut</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <table class="table table-sm table-bordered index-table">
+            <tbody>
+                <tr>
+                    <td class="col-md-3">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                    <td class="col-md-9">
+                        <ul class="index-list">
+                            <li>
+                                <span class="reference-badge reference-badge--method" aria-hidden="true">M</span>
+                                <a href="#closeModal" >closeModal</a>
+                            </li>
+                            <li>
+                                <span class="reference-badge reference-badge--method" aria-hidden="true">M</span>
+                                <a href="#getProductImage" >getProductImage</a>
+                            </li>
+                            <li>
+                                <span class="reference-badge reference-badge--method" aria-hidden="true">M</span>
+                                    <span class="modifier">Async</span>
+                                <a href="#loadLogs" >loadLogs</a>
+                            </li>
+                            <li>
+                                <span class="reference-badge reference-badge--method" aria-hidden="true">M</span>
+                                    <span class="modifier">Async</span>
+                                <a href="#loadProducts" >loadProducts</a>
+                            </li>
+                            <li>
+                                <span class="reference-badge reference-badge--method" aria-hidden="true">M</span>
+                                    <span class="modifier">Async</span>
+                                <a href="#ngOnInit" >ngOnInit</a>
+                            </li>
+                            <li>
+                                <span class="reference-badge reference-badge--method" aria-hidden="true">M</span>
+                                    <span class="modifier">Async</span>
+                                <a href="#onLogout" >onLogout</a>
+                            </li>
+                            <li>
+                                <span class="reference-badge reference-badge--method" aria-hidden="true">M</span>
+                                <a href="#openMovementModal" >openMovementModal</a>
+                            </li>
+                            <li>
+                                <span class="reference-badge reference-badge--method" aria-hidden="true">M</span>
+                                    <span class="modifier">Async</span>
+                                <a href="#submitMovement" >submitMovement</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+
+
+
+
+</section>
+
+    <section data-compodoc="block-constructor">
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor()</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="501" class="link-to-prism">src/app/features/movements/pages/movement-history/movement-history.page.ts:501</a></div>
+                            </td>
+                        </tr>
+
+            </tbody>
+        </table>
+</section>
+
+
+
+
+
+    <section data-compodoc="block-methods">
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="closeModal"></a>
+                    <span class="name">
+                        <span ><b>closeModal</b></span>
+                        <a href="#closeModal"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>closeModal()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="592"
+                                    class="link-to-prism">src/app/features/movements/pages/movement-history/movement-history.page.ts:592</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getProductImage"></a>
+                    <span class="name">
+                        <span ><b>getProductImage</b></span>
+                        <a href="#getProductImage"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getProductImage(sku: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="582"
+                                    class="link-to-prism">src/app/features/movements/pages/movement-history/movement-history.page.ts:582</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>sku</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="loadLogs"></a>
+                    <span class="name">
+                            <span class="modifier">Async</span>
+                        <span ><b>loadLogs</b></span>
+                        <a href="#loadLogs"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>loadLogs()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="561"
+                                    class="link-to-prism">src/app/features/movements/pages/movement-history/movement-history.page.ts:561</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>Promise&lt;void&gt;</code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="loadProducts"></a>
+                    <span class="name">
+                            <span class="modifier">Async</span>
+                        <span ><b>loadProducts</b></span>
+                        <a href="#loadProducts"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>loadProducts()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="573"
+                                    class="link-to-prism">src/app/features/movements/pages/movement-history/movement-history.page.ts:573</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>Promise&lt;void&gt;</code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngOnInit"></a>
+                    <span class="name">
+                            <span class="modifier">Async</span>
+                        <span ><b>ngOnInit</b></span>
+                        <a href="#ngOnInit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>ngOnInit()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="554"
+                                    class="link-to-prism">src/app/features/movements/pages/movement-history/movement-history.page.ts:554</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>Promise&lt;void&gt;</code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="onLogout"></a>
+                    <span class="name">
+                            <span class="modifier">Async</span>
+                        <span ><b>onLogout</b></span>
+                        <a href="#onLogout"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>onLogout()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="649"
+                                    class="link-to-prism">src/app/features/movements/pages/movement-history/movement-history.page.ts:649</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>Promise&lt;void&gt;</code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="openMovementModal"></a>
+                    <span class="name">
+                        <span ><b>openMovementModal</b></span>
+                        <a href="#openMovementModal"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>openMovementModal(type: <a href="../miscellaneous/typealiases.html#MovementType" target="_self">MovementType</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="587"
+                                    class="link-to-prism">src/app/features/movements/pages/movement-history/movement-history.page.ts:587</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>type</td>
+                                            <td>
+                                                            <code><a href="../miscellaneous/typealiases.html#MovementType" target="_self" >MovementType</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="submitMovement"></a>
+                    <span class="name">
+                            <span class="modifier">Async</span>
+                        <span ><b>submitMovement</b></span>
+                        <a href="#submitMovement"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>submitMovement()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="599"
+                                    class="link-to-prism">src/app/features/movements/pages/movement-history/movement-history.page.ts:599</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>Promise&lt;void&gt;</code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-properties">
+    
+    <h3 id="inputs">
+        Properties
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="authService"></a>
+                    <span class="name">
+                        <span ><b>authService</b></span>
+                        <a href="#authService"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>inject(AuthService)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="485" class="link-to-prism">src/app/features/movements/pages/movement-history/movement-history.page.ts:485</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="entryLogs"></a>
+                    <span class="name">
+                            <span class="modifier">Readonly</span>
+                        <span ><b>entryLogs</b></span>
+                        <a href="#entryLogs"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>computed(() &#x3D;&gt; {
+    return this.filteredLogs().filter(l &#x3D;&gt; l.movementType &#x3D;&#x3D;&#x3D; &#x27;IN&#x27; || l.movementType &#x3D;&#x3D;&#x3D; &#x27;ADJUSTMENT&#x27;);
+  })</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="534" class="link-to-prism">src/app/features/movements/pages/movement-history/movement-history.page.ts:534</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="exitLogs"></a>
+                    <span class="name">
+                            <span class="modifier">Readonly</span>
+                        <span ><b>exitLogs</b></span>
+                        <a href="#exitLogs"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>computed(() &#x3D;&gt; {
+    return this.filteredLogs().filter(l &#x3D;&gt; l.movementType &#x3D;&#x3D;&#x3D; &#x27;OUT&#x27; || l.movementType &#x3D;&#x3D;&#x3D; &#x27;DAMAGE&#x27;);
+  })</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="538" class="link-to-prism">src/app/features/movements/pages/movement-history/movement-history.page.ts:538</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="exportService"></a>
+                    <span class="name">
+                        <span ><b>exportService</b></span>
+                        <a href="#exportService"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>inject(ExportService)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="487" class="link-to-prism">src/app/features/movements/pages/movement-history/movement-history.page.ts:487</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="filteredLogs"></a>
+                    <span class="name">
+                            <span class="modifier">Readonly</span>
+                        <span ><b>filteredLogs</b></span>
+                        <a href="#filteredLogs"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>computed(() &#x3D;&gt; {
+    const term &#x3D; this.searchTerm().toLowerCase().trim();
+    const all &#x3D; this.logs();
+    if (!term) return all;
+    return all.filter(l &#x3D;&gt;
+      l.productName.toLowerCase().includes(term) ||
+      l.sku.toLowerCase().includes(term) ||
+      (l.reason &amp;&amp; l.reason.toLowerCase().includes(term)) ||
+      (l.userEmail &amp;&amp; l.userEmail.toLowerCase().includes(term))
+    );
+  })</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="522" class="link-to-prism">src/app/features/movements/pages/movement-history/movement-history.page.ts:522</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="inventoryService"></a>
+                    <span class="name">
+                        <span ><b>inventoryService</b></span>
+                        <a href="#inventoryService"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>inject(InventoryService)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="486" class="link-to-prism">src/app/features/movements/pages/movement-history/movement-history.page.ts:486</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="isLoading"></a>
+                    <span class="name">
+                        <span ><b>isLoading</b></span>
+                        <a href="#isLoading"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>signal&lt;boolean&gt;(false)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="493" class="link-to-prism">src/app/features/movements/pages/movement-history/movement-history.page.ts:493</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="isModalOpen"></a>
+                    <span class="name">
+                        <span ><b>isModalOpen</b></span>
+                        <a href="#isModalOpen"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>signal&lt;boolean&gt;(false)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="494" class="link-to-prism">src/app/features/movements/pages/movement-history/movement-history.page.ts:494</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="isSubmitting"></a>
+                    <span class="name">
+                        <span ><b>isSubmitting</b></span>
+                        <a href="#isSubmitting"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>signal&lt;boolean&gt;(false)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="495" class="link-to-prism">src/app/features/movements/pages/movement-history/movement-history.page.ts:495</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="logs"></a>
+                    <span class="name">
+                        <span ><b>logs</b></span>
+                        <a href="#logs"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>signal&lt;MovementLog[]&gt;([])</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="490" class="link-to-prism">src/app/features/movements/pages/movement-history/movement-history.page.ts:490</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="movementType"></a>
+                    <span class="name">
+                        <span ><b>movementType</b></span>
+                        <a href="#movementType"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../miscellaneous/typealiases.html#MovementType" target="_self" >MovementType</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;IN&#x27;</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="499" class="link-to-prism">src/app/features/movements/pages/movement-history/movement-history.page.ts:499</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="products"></a>
+                    <span class="name">
+                        <span ><b>products</b></span>
+                        <a href="#products"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>signal&lt;Product[]&gt;([])</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="491" class="link-to-prism">src/app/features/movements/pages/movement-history/movement-history.page.ts:491</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="quantity"></a>
+                    <span class="name">
+                        <span ><b>quantity</b></span>
+                        <a href="#quantity"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>1</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="500" class="link-to-prism">src/app/features/movements/pages/movement-history/movement-history.page.ts:500</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="reason"></a>
+                    <span class="name">
+                        <span ><b>reason</b></span>
+                        <a href="#reason"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;&#x27;</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="501" class="link-to-prism">src/app/features/movements/pages/movement-history/movement-history.page.ts:501</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="router"></a>
+                    <span class="name">
+                        <span ><b>router</b></span>
+                        <a href="#router"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>inject(Router)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="488" class="link-to-prism">src/app/features/movements/pages/movement-history/movement-history.page.ts:488</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="searchTerm"></a>
+                    <span class="name">
+                        <span ><b>searchTerm</b></span>
+                        <a href="#searchTerm"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>signal&lt;string&gt;(&#x27;&#x27;)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="492" class="link-to-prism">src/app/features/movements/pages/movement-history/movement-history.page.ts:492</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="selectedProductId"></a>
+                    <span class="name">
+                        <span ><b>selectedProductId</b></span>
+                        <a href="#selectedProductId"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;&#x27;</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="498" class="link-to-prism">src/app/features/movements/pages/movement-history/movement-history.page.ts:498</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="toastMessage"></a>
+                    <span class="name">
+                        <span ><b>toastMessage</b></span>
+                        <a href="#toastMessage"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>signal&lt;string | null&gt;(null)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="496" class="link-to-prism">src/app/features/movements/pages/movement-history/movement-history.page.ts:496</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="totalRealStock"></a>
+                    <span class="name">
+                            <span class="modifier">Readonly</span>
+                        <span ><b>totalRealStock</b></span>
+                        <a href="#totalRealStock"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>computed(() &#x3D;&gt; {
+    return this.products().reduce((acc, p) &#x3D;&gt; acc + p.stock, 0);
+  })</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="550" class="link-to-prism">src/app/features/movements/pages/movement-history/movement-history.page.ts:550</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="totalUnitsIn"></a>
+                    <span class="name">
+                            <span class="modifier">Readonly</span>
+                        <span ><b>totalUnitsIn</b></span>
+                        <a href="#totalUnitsIn"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>computed(() &#x3D;&gt; {
+    return this.entryLogs().reduce((acc, l) &#x3D;&gt; acc + l.quantity, 0);
+  })</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="542" class="link-to-prism">src/app/features/movements/pages/movement-history/movement-history.page.ts:542</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="totalUnitsOut"></a>
+                    <span class="name">
+                            <span class="modifier">Readonly</span>
+                        <span ><b>totalUnitsOut</b></span>
+                        <a href="#totalUnitsOut"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>computed(() &#x3D;&gt; {
+    return this.exitLogs().reduce((acc, l) &#x3D;&gt; acc + l.quantity, 0);
+  })</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="546" class="link-to-prism">src/app/features/movements/pages/movement-history/movement-history.page.ts:546</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+</section>
+
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, OnInit, inject, signal, computed } from &#x27;@angular/core&#x27;;
+import { CommonModule } from &#x27;@angular/common&#x27;;
+import { FormsModule } from &#x27;@angular/forms&#x27;;
+import { Router } from &#x27;@angular/router&#x27;;
+import {
+  IonHeader,
+  IonToolbar,
+  IonTitle,
+  IonContent,
+  IonButton,
+  IonButtons,
+  IonIcon,
+  IonModal,
+  IonToast
+} from &#x27;@ionic/angular&#x27;;
+import { addIcons } from &#x27;ionicons&#x27;;
+import {
+  arrowBackOutline,
+  addCircleOutline,
+  removeCircleOutline,
+  downloadOutline,
+  refreshOutline,
+  closeOutline,
+  arrowDownCircleOutline,
+  arrowUpCircleOutline,
+  barChartOutline,
+  cubeOutline,
+  timeOutline,
+  logOutOutline,
+  searchOutline
+} from &#x27;ionicons/icons&#x27;;
+
+import { AuthService } from &#x27;../../../../core/services/auth.service&#x27;;
+import { InventoryService } from &#x27;../../../../core/services/inventory.service&#x27;;
+import { ExportService } from &#x27;../../../../core/services/export.service&#x27;;
+import { MovementLog, MovementType } from &#x27;../../../../core/models/inventory-log.model&#x27;;
+import { Product } from &#x27;../../../../core/models/product.model&#x27;;
+
+@Component({
+  selector: &#x27;app-movement-history&#x27;,
+  standalone: true,
+  imports: [
+    CommonModule,
+    FormsModule,
+    IonHeader,
+    IonToolbar,
+    IonTitle,
+    IonContent,
+    IonButton,
+    IonButtons,
+    IonIcon,
+    IonModal,
+    IonToast
+  ],
+  template: &#x60;
+    &lt;ion-header&gt;
+      &lt;ion-toolbar color&#x3D;&quot;dark&quot;&gt;
+        &lt;ion-title&gt;Control de entradas y salidas&lt;/ion-title&gt;
+        &lt;ion-buttons slot&#x3D;&quot;end&quot;&gt;
+          @if (authService.isAdmin()) {
+            &lt;ion-button (click)&#x3D;&quot;router.navigate([&#x27;/admin&#x27;])&quot;&gt;
+              &lt;ion-icon name&#x3D;&quot;bar-chart-outline&quot; slot&#x3D;&quot;start&quot;&gt;&lt;/ion-icon&gt;
+              Dashboard
+            &lt;/ion-button&gt;
+          }
+          &lt;ion-button (click)&#x3D;&quot;router.navigate([&#x27;/movements&#x27;])&quot; color&#x3D;&quot;primary&quot;&gt;
+            &lt;ion-icon name&#x3D;&quot;time-outline&quot; slot&#x3D;&quot;start&quot;&gt;&lt;/ion-icon&gt;
+            Movimientos
+          &lt;/ion-button&gt;
+          &lt;ion-button (click)&#x3D;&quot;router.navigate([&#x27;/inventory&#x27;])&quot;&gt;
+            &lt;ion-icon name&#x3D;&quot;cube-outline&quot; slot&#x3D;&quot;start&quot;&gt;&lt;/ion-icon&gt;
+            Catálogo
+          &lt;/ion-button&gt;
+          &lt;ion-button (click)&#x3D;&quot;onLogout()&quot; color&#x3D;&quot;danger&quot;&gt;
+            &lt;ion-icon name&#x3D;&quot;log-out-outline&quot; slot&#x3D;&quot;start&quot;&gt;&lt;/ion-icon&gt;
+            Salir
+          &lt;/ion-button&gt;
+        &lt;/ion-buttons&gt;
+      &lt;/ion-toolbar&gt;
+    &lt;/ion-header&gt;
+
+    &lt;ion-content class&#x3D;&quot;invent-shell&quot;&gt;
+      &lt;div class&#x3D;&quot;container-fluid py-4 px-3 px-lg-4&quot;&gt;
+        &lt;!-- Encabezado y Acciones Rápidas --&gt;
+        &lt;div class&#x3D;&quot;d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4&quot;&gt;
+          &lt;div&gt;
+            &lt;h4 class&#x3D;&quot;fw-bold text-dark mb-0&quot;&gt;Registro de movimientos: entradas y salidas&lt;/h4&gt;
+            &lt;p class&#x3D;&quot;text-muted small mb-0&quot;&gt;
+              Panel dividido de recepciones de almacén (entradas) y despachos de mercancía (salidas)
+            &lt;/p&gt;
+          &lt;/div&gt;
+
+          &lt;div class&#x3D;&quot;d-flex flex-wrap gap-2&quot;&gt;
+            &lt;button
+              type&#x3D;&quot;button&quot;
+              class&#x3D;&quot;btn btn-outline-secondary btn-sm fw-semibold rounded-3 d-flex align-items-center gap-1 px-3 py-2 bg-white&quot;
+              (click)&#x3D;&quot;loadLogs()&quot;
+              [disabled]&#x3D;&quot;isLoading()&quot;
+            &gt;
+              &lt;ion-icon name&#x3D;&quot;refresh-outline&quot;&gt;&lt;/ion-icon&gt;
+              &lt;span&gt;Refrescar&lt;/span&gt;
+            &lt;/button&gt;
+            &lt;button
+              type&#x3D;&quot;button&quot;
+              class&#x3D;&quot;btn btn-outline-primary btn-sm fw-semibold rounded-3 d-flex align-items-center gap-1 px-3 py-2 bg-white&quot;
+              (click)&#x3D;&quot;exportService.exportMovementsToCsv(logs())&quot;
+            &gt;
+              &lt;ion-icon name&#x3D;&quot;download-outline&quot;&gt;&lt;/ion-icon&gt;
+              &lt;span&gt;Exportar CSV&lt;/span&gt;
+            &lt;/button&gt;
+            &lt;button
+              type&#x3D;&quot;button&quot;
+              class&#x3D;&quot;btn btn-success btn-sm fw-semibold rounded-3 d-flex align-items-center gap-1 px-3 py-2 text-white shadow-sm&quot;
+              (click)&#x3D;&quot;openMovementModal(&#x27;IN&#x27;)&quot;
+            &gt;
+              &lt;ion-icon name&#x3D;&quot;add-circle-outline&quot;&gt;&lt;/ion-icon&gt;
+              &lt;span&gt;Nueva entrada&lt;/span&gt;
+            &lt;/button&gt;
+            &lt;button
+              type&#x3D;&quot;button&quot;
+              class&#x3D;&quot;btn btn-danger btn-sm fw-semibold rounded-3 d-flex align-items-center gap-1 px-3 py-2 text-white shadow-sm&quot;
+              (click)&#x3D;&quot;openMovementModal(&#x27;OUT&#x27;)&quot;
+            &gt;
+              &lt;ion-icon name&#x3D;&quot;remove-circle-outline&quot;&gt;&lt;/ion-icon&gt;
+              &lt;span&gt;Nueva salida&lt;/span&gt;
+            &lt;/button&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+
+        &lt;!-- Indicador superior de total real de existencias + buscador en tiempo real --&gt;
+        &lt;div class&#x3D;&quot;row g-3 mb-4 align-items-stretch&quot;&gt;
+          &lt;div class&#x3D;&quot;col-12 col-lg-4&quot;&gt;
+            &lt;div class&#x3D;&quot;invent-kpi-indigo p-3 h-100 d-flex justify-content-between align-items-center&quot;&gt;
+              &lt;div&gt;
+                &lt;div class&#x3D;&quot;small opacity-75 fw-semibold&quot;&gt;Total real de existencias&lt;/div&gt;
+                &lt;div class&#x3D;&quot;fs-3 fw-bold my-1&quot;&gt;{{ totalRealStock() }} unidades&lt;/div&gt;
+                &lt;div class&#x3D;&quot;extra-small opacity-75&quot;&gt;Stock físico actual consolidado en almacén ({{ products().length }} productos)&lt;/div&gt;
+              &lt;/div&gt;
+              &lt;div class&#x3D;&quot;bg-white bg-opacity-25 rounded-circle d-flex align-items-center justify-content-center flex-shrink-0&quot; style&#x3D;&quot;width: 48px; height: 48px;&quot;&gt;
+                &lt;ion-icon name&#x3D;&quot;cube-outline&quot; class&#x3D;&quot;fs-3 text-white&quot;&gt;&lt;/ion-icon&gt;
+              &lt;/div&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+
+          &lt;div class&#x3D;&quot;col-12 col-lg-8&quot;&gt;
+            &lt;div class&#x3D;&quot;invent-card p-3 h-100 d-flex flex-column justify-content-center&quot;&gt;
+              &lt;label class&#x3D;&quot;form-label small fw-semibold text-secondary mb-2&quot;&gt;
+                Buscador en tiempo real de movimientos
+              &lt;/label&gt;
+              &lt;div class&#x3D;&quot;input-group&quot;&gt;
+                &lt;span class&#x3D;&quot;input-group-text bg-light border-end-0&quot;&gt;
+                  &lt;ion-icon name&#x3D;&quot;search-outline&quot; class&#x3D;&quot;text-muted&quot;&gt;&lt;/ion-icon&gt;
+                &lt;/span&gt;
+                &lt;input
+                  type&#x3D;&quot;text&quot;
+                  class&#x3D;&quot;form-control border-start-0 bg-light&quot;
+                  placeholder&#x3D;&quot;Filtrar entradas y salidas por producto, código SKU o motivo...&quot;
+                  [ngModel]&#x3D;&quot;searchTerm()&quot;
+                  (ngModelChange)&#x3D;&quot;searchTerm.set($event)&quot;
+                /&gt;
+              &lt;/div&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+
+        &lt;!-- PANEL DIVIDIDO EN DOS COLUMNAS: ENTRADAS (IZQUIERDA) | SALIDAS (DERECHA) --&gt;
+        &lt;div class&#x3D;&quot;row g-4&quot;&gt;
+          &lt;!-- COLUMNA 1: ENTRADAS DE MERCANCÍA (RECEPCIÓN) --&gt;
+          &lt;div class&#x3D;&quot;col-12 col-lg-6&quot;&gt;
+            &lt;div class&#x3D;&quot;invent-card p-4 h-100 border-top border-success border-4&quot;&gt;
+              &lt;!-- Cabecera Columna Entradas --&gt;
+              &lt;div class&#x3D;&quot;d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3 pb-3 border-bottom&quot;&gt;
+                &lt;div class&#x3D;&quot;d-flex align-items-center gap-2&quot;&gt;
+                  &lt;div class&#x3D;&quot;icon-circle bg-success-subtle text-success&quot;&gt;
+                    &lt;ion-icon name&#x3D;&quot;arrow-down-circle-outline&quot; class&#x3D;&quot;fs-4&quot;&gt;&lt;/ion-icon&gt;
+                  &lt;/div&gt;
+                  &lt;div&gt;
+                    &lt;h5 class&#x3D;&quot;fw-bold text-dark mb-0&quot;&gt;Entradas de mercancía&lt;/h5&gt;
+                    &lt;span class&#x3D;&quot;text-muted extra-small&quot;&gt;Recepción de proveedores y reposición de stock&lt;/span&gt;
+                  &lt;/div&gt;
+                &lt;/div&gt;
+                &lt;button
+                  type&#x3D;&quot;button&quot;
+                  class&#x3D;&quot;btn btn-sm btn-success text-white fw-semibold rounded-pill px-3&quot;
+                  (click)&#x3D;&quot;openMovementModal(&#x27;IN&#x27;)&quot;
+                &gt;
+                  Registrar entrada
+                &lt;/button&gt;
+              &lt;/div&gt;
+
+              &lt;!-- Resumen rápido de entradas --&gt;
+              &lt;div class&#x3D;&quot;invent-kpi-emerald p-3 mb-3 d-flex flex-wrap justify-content-between align-items-center gap-2&quot;&gt;
+                &lt;div&gt;
+                  &lt;div class&#x3D;&quot;small opacity-75 fw-semibold&quot;&gt;Total de unidades recibidas&lt;/div&gt;
+                  &lt;div class&#x3D;&quot;fs-4 fw-bold&quot;&gt;+{{ totalUnitsIn() }} unidades&lt;/div&gt;
+                &lt;/div&gt;
+                &lt;div class&#x3D;&quot;text-end&quot;&gt;
+                  &lt;span class&#x3D;&quot;badge bg-white text-success rounded-pill px-3 py-1 fw-bold&quot;&gt;
+                    {{ entryLogs().length }} operaciones
+                  &lt;/span&gt;
+                &lt;/div&gt;
+              &lt;/div&gt;
+
+              &lt;!-- Lista Visual de Entradas --&gt;
+              &lt;div class&#x3D;&quot;d-flex flex-column gap-3&quot;&gt;
+                @if (entryLogs().length &#x3D;&#x3D;&#x3D; 0) {
+                  &lt;div class&#x3D;&quot;text-center py-5 text-muted small&quot;&gt;
+                    No hay registros de entrada que coincidan con la búsqueda.
+                  &lt;/div&gt;
+                } @else {
+                  @for (item of entryLogs(); track item.id) {
+                    &lt;div class&#x3D;&quot;movement-item movement-in p-3 rounded-3&quot;&gt;
+                      &lt;div class&#x3D;&quot;d-flex flex-wrap justify-content-between align-items-start gap-2&quot;&gt;
+                        &lt;div class&#x3D;&quot;d-flex align-items-center gap-3&quot;&gt;
+                          &lt;img
+                            [src]&#x3D;&quot;getProductImage(item.sku)&quot;
+                            [alt]&#x3D;&quot;item.productName&quot;
+                            class&#x3D;&quot;rounded-3 border product-thumb&quot;
+                          /&gt;
+                          &lt;div&gt;
+                            &lt;div class&#x3D;&quot;d-flex align-items-center gap-2 mb-1&quot;&gt;
+                              &lt;span class&#x3D;&quot;badge bg-white text-secondary border extra-small&quot;&gt;{{ item.sku }}&lt;/span&gt;
+                              &lt;span class&#x3D;&quot;text-muted extra-small&quot;&gt;{{ item.timestamp | date:&#x27;dd/MM/yyyy HH:mm&#x27; }}&lt;/span&gt;
+                            &lt;/div&gt;
+                            &lt;h6 class&#x3D;&quot;fw-bold text-dark mb-1&quot;&gt;{{ item.productName }}&lt;/h6&gt;
+                            &lt;p class&#x3D;&quot;text-muted extra-small mb-0&quot;&gt;
+                              &lt;strong&gt;Motivo:&lt;/strong&gt; {{ item.reason }}
+                            &lt;/p&gt;
+                          &lt;/div&gt;
+                        &lt;/div&gt;
+
+                        &lt;div class&#x3D;&quot;text-end flex-shrink-0&quot;&gt;
+                          &lt;span class&#x3D;&quot;badge bg-success fs-6 px-3 py-1 rounded-pill&quot;&gt;
+                            +{{ item.quantity }} uds.
+                          &lt;/span&gt;
+                          &lt;div class&#x3D;&quot;text-muted extra-small mt-1&quot;&gt;
+                            Stock: {{ item.previousStock }} → &lt;strong&gt;{{ item.newStock }}&lt;/strong&gt;
+                          &lt;/div&gt;
+                        &lt;/div&gt;
+                      &lt;/div&gt;
+                    &lt;/div&gt;
+                  }
+                }
+              &lt;/div&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+
+          &lt;!-- COLUMNA 2: SALIDAS DE MERCANCÍA (DESPACHO / BAJAS) --&gt;
+          &lt;div class&#x3D;&quot;col-12 col-lg-6&quot;&gt;
+            &lt;div class&#x3D;&quot;invent-card p-4 h-100 border-top border-danger border-4&quot;&gt;
+              &lt;!-- Cabecera Columna Salidas --&gt;
+              &lt;div class&#x3D;&quot;d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3 pb-3 border-bottom&quot;&gt;
+                &lt;div class&#x3D;&quot;d-flex align-items-center gap-2&quot;&gt;
+                  &lt;div class&#x3D;&quot;icon-circle bg-danger-subtle text-danger&quot;&gt;
+                    &lt;ion-icon name&#x3D;&quot;arrow-up-circle-outline&quot; class&#x3D;&quot;fs-4&quot;&gt;&lt;/ion-icon&gt;
+                  &lt;/div&gt;
+                  &lt;div&gt;
+                    &lt;h5 class&#x3D;&quot;fw-bold text-dark mb-0&quot;&gt;Salidas de mercancía&lt;/h5&gt;
+                    &lt;span class&#x3D;&quot;text-muted extra-small&quot;&gt;Despachos a clientes, asignaciones y bajas&lt;/span&gt;
+                  &lt;/div&gt;
+                &lt;/div&gt;
+                &lt;button
+                  type&#x3D;&quot;button&quot;
+                  class&#x3D;&quot;btn btn-sm btn-danger text-white fw-semibold rounded-pill px-3&quot;
+                  (click)&#x3D;&quot;openMovementModal(&#x27;OUT&#x27;)&quot;
+                &gt;
+                  Registrar salida
+                &lt;/button&gt;
+              &lt;/div&gt;
+
+              &lt;!-- Resumen rápido de salidas --&gt;
+              &lt;div class&#x3D;&quot;invent-kpi-coral p-3 mb-3 d-flex flex-wrap justify-content-between align-items-center gap-2&quot;&gt;
+                &lt;div&gt;
+                  &lt;div class&#x3D;&quot;small opacity-75 fw-semibold&quot;&gt;Total de unidades despachadas&lt;/div&gt;
+                  &lt;div class&#x3D;&quot;fs-4 fw-bold&quot;&gt;-{{ totalUnitsOut() }} unidades&lt;/div&gt;
+                &lt;/div&gt;
+                &lt;div class&#x3D;&quot;text-end&quot;&gt;
+                  &lt;span class&#x3D;&quot;badge bg-white text-danger rounded-pill px-3 py-1 fw-bold&quot;&gt;
+                    {{ exitLogs().length }} operaciones
+                  &lt;/span&gt;
+                &lt;/div&gt;
+              &lt;/div&gt;
+
+              &lt;!-- Lista Visual de Salidas --&gt;
+              &lt;div class&#x3D;&quot;d-flex flex-column gap-3&quot;&gt;
+                @if (exitLogs().length &#x3D;&#x3D;&#x3D; 0) {
+                  &lt;div class&#x3D;&quot;text-center py-5 text-muted small&quot;&gt;
+                    No hay registros de salida que coincidan con la búsqueda.
+                  &lt;/div&gt;
+                } @else {
+                  @for (item of exitLogs(); track item.id) {
+                    &lt;div class&#x3D;&quot;movement-item movement-out p-3 rounded-3&quot;&gt;
+                      &lt;div class&#x3D;&quot;d-flex flex-wrap justify-content-between align-items-start gap-2&quot;&gt;
+                        &lt;div class&#x3D;&quot;d-flex align-items-center gap-3&quot;&gt;
+                          &lt;img
+                            [src]&#x3D;&quot;getProductImage(item.sku)&quot;
+                            [alt]&#x3D;&quot;item.productName&quot;
+                            class&#x3D;&quot;rounded-3 border product-thumb&quot;
+                          /&gt;
+                          &lt;div&gt;
+                            &lt;div class&#x3D;&quot;d-flex align-items-center gap-2 mb-1&quot;&gt;
+                              &lt;span class&#x3D;&quot;badge bg-white text-secondary border extra-small&quot;&gt;{{ item.sku }}&lt;/span&gt;
+                              &lt;span class&#x3D;&quot;text-muted extra-small&quot;&gt;{{ item.timestamp | date:&#x27;dd/MM/yyyy HH:mm&#x27; }}&lt;/span&gt;
+                            &lt;/div&gt;
+                            &lt;h6 class&#x3D;&quot;fw-bold text-dark mb-1&quot;&gt;{{ item.productName }}&lt;/h6&gt;
+                            &lt;p class&#x3D;&quot;text-muted extra-small mb-0&quot;&gt;
+                              &lt;strong&gt;Motivo:&lt;/strong&gt; {{ item.reason }}
+                            &lt;/p&gt;
+                          &lt;/div&gt;
+                        &lt;/div&gt;
+
+                        &lt;div class&#x3D;&quot;text-end flex-shrink-0&quot;&gt;
+                          &lt;span class&#x3D;&quot;badge bg-danger fs-6 px-3 py-1 rounded-pill&quot;&gt;
+                            -{{ item.quantity }} uds.
+                          &lt;/span&gt;
+                          &lt;div class&#x3D;&quot;text-muted extra-small mt-1&quot;&gt;
+                            Stock: {{ item.previousStock }} → &lt;strong&gt;{{ item.newStock }}&lt;/strong&gt;
+                          &lt;/div&gt;
+                        &lt;/div&gt;
+                      &lt;/div&gt;
+                    &lt;/div&gt;
+                  }
+                }
+              &lt;/div&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+
+      &lt;!-- Modal para Registrar Nueva Entrada o Salida --&gt;
+      &lt;ion-modal [isOpen]&#x3D;&quot;isModalOpen()&quot; (didDismiss)&#x3D;&quot;closeModal()&quot;&gt;
+        &lt;ng-template&gt;
+          &lt;ion-header&gt;
+            &lt;ion-toolbar [color]&#x3D;&quot;movementType &#x3D;&#x3D;&#x3D; &#x27;IN&#x27; ? &#x27;success&#x27; : &#x27;danger&#x27;&quot;&gt;
+              &lt;ion-title&gt;
+                {{ movementType &#x3D;&#x3D;&#x3D; &#x27;IN&#x27; ? &#x27;Registrar entrada de mercancía&#x27; : &#x27;Registrar salida de mercancía&#x27; }}
+              &lt;/ion-title&gt;
+              &lt;ion-buttons slot&#x3D;&quot;end&quot;&gt;
+                &lt;ion-button (click)&#x3D;&quot;closeModal()&quot;&gt;
+                  &lt;ion-icon name&#x3D;&quot;close-outline&quot; slot&#x3D;&quot;icon-only&quot;&gt;&lt;/ion-icon&gt;
+                &lt;/ion-button&gt;
+              &lt;/ion-buttons&gt;
+            &lt;/ion-toolbar&gt;
+          &lt;/ion-header&gt;
+
+          &lt;ion-content class&#x3D;&quot;ion-padding invent-shell&quot;&gt;
+            &lt;div class&#x3D;&quot;invent-card p-4&quot;&gt;
+              &lt;form (ngSubmit)&#x3D;&quot;submitMovement()&quot;&gt;
+                &lt;!-- Selector rápido entrada vs salida --&gt;
+                &lt;div class&#x3D;&quot;mb-3&quot;&gt;
+                  &lt;label class&#x3D;&quot;form-label fw-semibold small text-secondary&quot;&gt;Tipo de operación&lt;/label&gt;
+                  &lt;div class&#x3D;&quot;row g-2&quot;&gt;
+                    &lt;div class&#x3D;&quot;col-6&quot;&gt;
+                      &lt;button
+                        type&#x3D;&quot;button&quot;
+                        class&#x3D;&quot;btn w-100 fw-semibold&quot;
+                        [ngClass]&#x3D;&quot;movementType &#x3D;&#x3D;&#x3D; &#x27;IN&#x27; ? &#x27;btn-success text-white&#x27; : &#x27;btn-outline-success&#x27;&quot;
+                        (click)&#x3D;&quot;movementType &#x3D; &#x27;IN&#x27;&quot;
+                      &gt;
+                        Entrada (recepción)
+                      &lt;/button&gt;
+                    &lt;/div&gt;
+                    &lt;div class&#x3D;&quot;col-6&quot;&gt;
+                      &lt;button
+                        type&#x3D;&quot;button&quot;
+                        class&#x3D;&quot;btn w-100 fw-semibold&quot;
+                        [ngClass]&#x3D;&quot;movementType &#x3D;&#x3D;&#x3D; &#x27;OUT&#x27; ? &#x27;btn-danger text-white&#x27; : &#x27;btn-outline-danger&#x27;&quot;
+                        (click)&#x3D;&quot;movementType &#x3D; &#x27;OUT&#x27;&quot;
+                      &gt;
+                        Salida (despacho)
+                      &lt;/button&gt;
+                    &lt;/div&gt;
+                  &lt;/div&gt;
+                &lt;/div&gt;
+
+                &lt;!-- Selección de Producto --&gt;
+                &lt;div class&#x3D;&quot;mb-3&quot;&gt;
+                  &lt;label class&#x3D;&quot;form-label fw-semibold small text-secondary&quot;&gt;Selecciona Producto *&lt;/label&gt;
+                  &lt;select
+                    class&#x3D;&quot;form-select&quot;
+                    [(ngModel)]&#x3D;&quot;selectedProductId&quot;
+                    name&#x3D;&quot;selectedProductId&quot;
+                    required
+                  &gt;
+                    &lt;option value&#x3D;&quot;&quot;&gt;Elige un producto del catálogo...&lt;/option&gt;
+                    @for (p of products(); track p.id) {
+                      &lt;option [value]&#x3D;&quot;p.id&quot;&gt;
+                        [{{ p.sku }}] {{ p.name }} (Stock actual: {{ p.stock }} uds.)
+                      &lt;/option&gt;
+                    }
+                  &lt;/select&gt;
+                &lt;/div&gt;
+
+                &lt;!-- Cantidad --&gt;
+                &lt;div class&#x3D;&quot;mb-3&quot;&gt;
+                  &lt;label class&#x3D;&quot;form-label fw-semibold small text-secondary&quot;&gt;Cantidad de Unidades *&lt;/label&gt;
+                  &lt;input
+                    type&#x3D;&quot;number&quot;
+                    class&#x3D;&quot;form-control&quot;
+                    [(ngModel)]&#x3D;&quot;quantity&quot;
+                    name&#x3D;&quot;quantity&quot;
+                    min&#x3D;&quot;1&quot;
+                    required
+                  /&gt;
+                &lt;/div&gt;
+
+                &lt;!-- Motivo --&gt;
+                &lt;div class&#x3D;&quot;mb-4&quot;&gt;
+                  &lt;label class&#x3D;&quot;form-label fw-semibold small text-secondary&quot;&gt;Motivo / Albarán de Referencia *&lt;/label&gt;
+                  &lt;input
+                    type&#x3D;&quot;text&quot;
+                    class&#x3D;&quot;form-control&quot;
+                    [(ngModel)]&#x3D;&quot;reason&quot;
+                    name&#x3D;&quot;reason&quot;
+                    [placeholder]&#x3D;&quot;movementType &#x3D;&#x3D;&#x3D; &#x27;IN&#x27; ? &#x27;Ej. Recepción albarán proveedor #PO-2041&#x27; : &#x27;Ej. Despacho pedido cliente #890&#x27;&quot;
+                    required
+                  /&gt;
+                &lt;/div&gt;
+
+                &lt;div class&#x3D;&quot;d-flex justify-content-end gap-2&quot;&gt;
+                  &lt;button type&#x3D;&quot;button&quot; class&#x3D;&quot;btn btn-outline-secondary px-4 fw-semibold&quot; (click)&#x3D;&quot;closeModal()&quot;&gt;
+                    Cancelar
+                  &lt;/button&gt;
+                  &lt;button
+                    type&#x3D;&quot;submit&quot;
+                    class&#x3D;&quot;btn px-4 fw-bold text-white&quot;
+                    [ngClass]&#x3D;&quot;movementType &#x3D;&#x3D;&#x3D; &#x27;IN&#x27; ? &#x27;btn-success&#x27; : &#x27;btn-danger&#x27;&quot;
+                    [disabled]&#x3D;&quot;!selectedProductId || quantity &lt; 1 || !reason || isSubmitting()&quot;
+                  &gt;
+                    {{ movementType &#x3D;&#x3D;&#x3D; &#x27;IN&#x27; ? &#x27;Confirmar Entrada&#x27; : &#x27;Confirmar Salida&#x27; }}
+                  &lt;/button&gt;
+                &lt;/div&gt;
+              &lt;/form&gt;
+            &lt;/div&gt;
+          &lt;/ion-content&gt;
+        &lt;/ng-template&gt;
+      &lt;/ion-modal&gt;
+
+      &lt;ion-toast
+        [isOpen]&#x3D;&quot;toastMessage() !&#x3D;&#x3D; null&quot;
+        [message]&#x3D;&quot;toastMessage() || &#x27;&#x27;&quot;
+        [duration]&#x3D;&quot;3000&quot;
+        (didDismiss)&#x3D;&quot;toastMessage.set(null)&quot;
+      &gt;&lt;/ion-toast&gt;
+    &lt;/ion-content&gt;
+  &#x60;,
+  styles: [&#x60;
+    .extra-small {
+      font-size: 0.75rem;
+    }
+    .icon-circle {
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .product-thumb {
+      width: 48px;
+      height: 48px;
+      object-fit: cover;
+      background-color: #ffffff;
+      flex-shrink: 0;
+    }
+    .movement-item {
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+    }
+    .movement-item:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    }
+    .movement-in {
+      background-color: #eef6fa;
+      border: 1px solid #b8d9eb;
+    }
+    .movement-out {
+      background-color: #fdf6ec;
+      border: 1px solid #edd0a5;
+    }
+  &#x60;]
+})
+export class MovementHistoryPage implements OnInit {
+  authService &#x3D; inject(AuthService);
+  inventoryService &#x3D; inject(InventoryService);
+  exportService &#x3D; inject(ExportService);
+  router &#x3D; inject(Router);
+
+  logs &#x3D; signal&lt;MovementLog[]&gt;([]);
+  products &#x3D; signal&lt;Product[]&gt;([]);
+  searchTerm &#x3D; signal&lt;string&gt;(&#x27;&#x27;);
+  isLoading &#x3D; signal&lt;boolean&gt;(false);
+  isModalOpen &#x3D; signal&lt;boolean&gt;(false);
+  isSubmitting &#x3D; signal&lt;boolean&gt;(false);
+  toastMessage &#x3D; signal&lt;string | null&gt;(null);
+
+  selectedProductId: string &#x3D; &#x27;&#x27;;
+  movementType: MovementType &#x3D; &#x27;IN&#x27;;
+  quantity: number &#x3D; 1;
+  reason: string &#x3D; &#x27;&#x27;;
+
+  constructor() {
+    addIcons({
+      arrowBackOutline,
+      addCircleOutline,
+      removeCircleOutline,
+      downloadOutline,
+      refreshOutline,
+      closeOutline,
+      arrowDownCircleOutline,
+      arrowUpCircleOutline,
+      barChartOutline,
+      cubeOutline,
+      timeOutline,
+      logOutOutline,
+      searchOutline
+    });
+  }
+
+  // Filtrado reactivo separado en dos columnas: Entradas (IN) y Salidas (OUT / DAMAGE)
+  readonly filteredLogs &#x3D; computed(() &#x3D;&gt; {
+    const term &#x3D; this.searchTerm().toLowerCase().trim();
+    const all &#x3D; this.logs();
+    if (!term) return all;
+    return all.filter(l &#x3D;&gt;
+      l.productName.toLowerCase().includes(term) ||
+      l.sku.toLowerCase().includes(term) ||
+      (l.reason &amp;&amp; l.reason.toLowerCase().includes(term)) ||
+      (l.userEmail &amp;&amp; l.userEmail.toLowerCase().includes(term))
+    );
+  });
+
+  readonly entryLogs &#x3D; computed(() &#x3D;&gt; {
+    return this.filteredLogs().filter(l &#x3D;&gt; l.movementType &#x3D;&#x3D;&#x3D; &#x27;IN&#x27; || l.movementType &#x3D;&#x3D;&#x3D; &#x27;ADJUSTMENT&#x27;);
+  });
+
+  readonly exitLogs &#x3D; computed(() &#x3D;&gt; {
+    return this.filteredLogs().filter(l &#x3D;&gt; l.movementType &#x3D;&#x3D;&#x3D; &#x27;OUT&#x27; || l.movementType &#x3D;&#x3D;&#x3D; &#x27;DAMAGE&#x27;);
+  });
+
+  readonly totalUnitsIn &#x3D; computed(() &#x3D;&gt; {
+    return this.entryLogs().reduce((acc, l) &#x3D;&gt; acc + l.quantity, 0);
+  });
+
+  readonly totalUnitsOut &#x3D; computed(() &#x3D;&gt; {
+    return this.exitLogs().reduce((acc, l) &#x3D;&gt; acc + l.quantity, 0);
+  });
+
+  readonly totalRealStock &#x3D; computed(() &#x3D;&gt; {
+    return this.products().reduce((acc, p) &#x3D;&gt; acc + p.stock, 0);
+  });
+
+  async ngOnInit(): Promise&lt;void&gt; {
+    await Promise.all([
+      this.loadLogs(),
+      this.loadProducts()
+    ]);
+  }
+
+  async loadLogs(): Promise&lt;void&gt; {
+    this.isLoading.set(true);
+    try {
+      const data &#x3D; await this.inventoryService.getMovements();
+      this.logs.set(data);
+    } catch {
+      this.toastMessage.set(&#x27;Error cargando historial de movimientos.&#x27;);
+    } finally {
+      this.isLoading.set(false);
+    }
+  }
+
+  async loadProducts(): Promise&lt;void&gt; {
+    try {
+      const data &#x3D; await this.inventoryService.getProducts();
+      this.products.set(data);
+    } catch (err) {
+      console.error(&#x27;Error cargando productos:&#x27;, err);
+    }
+  }
+
+  getProductImage(sku: string): string {
+    const found &#x3D; this.products().find(p &#x3D;&gt; p.sku &#x3D;&#x3D;&#x3D; sku);
+    return found?.image_url || &#x27;https://rxhsemwcylhhbgfnogle.supabase.co/storage/v1/object/public/stockflow-media/products/dell-xps-15.jpg&#x27;;
+  }
+
+  openMovementModal(type: MovementType): void {
+    this.movementType &#x3D; type;
+    this.isModalOpen.set(true);
+  }
+
+  closeModal(): void {
+    this.isModalOpen.set(false);
+    this.selectedProductId &#x3D; &#x27;&#x27;;
+    this.quantity &#x3D; 1;
+    this.reason &#x3D; &#x27;&#x27;;
+  }
+
+  async submitMovement(): Promise&lt;void&gt; {
+    const product &#x3D; this.products().find(p &#x3D;&gt; p.id &#x3D;&#x3D;&#x3D; this.selectedProductId);
+    if (!product) return;
+
+    this.isSubmitting.set(true);
+    const prevStock &#x3D; product.stock;
+    let delta &#x3D; Number(this.quantity);
+
+    if (this.movementType &#x3D;&#x3D;&#x3D; &#x27;OUT&#x27; || this.movementType &#x3D;&#x3D;&#x3D; &#x27;DAMAGE&#x27;) {
+      if (prevStock &lt; delta) {
+        this.toastMessage.set(&#x60;Stock insuficiente. Solo quedan ${prevStock} unidades.&#x60;);
+        this.isSubmitting.set(false);
+        return;
+      }
+      delta &#x3D; -delta;
+    }
+
+    const calculatedNewStock &#x3D; prevStock + delta;
+
+    try {
+      await this.inventoryService.registerMovement({
+        productId: product.id,
+        sku: product.sku,
+        productName: product.name,
+        movementType: this.movementType,
+        quantity: Math.abs(Number(this.quantity)),
+        previousStock: prevStock,
+        newStock: calculatedNewStock,
+        reason: this.reason
+      });
+
+      this.toastMessage.set(
+        this.movementType &#x3D;&#x3D;&#x3D; &#x27;IN&#x27;
+          ? &#x27;Entrada de mercancía registrada con éxito.&#x27;
+          : &#x27;Salida de mercancía registrada con éxito.&#x27;
+      );
+      this.closeModal();
+
+      await Promise.all([
+        this.loadLogs(),
+        this.loadProducts()
+      ]);
+
+    } catch (err: any) {
+      this.toastMessage.set(err.message || &#x27;Error guardando movimiento.&#x27;);
+    } finally {
+      this.isSubmitting.set(false);
+    }
+  }
+
+  async onLogout(): Promise&lt;void&gt; {
+    await this.authService.logout();
+    this.router.navigate([&#x27;/login&#x27;]);
+  }
+}
+</code></pre>
+    </div>
+
+
+    <div class="tab-pane fade " id="styleData">
+            <pre class="line-numbers"><code class="language-scss">
+    .extra-small {
+      font-size: 0.75rem;
+    }
+    .icon-circle {
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .product-thumb {
+      width: 48px;
+      height: 48px;
+      object-fit: cover;
+      background-color: #ffffff;
+      flex-shrink: 0;
+    }
+    .movement-item {
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+    }
+    .movement-item:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    }
+    .movement-in {
+      background-color: #eef6fa;
+      border: 1px solid #b8d9eb;
+    }
+    .movement-out {
+      background-color: #fdf6ec;
+      border: 1px solid #edd0a5;
+    }
+  
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis-network.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><ion-header>  <ion-toolbar color="dark">    <ion-title>Control de entradas y salidas</ion-title>    <ion-buttons slot="end">      @if (authService.isAdmin()) {        <ion-button (click)="router.navigate([\'/admin\'])">          <ion-icon name="bar-chart-outline" slot="start"></ion-icon>          Dashboard        </ion-button>      }      <ion-button (click)="router.navigate([\'/movements\'])" color="primary">        <ion-icon name="time-outline" slot="start"></ion-icon>        Movimientos      </ion-button>      <ion-button (click)="router.navigate([\'/inventory\'])">        <ion-icon name="cube-outline" slot="start"></ion-icon>        Catálogo      </ion-button>      <ion-button (click)="onLogout()" color="danger">        <ion-icon name="log-out-outline" slot="start"></ion-icon>        Salir      </ion-button>    </ion-buttons>  </ion-toolbar></ion-header><ion-content class="invent-shell">  <div class="container-fluid py-4 px-3 px-lg-4">    <!-- Encabezado y Acciones Rápidas -->    <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">      <div>        <h4 class="fw-bold text-dark mb-0">Registro de movimientos: entradas y salidas</h4>        <p class="text-muted small mb-0">          Panel dividido de recepciones de almacén (entradas) y despachos de mercancía (salidas)        </p>      </div>      <div class="d-flex flex-wrap gap-2">        <button          type="button"          class="btn btn-outline-secondary btn-sm fw-semibold rounded-3 d-flex align-items-center gap-1 px-3 py-2 bg-white"          (click)="loadLogs()"          [disabled]="isLoading()"        >          <ion-icon name="refresh-outline"></ion-icon>          <span>Refrescar</span>        </button>        <button          type="button"          class="btn btn-outline-primary btn-sm fw-semibold rounded-3 d-flex align-items-center gap-1 px-3 py-2 bg-white"          (click)="exportService.exportMovementsToCsv(logs())"        >          <ion-icon name="download-outline"></ion-icon>          <span>Exportar CSV</span>        </button>        <button          type="button"          class="btn btn-success btn-sm fw-semibold rounded-3 d-flex align-items-center gap-1 px-3 py-2 text-white shadow-sm"          (click)="openMovementModal(\'IN\')"        >          <ion-icon name="add-circle-outline"></ion-icon>          <span>Nueva entrada</span>        </button>        <button          type="button"          class="btn btn-danger btn-sm fw-semibold rounded-3 d-flex align-items-center gap-1 px-3 py-2 text-white shadow-sm"          (click)="openMovementModal(\'OUT\')"        >          <ion-icon name="remove-circle-outline"></ion-icon>          <span>Nueva salida</span>        </button>      </div>    </div>    <!-- Indicador superior de total real de existencias + buscador en tiempo real -->    <div class="row g-3 mb-4 align-items-stretch">      <div class="col-12 col-lg-4">        <div class="invent-kpi-indigo p-3 h-100 d-flex justify-content-between align-items-center">          <div>            <div class="small opacity-75 fw-semibold">Total real de existencias</div>            <div class="fs-3 fw-bold my-1">{{ totalRealStock() }} unidades</div>            <div class="extra-small opacity-75">Stock físico actual consolidado en almacén ({{ products().length }} productos)</div>          </div>          <div class="bg-white bg-opacity-25 rounded-circle d-flex align-items-center justify-content-center flex-shrink-0" style="width: 48px; height: 48px;">            <ion-icon name="cube-outline" class="fs-3 text-white"></ion-icon>          </div>        </div>      </div>      <div class="col-12 col-lg-8">        <div class="invent-card p-3 h-100 d-flex flex-column justify-content-center">          <label class="form-label small fw-semibold text-secondary mb-2">            Buscador en tiempo real de movimientos          </label>          <div class="input-group">            <span class="input-group-text bg-light border-end-0">              <ion-icon name="search-outline" class="text-muted"></ion-icon>            </span>            <input              type="text"              class="form-control border-start-0 bg-light"              placeholder="Filtrar entradas y salidas por producto, código SKU o motivo..."              [ngModel]="searchTerm()"              (ngModelChange)="searchTerm.set($event)"            />          </div>        </div>      </div>    </div>    <!-- PANEL DIVIDIDO EN DOS COLUMNAS: ENTRADAS (IZQUIERDA) | SALIDAS (DERECHA) -->    <div class="row g-4">      <!-- COLUMNA 1: ENTRADAS DE MERCANCÍA (RECEPCIÓN) -->      <div class="col-12 col-lg-6">        <div class="invent-card p-4 h-100 border-top border-success border-4">          <!-- Cabecera Columna Entradas -->          <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3 pb-3 border-bottom">            <div class="d-flex align-items-center gap-2">              <div class="icon-circle bg-success-subtle text-success">                <ion-icon name="arrow-down-circle-outline" class="fs-4"></ion-icon>              </div>              <div>                <h5 class="fw-bold text-dark mb-0">Entradas de mercancía</h5>                <span class="text-muted extra-small">Recepción de proveedores y reposición de stock</span>              </div>            </div>            <button              type="button"              class="btn btn-sm btn-success text-white fw-semibold rounded-pill px-3"              (click)="openMovementModal(\'IN\')"            >              Registrar entrada            </button>          </div>          <!-- Resumen rápido de entradas -->          <div class="invent-kpi-emerald p-3 mb-3 d-flex flex-wrap justify-content-between align-items-center gap-2">            <div>              <div class="small opacity-75 fw-semibold">Total de unidades recibidas</div>              <div class="fs-4 fw-bold">+{{ totalUnitsIn() }} unidades</div>            </div>            <div class="text-end">              <span class="badge bg-white text-success rounded-pill px-3 py-1 fw-bold">                {{ entryLogs().length }} operaciones              </span>            </div>          </div>          <!-- Lista Visual de Entradas -->          <div class="d-flex flex-column gap-3">            @if (entryLogs().length === 0) {              <div class="text-center py-5 text-muted small">                No hay registros de entrada que coincidan con la búsqueda.              </div>            } @else {              @for (item of entryLogs(); track item.id) {                <div class="movement-item movement-in p-3 rounded-3">                  <div class="d-flex flex-wrap justify-content-between align-items-start gap-2">                    <div class="d-flex align-items-center gap-3">                      <img                        [src]="getProductImage(item.sku)"                        [alt]="item.productName"                        class="rounded-3 border product-thumb"                      />                      <div>                        <div class="d-flex align-items-center gap-2 mb-1">                          <span class="badge bg-white text-secondary border extra-small">{{ item.sku }}</span>                          <span class="text-muted extra-small">{{ item.timestamp | date:\'dd/MM/yyyy HH:mm\' }}</span>                        </div>                        <h6 class="fw-bold text-dark mb-1">{{ item.productName }}</h6>                        <p class="text-muted extra-small mb-0">                          <strong>Motivo:</strong> {{ item.reason }}                        </p>                      </div>                    </div>                    <div class="text-end flex-shrink-0">                      <span class="badge bg-success fs-6 px-3 py-1 rounded-pill">                        +{{ item.quantity }} uds.                      </span>                      <div class="text-muted extra-small mt-1">                        Stock: {{ item.previousStock }} → <strong>{{ item.newStock }}</strong>                      </div>                    </div>                  </div>                </div>              }            }          </div>        </div>      </div>      <!-- COLUMNA 2: SALIDAS DE MERCANCÍA (DESPACHO / BAJAS) -->      <div class="col-12 col-lg-6">        <div class="invent-card p-4 h-100 border-top border-danger border-4">          <!-- Cabecera Columna Salidas -->          <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3 pb-3 border-bottom">            <div class="d-flex align-items-center gap-2">              <div class="icon-circle bg-danger-subtle text-danger">                <ion-icon name="arrow-up-circle-outline" class="fs-4"></ion-icon>              </div>              <div>                <h5 class="fw-bold text-dark mb-0">Salidas de mercancía</h5>                <span class="text-muted extra-small">Despachos a clientes, asignaciones y bajas</span>              </div>            </div>            <button              type="button"              class="btn btn-sm btn-danger text-white fw-semibold rounded-pill px-3"              (click)="openMovementModal(\'OUT\')"            >              Registrar salida            </button>          </div>          <!-- Resumen rápido de salidas -->          <div class="invent-kpi-coral p-3 mb-3 d-flex flex-wrap justify-content-between align-items-center gap-2">            <div>              <div class="small opacity-75 fw-semibold">Total de unidades despachadas</div>              <div class="fs-4 fw-bold">-{{ totalUnitsOut() }} unidades</div>            </div>            <div class="text-end">              <span class="badge bg-white text-danger rounded-pill px-3 py-1 fw-bold">                {{ exitLogs().length }} operaciones              </span>            </div>          </div>          <!-- Lista Visual de Salidas -->          <div class="d-flex flex-column gap-3">            @if (exitLogs().length === 0) {              <div class="text-center py-5 text-muted small">                No hay registros de salida que coincidan con la búsqueda.              </div>            } @else {              @for (item of exitLogs(); track item.id) {                <div class="movement-item movement-out p-3 rounded-3">                  <div class="d-flex flex-wrap justify-content-between align-items-start gap-2">                    <div class="d-flex align-items-center gap-3">                      <img                        [src]="getProductImage(item.sku)"                        [alt]="item.productName"                        class="rounded-3 border product-thumb"                      />                      <div>                        <div class="d-flex align-items-center gap-2 mb-1">                          <span class="badge bg-white text-secondary border extra-small">{{ item.sku }}</span>                          <span class="text-muted extra-small">{{ item.timestamp | date:\'dd/MM/yyyy HH:mm\' }}</span>                        </div>                        <h6 class="fw-bold text-dark mb-1">{{ item.productName }}</h6>                        <p class="text-muted extra-small mb-0">                          <strong>Motivo:</strong> {{ item.reason }}                        </p>                      </div>                    </div>                    <div class="text-end flex-shrink-0">                      <span class="badge bg-danger fs-6 px-3 py-1 rounded-pill">                        -{{ item.quantity }} uds.                      </span>                      <div class="text-muted extra-small mt-1">                        Stock: {{ item.previousStock }} → <strong>{{ item.newStock }}</strong>                      </div>                    </div>                  </div>                </div>              }            }          </div>        </div>      </div>    </div>  </div>  <!-- Modal para Registrar Nueva Entrada o Salida -->  <ion-modal [isOpen]="isModalOpen()" (didDismiss)="closeModal()">    <ng-template>      <ion-header>        <ion-toolbar [color]="movementType === \'IN\' ? \'success\' : \'danger\'">          <ion-title>            {{ movementType === \'IN\' ? \'Registrar entrada de mercancía\' : \'Registrar salida de mercancía\' }}          </ion-title>          <ion-buttons slot="end">            <ion-button (click)="closeModal()">              <ion-icon name="close-outline" slot="icon-only"></ion-icon>            </ion-button>          </ion-buttons>        </ion-toolbar>      </ion-header>      <ion-content class="ion-padding invent-shell">        <div class="invent-card p-4">          <form (ngSubmit)="submitMovement()">            <!-- Selector rápido entrada vs salida -->            <div class="mb-3">              <label class="form-label fw-semibold small text-secondary">Tipo de operación</label>              <div class="row g-2">                <div class="col-6">                  <button                    type="button"                    class="btn w-100 fw-semibold"                    [ngClass]="movementType === \'IN\' ? \'btn-success text-white\' : \'btn-outline-success\'"                    (click)="movementType = \'IN\'"                  >                    Entrada (recepción)                  </button>                </div>                <div class="col-6">                  <button                    type="button"                    class="btn w-100 fw-semibold"                    [ngClass]="movementType === \'OUT\' ? \'btn-danger text-white\' : \'btn-outline-danger\'"                    (click)="movementType = \'OUT\'"                  >                    Salida (despacho)                  </button>                </div>              </div>            </div>            <!-- Selección de Producto -->            <div class="mb-3">              <label class="form-label fw-semibold small text-secondary">Selecciona Producto *</label>              <select                class="form-select"                [(ngModel)]="selectedProductId"                name="selectedProductId"                required              >                <option value="">Elige un producto del catálogo...</option>                @for (p of products(); track p.id) {                  <option [value]="p.id">                    [{{ p.sku }}] {{ p.name }} (Stock actual: {{ p.stock }} uds.)                  </option>                }              </select>            </div>            <!-- Cantidad -->            <div class="mb-3">              <label class="form-label fw-semibold small text-secondary">Cantidad de Unidades *</label>              <input                type="number"                class="form-control"                [(ngModel)]="quantity"                name="quantity"                min="1"                required              />            </div>            <!-- Motivo -->            <div class="mb-4">              <label class="form-label fw-semibold small text-secondary">Motivo / Albarán de Referencia *</label>              <input                type="text"                class="form-control"                [(ngModel)]="reason"                name="reason"                [placeholder]="movementType === \'IN\' ? \'Ej. Recepción albarán proveedor #PO-2041\' : \'Ej. Despacho pedido cliente #890\'"                required              />            </div>            <div class="d-flex justify-content-end gap-2">              <button type="button" class="btn btn-outline-secondary px-4 fw-semibold" (click)="closeModal()">                Cancelar              </button>              <button                type="submit"                class="btn px-4 fw-bold text-white"                [ngClass]="movementType === \'IN\' ? \'btn-success\' : \'btn-danger\'"                [disabled]="!selectedProductId || quantity < 1 || !reason || isSubmitting()"              >                {{ movementType === \'IN\' ? \'Confirmar Entrada\' : \'Confirmar Salida\' }}              </button>            </div>          </form>        </div>      </ion-content>    </ng-template>  </ion-modal>  <ion-toast    [isOpen]="toastMessage() !== null"    [message]="toastMessage() || \'\'"    [duration]="3000"    (didDismiss)="toastMessage.set(null)"  ></ion-toast></ion-content></div>'
+    var COMPONENTS = [{'name': 'AdminDashboardPage', 'selector': 'app-admin-dashboard'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'DataTableComponent', 'selector': 'app-data-table'},{'name': 'EmployeeProfileCardComponent', 'selector': 'app-employee-profile-card'},{'name': 'HomePage', 'selector': 'app-home'},{'name': 'InventoryListPage', 'selector': 'app-inventory-list'},{'name': 'LoginPage', 'selector': 'app-login'},{'name': 'MovementHistoryPage', 'selector': 'app-movement-history'},{'name': 'ProductFormPage', 'selector': 'app-product-form'},{'name': 'StatWidgetComponent', 'selector': 'app-stat-widget'},{'name': 'TemplatePlaygroundComponent', 'selector': 'template-playground-root'},{'name': 'UnauthorizedPage', 'selector': 'app-unauthorized'}];
+    var DIRECTIVES = [];
+    var ACTUAL_COMPONENT = {'name': 'MovementHistoryPage'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'MovementHistoryPage.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var updateDarkModeSwitchOffset = function () {
+                    var content = document.querySelector('.content');
+                    var scrollbarWidth = 0;
+
+                    if (content) {
+                         scrollbarWidth = Math.max(0, content.offsetWidth - content.clientWidth);
+                    }
+
+                    document.documentElement.style.setProperty(
+                         '--content-scrollbar-width',
+                         scrollbarWidth + 'px'
+                    );
+               };
+
+               updateDarkModeSwitchOffset();
+               requestAnimationFrame(updateDarkModeSwitchOffset);
+               window.addEventListener('resize', updateDarkModeSwitchOffset);
+
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

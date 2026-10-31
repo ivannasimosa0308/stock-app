@@ -1,0 +1,2530 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>stock-app documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+          <script>
+              // --- Iframe navigation tracking for Template Playground ---
+              function sendCurrentUrlToParent() {
+                  if (window.parent && window.parent !== window) {
+                      window.parent.postMessage({
+                          type: 'compodoc-iframe-navigate',
+                          url: window.location.pathname + window.location.hash
+                      }, '*');
+                  }
+              }
+              window.addEventListener('hashchange', sendCurrentUrlToParent, false);
+              window.addEventListener('popstate', sendCurrentUrlToParent, false);
+              window.addEventListener('DOMContentLoaded', sendCurrentUrlToParent, false);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">stock-app documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search">
+    <button type="button"
+        class="search-input-clear"
+        aria-label="Clear search"
+        data-search-input-clear>&times;</button>
+</div>
+            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Components</li>
+  <li class="breadcrumb-item"
+  >
+  AdminDashboardPage</li>
+</ol>
+
+<div class="io-file io-file-path" data-compodoc="entity-file-path">
+    <span class="icon ion-ios-document" aria-hidden="true"></span>
+    <code>src/app/features/dashboard/pages/admin-dashboard.page.ts</code>
+</div>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#api" class="nav-link"
+                role="tab" id="api-tab" data-bs-toggle="tab" data-link="api">API</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" class="nav-link"
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li class="nav-item">
+            <a href="#styleData" class="nav-link"
+                role="tab" id="styleData-tab" data-bs-toggle="tab" data-link="style">Styles</a>
+        </li>
+        <li class="nav-item">
+            <a href="#tree" class="nav-link"
+                role="tab" id="tree-tab" data-bs-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info">
+
+
+    <p class="comment">
+        <h3>Implements</h3>
+    </p>
+    <p class="comment">
+                    <code><a href="https://angular.dev/api/core/OnInit" target="_blank" >OnInit</a></code>
+                    <code><a href="https://angular.dev/api/core/AfterViewInit" target="_blank" >AfterViewInit</a></code>
+    </p>
+
+
+<section data-compodoc="block-metadata">
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover metadata">
+        <tbody>
+
+            <tr>
+                <td class="col-md-3">changeDetection</td>
+                <td class="col-md-9"><code>ChangeDetectionStrategy.OnPush</code></td>
+            </tr>
+
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>app-admin-dashboard</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">standalone</td>
+                <td class="col-md-9"><code>true</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">imports</td>
+                <td class="col-md-9">
+                        <div>        <code><a href="https://angular.dev/api/common/CommonModule" target="_blank" >CommonModule</a></code>
+</div>
+                        <div>    <code>IonHeader</code>
+</div>
+                        <div>    <code>IonToolbar</code>
+</div>
+                        <div>    <code>IonTitle</code>
+</div>
+                        <div>    <code>IonContent</code>
+</div>
+                        <div>    <code>IonButton</code>
+</div>
+                        <div>    <code>IonButtons</code>
+</div>
+                        <div>    <code>IonIcon</code>
+</div>
+                        <div>    <code>IonSpinner</code>
+</div>
+                        <div>        <code><a href="../components/EmployeeProfileCardComponent.html" target="_self" >EmployeeProfileCardComponent</a></code>
+</div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-3">styles</td>
+                <td class="col-md-9"><code>
+    .extra-small {
+      font-size: 0.75rem;
+    }
+    .chart-flow-box {
+      position: relative;
+      min-height: 270px;
+      width: 100%;
+    }
+    .product-thumb {
+      width: 42px;
+      height: 42px;
+      object-fit: cover;
+      background-color: #f2f4f6;
+    }
+    .product-row:hover {
+      background-color: #f2f6f9;
+    }
+    .kpi-clickable {
+      transition: transform 0.18s ease, outline 0.18s ease;
+    }
+    .kpi-clickable:hover {
+      transform: translateY(-2px);
+    }
+    .kpi-selected {
+      outline: 3px solid #2889b8;
+      outline-offset: 2px;
+    }
+  </code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">template</td>
+                <td class="col-md-9"><pre class="line-numbers"><code class="language-html">&lt;ion-header&gt;
+  &lt;ion-toolbar color&#x3D;&quot;dark&quot;&gt;
+    &lt;ion-title&gt;Panel de administración&lt;/ion-title&gt;
+    &lt;ion-buttons slot&#x3D;&quot;end&quot;&gt;
+      &lt;ion-button (click)&#x3D;&quot;router.navigate([&#x27;/admin&#x27;])&quot; color&#x3D;&quot;primary&quot;&gt;
+        &lt;ion-icon name&#x3D;&quot;bar-chart-outline&quot; slot&#x3D;&quot;start&quot;&gt;&lt;/ion-icon&gt;
+        Dashboard
+      &lt;/ion-button&gt;
+      &lt;ion-button (click)&#x3D;&quot;router.navigate([&#x27;/movements&#x27;])&quot;&gt;
+        &lt;ion-icon name&#x3D;&quot;time-outline&quot; slot&#x3D;&quot;start&quot;&gt;&lt;/ion-icon&gt;
+        Movimientos
+      &lt;/ion-button&gt;
+      &lt;ion-button (click)&#x3D;&quot;router.navigate([&#x27;/inventory&#x27;])&quot;&gt;
+        &lt;ion-icon name&#x3D;&quot;cube-outline&quot; slot&#x3D;&quot;start&quot;&gt;&lt;/ion-icon&gt;
+        Catálogo
+      &lt;/ion-button&gt;
+      &lt;ion-button (click)&#x3D;&quot;onLogout()&quot; aria-label&#x3D;&quot;Cerrar sesión&quot; color&#x3D;&quot;danger&quot;&gt;
+        &lt;ion-icon name&#x3D;&quot;log-out-outline&quot; slot&#x3D;&quot;start&quot;&gt;&lt;/ion-icon&gt;
+        Salir
+      &lt;/ion-button&gt;
+    &lt;/ion-buttons&gt;
+  &lt;/ion-toolbar&gt;
+&lt;/ion-header&gt;
+
+&lt;ion-content class&#x3D;&quot;invent-shell&quot;&gt;
+  &lt;div class&#x3D;&quot;container-fluid py-4 px-3 px-lg-4&quot;&gt;
+    &lt;!-- Barra superior de acciones y exportación --&gt;
+    &lt;div class&#x3D;&quot;d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4&quot;&gt;
+      &lt;div&gt;
+        &lt;h4 class&#x3D;&quot;fw-bold text-dark mb-0&quot;&gt;Cuadro de mando ejecutivo&lt;/h4&gt;
+        &lt;p class&#x3D;&quot;text-muted small mb-0&quot;&gt;
+          Control de flujo de stock, comportamiento mensual y métricas de inventario
+        &lt;/p&gt;
+      &lt;/div&gt;
+      &lt;div class&#x3D;&quot;d-flex flex-wrap gap-2&quot;&gt;
+        &lt;button
+          type&#x3D;&quot;button&quot;
+          class&#x3D;&quot;btn btn-outline-secondary btn-sm fw-semibold rounded-3 d-flex align-items-center gap-1 px-3 py-2 bg-white&quot;
+          (click)&#x3D;&quot;loadDashboardData()&quot;
+        &gt;
+          &lt;ion-icon name&#x3D;&quot;refresh-outline&quot;&gt;&lt;/ion-icon&gt;
+          &lt;span&gt;Actualizar&lt;/span&gt;
+        &lt;/button&gt;
+        &lt;button
+          type&#x3D;&quot;button&quot;
+          class&#x3D;&quot;btn btn-success btn-sm fw-semibold rounded-3 d-flex align-items-center gap-1 px-3 py-2 text-white shadow-sm&quot;
+          (click)&#x3D;&quot;exportPdf()&quot;
+        &gt;
+          &lt;ion-icon name&#x3D;&quot;document-text-outline&quot;&gt;&lt;/ion-icon&gt;
+          &lt;span&gt;Descargar PDF&lt;/span&gt;
+        &lt;/button&gt;
+        &lt;button
+          type&#x3D;&quot;button&quot;
+          class&#x3D;&quot;btn btn-primary btn-sm fw-semibold rounded-3 d-flex align-items-center gap-1 px-3 py-2 shadow-sm&quot;
+          (click)&#x3D;&quot;exportCsv()&quot;
+        &gt;
+          &lt;ion-icon name&#x3D;&quot;download-outline&quot;&gt;&lt;/ion-icon&gt;
+          &lt;span&gt;Descargar CSV&lt;/span&gt;
+        &lt;/button&gt;
+        &lt;button
+          type&#x3D;&quot;button&quot;
+          class&#x3D;&quot;btn btn-dark btn-sm fw-semibold rounded-3 d-flex align-items-center gap-1 px-3 py-2&quot;
+          (click)&#x3D;&quot;router.navigate([&#x27;/inventory/new&#x27;])&quot;
+        &gt;
+          &lt;ion-icon name&#x3D;&quot;add-circle-outline&quot;&gt;&lt;/ion-icon&gt;
+          &lt;span&gt;Nuevo producto&lt;/span&gt;
+        &lt;/button&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+
+    @if (isLoading()) {
+      &lt;div class&#x3D;&quot;invent-card p-5 text-center my-4&quot;&gt;
+        &lt;ion-spinner name&#x3D;&quot;crescent&quot; color&#x3D;&quot;primary&quot;&gt;&lt;/ion-spinner&gt;
+        &lt;p class&#x3D;&quot;text-muted mt-2 mb-0&quot;&gt;Cargando métricas del inventario...&lt;/p&gt;
+      &lt;/div&gt;
+    } @else {
+      &lt;!-- FILA SUPERIOR: Perfil de empleado (izquierda) + Overview de lado a ancho completo (derecha) --&gt;
+      &lt;div class&#x3D;&quot;row g-4 align-items-stretch mb-4&quot;&gt;
+        &lt;!-- Columna izquierda: Perfil de empleado + cronómetro --&gt;
+        &lt;div class&#x3D;&quot;col-12 col-lg-3&quot;&gt;
+          &lt;app-employee-profile-card
+            [totalProducts]&#x3D;&quot;products().length&quot;
+            [totalMovements]&#x3D;&quot;movementsCount()&quot;
+          &gt;&lt;/app-employee-profile-card&gt;
+        &lt;/div&gt;
+
+        &lt;!-- Columna derecha superior: Overview — Flujo y comportamiento de stock --&gt;
+        &lt;div class&#x3D;&quot;col-12 col-lg-9&quot;&gt;
+          &lt;div class&#x3D;&quot;invent-card p-4 h-100 d-flex flex-column justify-content-between&quot;&gt;
+            &lt;div class&#x3D;&quot;d-flex flex-wrap justify-content-between align-items-start gap-2 mb-3&quot;&gt;
+              &lt;div&gt;
+                &lt;h5 class&#x3D;&quot;fw-bold text-dark mb-1&quot;&gt;
+                  &lt;ion-icon name&#x3D;&quot;analytics-outline&quot; class&#x3D;&quot;text-primary me-1 align-middle&quot;&gt;&lt;/ion-icon&gt;
+                  Overview — Flujo y comportamiento de stock
+                &lt;/h5&gt;
+                &lt;p class&#x3D;&quot;text-muted extra-small mb-0&quot;&gt;
+                  {{ chartMode() &#x3D;&#x3D;&#x3D; &#x27;months&#x27;
+                    ? &#x27;Evolución mensual de entradas, salidas y nivel de inventario (enero - junio)&#x27;
+                    : &#x27;Comparativa de comportamiento de stock actual frente a umbral mínimo por producto&#x27; }}
+                &lt;/p&gt;
+              &lt;/div&gt;
+
+              &lt;!-- Selector interactivo: Por meses / Por productos --&gt;
+              &lt;div class&#x3D;&quot;btn-group btn-group-sm&quot; role&#x3D;&quot;group&quot; aria-label&#x3D;&quot;Selector de modo de gráfico&quot;&gt;
+                &lt;button
+                  type&#x3D;&quot;button&quot;
+                  class&#x3D;&quot;btn fw-semibold&quot;
+                  [ngClass]&#x3D;&quot;chartMode() &#x3D;&#x3D;&#x3D; &#x27;months&#x27; ? &#x27;btn-primary&#x27; : &#x27;btn-outline-primary&#x27;&quot;
+                  (click)&#x3D;&quot;switchFlowMode(&#x27;months&#x27;)&quot;
+                &gt;
+                  Por meses
+                &lt;/button&gt;
+                &lt;button
+                  type&#x3D;&quot;button&quot;
+                  class&#x3D;&quot;btn fw-semibold&quot;
+                  [ngClass]&#x3D;&quot;chartMode() &#x3D;&#x3D;&#x3D; &#x27;products&#x27; ? &#x27;btn-primary&#x27; : &#x27;btn-outline-primary&#x27;&quot;
+                  (click)&#x3D;&quot;switchFlowMode(&#x27;products&#x27;)&quot;
+                &gt;
+                  Por productos
+                &lt;/button&gt;
+              &lt;/div&gt;
+            &lt;/div&gt;
+
+            &lt;div class&#x3D;&quot;chart-flow-box flex-grow-1&quot;&gt;
+              &lt;canvas #flowChartCanvas&gt;&lt;/canvas&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+
+      &lt;!-- SECCIÓN INFERIOR: 3 Tarjetas de filtro directo + Lista desplegada justo debajo --&gt;
+      &lt;div class&#x3D;&quot;row g-3 mb-4&quot;&gt;
+        &lt;div class&#x3D;&quot;col-12 col-md-4&quot;&gt;
+          &lt;div
+            class&#x3D;&quot;invent-kpi-coral p-3 h-100 d-flex flex-column justify-content-between kpi-clickable&quot;
+            [class.kpi-selected]&#x3D;&quot;activeFilter() &#x3D;&#x3D;&#x3D; &#x27;valuation&#x27;&quot;
+            style&#x3D;&quot;cursor: pointer;&quot;
+            (click)&#x3D;&quot;setDashboardFilter(&#x27;valuation&#x27;)&quot;
+          &gt;
+            &lt;div class&#x3D;&quot;d-flex flex-wrap justify-content-between align-items-start gap-1&quot;&gt;
+              &lt;span class&#x3D;&quot;small opacity-75 fw-semibold&quot;&gt;Valoración de stock&lt;/span&gt;
+              &lt;span class&#x3D;&quot;badge bg-white text-danger rounded-pill&quot;&gt;
+                {{ activeFilter() &#x3D;&#x3D;&#x3D; &#x27;valuation&#x27; ? &#x27;Filtro activo&#x27; : &#x27;Filtrar por valor&#x27; }}
+              &lt;/span&gt;
+            &lt;/div&gt;
+            &lt;div class&#x3D;&quot;fs-4 fw-bold my-2 text-break&quot;&gt;
+              {{ (totalValue() | currency:&#x27;EUR&#x27;:&#x27;symbol&#x27;:&#x27;1.0-0&#x27;) || &#x27;0 €&#x27; }}
+            &lt;/div&gt;
+            &lt;div class&#x3D;&quot;extra-small opacity-75&quot;&gt;Pulsa para ordenar por valoración económica&lt;/div&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+
+        &lt;div class&#x3D;&quot;col-12 col-md-4&quot;&gt;
+          &lt;div
+            class&#x3D;&quot;invent-kpi-amber p-3 h-100 d-flex flex-column justify-content-between kpi-clickable&quot;
+            [class.kpi-selected]&#x3D;&quot;activeFilter() &#x3D;&#x3D;&#x3D; &#x27;units&#x27;&quot;
+            style&#x3D;&quot;cursor: pointer;&quot;
+            (click)&#x3D;&quot;setDashboardFilter(&#x27;units&#x27;)&quot;
+          &gt;
+            &lt;div class&#x3D;&quot;d-flex flex-wrap justify-content-between align-items-start gap-1&quot;&gt;
+              &lt;span class&#x3D;&quot;small opacity-75 fw-semibold&quot;&gt;Unidades físicas&lt;/span&gt;
+              &lt;span class&#x3D;&quot;badge bg-white text-warning rounded-pill&quot;&gt;
+                {{ activeFilter() &#x3D;&#x3D;&#x3D; &#x27;units&#x27; ? &#x27;Filtro activo&#x27; : &#x27;Ver unidades&#x27; }}
+              &lt;/span&gt;
+            &lt;/div&gt;
+            &lt;div class&#x3D;&quot;fs-4 fw-bold my-2 text-break&quot;&gt;
+              {{ totalUnits() }} uds.
+            &lt;/div&gt;
+            &lt;div class&#x3D;&quot;extra-small opacity-75&quot;&gt;{{ products().length }} referencias activas en almacén&lt;/div&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+
+        &lt;div class&#x3D;&quot;col-12 col-md-4&quot;&gt;
+          &lt;div
+            class&#x3D;&quot;invent-kpi-indigo p-3 h-100 d-flex flex-column justify-content-between kpi-clickable&quot;
+            [class.kpi-selected]&#x3D;&quot;activeFilter() &#x3D;&#x3D;&#x3D; &#x27;low-stock&#x27;&quot;
+            style&#x3D;&quot;cursor: pointer;&quot;
+            (click)&#x3D;&quot;setDashboardFilter(&#x27;low-stock&#x27;)&quot;
+          &gt;
+            &lt;div class&#x3D;&quot;d-flex flex-wrap justify-content-between align-items-start gap-1&quot;&gt;
+              &lt;span class&#x3D;&quot;small opacity-75 fw-semibold&quot;&gt;Alertas de stock bajo&lt;/span&gt;
+              &lt;span class&#x3D;&quot;badge bg-white text-primary rounded-pill&quot;&gt;
+                {{ activeFilter() &#x3D;&#x3D;&#x3D; &#x27;low-stock&#x27; ? &#x27;Filtro activo&#x27; : &#x27;Ver faltantes&#x27; }}
+              &lt;/span&gt;
+            &lt;/div&gt;
+            &lt;div class&#x3D;&quot;fs-4 fw-bold my-2 text-break&quot;&gt;
+              {{ lowStockCount() }} ítems
+            &lt;/div&gt;
+            &lt;div class&#x3D;&quot;extra-small opacity-75&quot;&gt;Pulsa para ver productos con stock bajo&lt;/div&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+
+      &lt;!-- LISTA DINÁMICA DE PRODUCTOS (Justo debajo de los filtros) --&gt;
+      &lt;div class&#x3D;&quot;invent-card p-4&quot; id&#x3D;&quot;dashboard-products-section&quot;&gt;
+        &lt;div class&#x3D;&quot;d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3&quot;&gt;
+          &lt;div&gt;
+            @if (activeFilter() &#x3D;&#x3D;&#x3D; &#x27;low-stock&#x27;) {
+              &lt;h5 class&#x3D;&quot;fw-bold text-danger mb-0&quot;&gt;
+                Productos en alerta de stock bajo ({{ filteredDashboardProducts().length }})
+              &lt;/h5&gt;
+              &lt;p class&#x3D;&quot;text-muted extra-small mb-0&quot;&gt;
+                Artículos con existencias iguales o inferiores al stock mínimo requerido
+              &lt;/p&gt;
+            } @else if (activeFilter() &#x3D;&#x3D;&#x3D; &#x27;valuation&#x27;) {
+              &lt;h5 class&#x3D;&quot;fw-bold text-dark mb-0&quot;&gt;
+                Productos por valoración de stock ({{ filteredDashboardProducts().length }})
+              &lt;/h5&gt;
+              &lt;p class&#x3D;&quot;text-muted extra-small mb-0&quot;&gt;
+                Artículos ordenados de mayor a menor capital inmovilizado en almacén
+              &lt;/p&gt;
+            } @else {
+              &lt;h5 class&#x3D;&quot;fw-bold text-dark mb-0&quot;&gt;
+                Productos por unidades físicas ({{ filteredDashboardProducts().length }})
+              &lt;/h5&gt;
+              &lt;p class&#x3D;&quot;text-muted extra-small mb-0&quot;&gt;
+                Listado general de existencias físicas y valoración unitaria
+              &lt;/p&gt;
+            }
+          &lt;/div&gt;
+          &lt;div class&#x3D;&quot;d-flex flex-wrap gap-2&quot;&gt;
+            @if (activeFilter() !&#x3D;&#x3D; &#x27;units&#x27;) {
+              &lt;button
+                type&#x3D;&quot;button&quot;
+                class&#x3D;&quot;btn btn-sm btn-outline-secondary rounded-pill px-3 fw-semibold&quot;
+                (click)&#x3D;&quot;setDashboardFilter(&#x27;units&#x27;)&quot;
+              &gt;
+                Ver todos ({{ products().length }})
+              &lt;/button&gt;
+            }
+            &lt;button
+              type&#x3D;&quot;button&quot;
+              class&#x3D;&quot;btn btn-sm btn-outline-primary rounded-pill px-3 fw-semibold&quot;
+              (click)&#x3D;&quot;router.navigate([&#x27;/inventory&#x27;])&quot;
+            &gt;
+              Ir al catálogo completo
+            &lt;/button&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+
+        &lt;div class&#x3D;&quot;table-responsive&quot;&gt;
+          &lt;table class&#x3D;&quot;table align-middle mb-0&quot;&gt;
+            &lt;thead class&#x3D;&quot;table-light&quot;&gt;
+              &lt;tr class&#x3D;&quot;text-muted extra-small&quot;&gt;
+                &lt;th&gt;Producto&lt;/th&gt;
+                &lt;th&gt;Categoría&lt;/th&gt;
+                &lt;th class&#x3D;&quot;text-center&quot;&gt;Stock / Mínimo&lt;/th&gt;
+                &lt;th class&#x3D;&quot;text-end&quot;&gt;Precio unitario&lt;/th&gt;
+                &lt;th class&#x3D;&quot;text-end&quot;&gt;Valoración total&lt;/th&gt;
+              &lt;/tr&gt;
+            &lt;/thead&gt;
+            &lt;tbody&gt;
+              @for (prod of filteredDashboardProducts(); track prod.id) {
+                &lt;tr
+                  class&#x3D;&quot;product-row&quot;
+                  style&#x3D;&quot;cursor: pointer;&quot;
+                  (click)&#x3D;&quot;router.navigate([&#x27;/inventory/edit&#x27;, prod.id])&quot;
+                &gt;
+                  &lt;td&gt;
+                    &lt;div class&#x3D;&quot;d-flex align-items-center gap-3&quot;&gt;
+                      &lt;img
+                        [src]&#x3D;&quot;prod.image_url&quot;
+                        [alt]&#x3D;&quot;prod.name&quot;
+                        class&#x3D;&quot;rounded-3 border product-thumb&quot;
+                      /&gt;
+                      &lt;div&gt;
+                        &lt;div class&#x3D;&quot;fw-semibold text-dark small&quot;&gt;{{ prod.name }}&lt;/div&gt;
+                        &lt;div class&#x3D;&quot;text-muted extra-small&quot;&gt;{{ prod.sku }}&lt;/div&gt;
+                      &lt;/div&gt;
+                    &lt;/div&gt;
+                  &lt;/td&gt;
+                  &lt;td&gt;
+                    &lt;span class&#x3D;&quot;badge bg-light text-secondary border&quot;&gt;
+                      {{ prod.category?.name || &#x27;General&#x27; }}
+                    &lt;/span&gt;
+                  &lt;/td&gt;
+                  &lt;td class&#x3D;&quot;text-center&quot;&gt;
+                    &lt;span
+                      class&#x3D;&quot;badge rounded-pill px-2 py-1&quot;
+                      [ngClass]&#x3D;&quot;prod.stock &lt;&#x3D; prod.min_stock ? &#x27;bg-danger text-white&#x27; : &#x27;bg-success-subtle text-success&#x27;&quot;
+                    &gt;
+                      {{ prod.stock }} / mín. {{ prod.min_stock }}
+                    &lt;/span&gt;
+                  &lt;/td&gt;
+                  &lt;td class&#x3D;&quot;text-end text-secondary small&quot;&gt;
+                    {{ prod.unit_price | currency:&#x27;EUR&#x27;:&#x27;symbol&#x27;:&#x27;1.0-0&#x27; }}
+                  &lt;/td&gt;
+                  &lt;td class&#x3D;&quot;text-end fw-bold text-dark small&quot;&gt;
+                    {{ (prod.stock * prod.unit_price) | currency:&#x27;EUR&#x27;:&#x27;symbol&#x27;:&#x27;1.0-0&#x27; }}
+                  &lt;/td&gt;
+                &lt;/tr&gt;
+              }
+            &lt;/tbody&gt;
+          &lt;/table&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    }
+  &lt;/div&gt;
+&lt;/ion-content&gt;
+</code></pre></td>
+            </tr>
+
+
+
+
+
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+        <section data-compodoc="block-relationships">
+            <h3>Relationships</h3>
+
+            <div class="row pt-3">
+                <div class="col-sm-6">
+                    <h4>Used by</h4>
+                        <p class="comment"><i>No results matching.</i></p>
+                </div>
+
+                <div class="col-sm-6">
+                    <h4>Depends on</h4>
+                        <ul class="list-unstyled relationships-list">
+                                <li>
+                                            <code><a href="https://angular.dev/api/common/CommonModule" target="_blank" >CommonModule</a></code>
+                                </li>
+                                <li>
+                                        <code>IonHeader</code>
+                                </li>
+                                <li>
+                                        <code>IonToolbar</code>
+                                </li>
+                                <li>
+                                        <code>IonTitle</code>
+                                </li>
+                                <li>
+                                        <code>IonContent</code>
+                                </li>
+                                <li>
+                                        <code>IonButton</code>
+                                </li>
+                                <li>
+                                        <code>IonButtons</code>
+                                </li>
+                                <li>
+                                        <code>IonIcon</code>
+                                </li>
+                                <li>
+                                        <code>IonSpinner</code>
+                                </li>
+                                <li>
+                                            <code><a href="../components/EmployeeProfileCardComponent.html" target="_self" >EmployeeProfileCardComponent</a></code>
+                                </li>
+                                <li>
+                                            <code><a href="https://angular.dev/api/core/OnInit" target="_blank" >OnInit</a></code>
+                                </li>
+                                <li>
+                                            <code><a href="https://angular.dev/api/core/AfterViewInit" target="_blank" >AfterViewInit</a></code>
+                                </li>
+                        </ul>
+                </div>
+            </div>
+        </section>
+</div>
+
+    <div class="tab-pane fade " id="api">    <section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+        <table class="table table-sm table-bordered index-table">
+            <tbody>
+                <tr>
+                    <td class="col-md-3">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                    <td class="col-md-9">
+                        <ul class="index-list">
+                            <li>
+                                <span class="reference-badge reference-badge--property" aria-hidden="true">P</span>
+                                <a href="#activeFilter" >activeFilter</a>
+                            </li>
+                            <li>
+                                <span class="reference-badge reference-badge--property" aria-hidden="true">P</span>
+                                <a href="#authService" >authService</a>
+                            </li>
+                            <li>
+                                <span class="reference-badge reference-badge--property" aria-hidden="true">P</span>
+                                <a href="#categories" >categories</a>
+                            </li>
+                            <li>
+                                <span class="reference-badge reference-badge--property" aria-hidden="true">P</span>
+                                <a href="#chartMode" >chartMode</a>
+                            </li>
+                            <li>
+                                <span class="reference-badge reference-badge--property" aria-hidden="true">P</span>
+                                <a href="#exportService" >exportService</a>
+                            </li>
+                            <li>
+                                <span class="reference-badge reference-badge--property" aria-hidden="true">P</span>
+                                    <span class="modifier">Readonly</span>
+                                <a href="#filteredDashboardProducts" >filteredDashboardProducts</a>
+                            </li>
+                            <li>
+                                <span class="reference-badge reference-badge--property" aria-hidden="true">P</span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier">Optional</span>
+                                <a href="#flowCanvas" >flowCanvas</a>
+                            </li>
+                            <li>
+                                <span class="reference-badge reference-badge--property" aria-hidden="true">P</span>
+                                    <span class="modifier">Private</span>
+                                    <span class="modifier">Optional</span>
+                                <a href="#flowChartInstance" >flowChartInstance</a>
+                            </li>
+                            <li>
+                                <span class="reference-badge reference-badge--property" aria-hidden="true">P</span>
+                                <a href="#inventoryService" >inventoryService</a>
+                            </li>
+                            <li>
+                                <span class="reference-badge reference-badge--property" aria-hidden="true">P</span>
+                                <a href="#isLoading" >isLoading</a>
+                            </li>
+                            <li>
+                                <span class="reference-badge reference-badge--property" aria-hidden="true">P</span>
+                                <a href="#lowStockCount" >lowStockCount</a>
+                            </li>
+                            <li>
+                                <span class="reference-badge reference-badge--property" aria-hidden="true">P</span>
+                                <a href="#movements" >movements</a>
+                            </li>
+                            <li>
+                                <span class="reference-badge reference-badge--property" aria-hidden="true">P</span>
+                                <a href="#movementsCount" >movementsCount</a>
+                            </li>
+                            <li>
+                                <span class="reference-badge reference-badge--property" aria-hidden="true">P</span>
+                                <a href="#products" >products</a>
+                            </li>
+                            <li>
+                                <span class="reference-badge reference-badge--property" aria-hidden="true">P</span>
+                                <a href="#router" >router</a>
+                            </li>
+                            <li>
+                                <span class="reference-badge reference-badge--property" aria-hidden="true">P</span>
+                                <a href="#totalUnits" >totalUnits</a>
+                            </li>
+                            <li>
+                                <span class="reference-badge reference-badge--property" aria-hidden="true">P</span>
+                                <a href="#totalValue" >totalValue</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <table class="table table-sm table-bordered index-table">
+            <tbody>
+                <tr>
+                    <td class="col-md-3">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                    <td class="col-md-9">
+                        <ul class="index-list">
+                            <li>
+                                <span class="reference-badge reference-badge--method" aria-hidden="true">M</span>
+                                <a href="#exportCsv" >exportCsv</a>
+                            </li>
+                            <li>
+                                <span class="reference-badge reference-badge--method" aria-hidden="true">M</span>
+                                <a href="#exportPdf" >exportPdf</a>
+                            </li>
+                            <li>
+                                <span class="reference-badge reference-badge--method" aria-hidden="true">M</span>
+                                    <span class="modifier">Async</span>
+                                <a href="#loadDashboardData" >loadDashboardData</a>
+                            </li>
+                            <li>
+                                <span class="reference-badge reference-badge--method" aria-hidden="true">M</span>
+                                <a href="#ngAfterViewInit" >ngAfterViewInit</a>
+                            </li>
+                            <li>
+                                <span class="reference-badge reference-badge--method" aria-hidden="true">M</span>
+                                    <span class="modifier">Async</span>
+                                <a href="#ngOnInit" >ngOnInit</a>
+                            </li>
+                            <li>
+                                <span class="reference-badge reference-badge--method" aria-hidden="true">M</span>
+                                    <span class="modifier">Async</span>
+                                <a href="#onLogout" >onLogout</a>
+                            </li>
+                            <li>
+                                <span class="reference-badge reference-badge--method" aria-hidden="true">M</span>
+                                    <span class="modifier">Private</span>
+                                <a href="#renderFlowChart" >renderFlowChart</a>
+                            </li>
+                            <li>
+                                <span class="reference-badge reference-badge--method" aria-hidden="true">M</span>
+                                <a href="#setDashboardFilter" >setDashboardFilter</a>
+                            </li>
+                            <li>
+                                <span class="reference-badge reference-badge--method" aria-hidden="true">M</span>
+                                <a href="#switchFlowMode" >switchFlowMode</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+
+
+
+
+</section>
+
+    <section data-compodoc="block-constructor">
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor()</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="422" class="link-to-prism">src/app/features/dashboard/pages/admin-dashboard.page.ts:422</a></div>
+                            </td>
+                        </tr>
+
+            </tbody>
+        </table>
+</section>
+
+
+
+
+
+    <section data-compodoc="block-methods">
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="exportCsv"></a>
+                    <span class="name">
+                        <span ><b>exportCsv</b></span>
+                        <a href="#exportCsv"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>exportCsv()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="596"
+                                    class="link-to-prism">src/app/features/dashboard/pages/admin-dashboard.page.ts:596</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="exportPdf"></a>
+                    <span class="name">
+                        <span ><b>exportPdf</b></span>
+                        <a href="#exportPdf"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>exportPdf()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="592"
+                                    class="link-to-prism">src/app/features/dashboard/pages/admin-dashboard.page.ts:592</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="loadDashboardData"></a>
+                    <span class="name">
+                            <span class="modifier">Async</span>
+                        <span ><b>loadDashboardData</b></span>
+                        <a href="#loadDashboardData"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>loadDashboardData()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="448"
+                                    class="link-to-prism">src/app/features/dashboard/pages/admin-dashboard.page.ts:448</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>Promise&lt;void&gt;</code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngAfterViewInit"></a>
+                    <span class="name">
+                        <span ><b>ngAfterViewInit</b></span>
+                        <a href="#ngAfterViewInit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngAfterViewInit()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="446"
+                                    class="link-to-prism">src/app/features/dashboard/pages/admin-dashboard.page.ts:446</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngOnInit"></a>
+                    <span class="name">
+                            <span class="modifier">Async</span>
+                        <span ><b>ngOnInit</b></span>
+                        <a href="#ngOnInit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>ngOnInit()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="442"
+                                    class="link-to-prism">src/app/features/dashboard/pages/admin-dashboard.page.ts:442</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>Promise&lt;void&gt;</code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="onLogout"></a>
+                    <span class="name">
+                            <span class="modifier">Async</span>
+                        <span ><b>onLogout</b></span>
+                        <a href="#onLogout"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>onLogout()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="600"
+                                    class="link-to-prism">src/app/features/dashboard/pages/admin-dashboard.page.ts:600</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>Promise&lt;void&gt;</code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="renderFlowChart"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>renderFlowChart</b></span>
+                        <a href="#renderFlowChart"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>renderFlowChart()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="488"
+                                    class="link-to-prism">src/app/features/dashboard/pages/admin-dashboard.page.ts:488</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="setDashboardFilter"></a>
+                    <span class="name">
+                        <span ><b>setDashboardFilter</b></span>
+                        <a href="#setDashboardFilter"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>setDashboardFilter(mode: <a href="../miscellaneous/typealiases.html#DashboardFilterMode" target="_self">DashboardFilterMode</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="479"
+                                    class="link-to-prism">src/app/features/dashboard/pages/admin-dashboard.page.ts:479</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>mode</td>
+                                            <td>
+                                                            <code><a href="../miscellaneous/typealiases.html#DashboardFilterMode" target="_self" >DashboardFilterMode</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="switchFlowMode"></a>
+                    <span class="name">
+                        <span ><b>switchFlowMode</b></span>
+                        <a href="#switchFlowMode"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>switchFlowMode(mode: "months" | "products")</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="483"
+                                    class="link-to-prism">src/app/features/dashboard/pages/admin-dashboard.page.ts:483</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>mode</td>
+                                            <td>
+                                                        <code>&quot;months&quot; | &quot;products&quot;</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-properties">
+    
+    <h3 id="inputs">
+        Properties
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="activeFilter"></a>
+                    <span class="name">
+                        <span ><b>activeFilter</b></span>
+                        <a href="#activeFilter"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>signal&lt;DashboardFilterMode&gt;(&#x27;units&#x27;)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="401" class="link-to-prism">src/app/features/dashboard/pages/admin-dashboard.page.ts:401</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="authService"></a>
+                    <span class="name">
+                        <span ><b>authService</b></span>
+                        <a href="#authService"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>inject(AuthService)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="390" class="link-to-prism">src/app/features/dashboard/pages/admin-dashboard.page.ts:390</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="categories"></a>
+                    <span class="name">
+                        <span ><b>categories</b></span>
+                        <a href="#categories"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>signal&lt;Category[]&gt;([])</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="404" class="link-to-prism">src/app/features/dashboard/pages/admin-dashboard.page.ts:404</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="chartMode"></a>
+                    <span class="name">
+                        <span ><b>chartMode</b></span>
+                        <a href="#chartMode"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>signal&lt;&#x27;months&#x27; | &#x27;products&#x27;&gt;(&#x27;months&#x27;)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="400" class="link-to-prism">src/app/features/dashboard/pages/admin-dashboard.page.ts:400</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="exportService"></a>
+                    <span class="name">
+                        <span ><b>exportService</b></span>
+                        <a href="#exportService"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>inject(ExportService)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="392" class="link-to-prism">src/app/features/dashboard/pages/admin-dashboard.page.ts:392</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="filteredDashboardProducts"></a>
+                    <span class="name">
+                            <span class="modifier">Readonly</span>
+                        <span ><b>filteredDashboardProducts</b></span>
+                        <a href="#filteredDashboardProducts"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>computed(() &#x3D;&gt; {
+    const all &#x3D; [...this.products()];
+    const mode &#x3D; this.activeFilter();
+    if (mode &#x3D;&#x3D;&#x3D; &#x27;low-stock&#x27;) {
+      return all.filter(p &#x3D;&gt; p.stock &lt;&#x3D; p.min_stock);
+    }
+    if (mode &#x3D;&#x3D;&#x3D; &#x27;valuation&#x27;) {
+      return all.sort((a, b) &#x3D;&gt; (b.stock * b.unit_price) - (a.stock * a.unit_price));
+    }
+    return all.sort((a, b) &#x3D;&gt; b.stock - a.stock);
+  })</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="412" class="link-to-prism">src/app/features/dashboard/pages/admin-dashboard.page.ts:412</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="flowCanvas"></a>
+                    <span class="name">
+                            <span class="modifier"></span>
+                            <span class="modifier">Optional</span>
+                        <span ><b>flowCanvas</b></span>
+                        <a href="#flowCanvas"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>ElementRef&lt;HTMLCanvasElement&gt;</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <b>Decorators : </b>
+                        <br />
+                        <code>
+                            @ViewChild(&#x27;flowChartCanvas&#x27;)<br />
+                        </code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="395" class="link-to-prism">src/app/features/dashboard/pages/admin-dashboard.page.ts:395</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="flowChartInstance"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                            <span class="modifier">Optional</span>
+                        <span ><b>flowChartInstance</b></span>
+                        <a href="#flowChartInstance"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>Chart</code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="397" class="link-to-prism">src/app/features/dashboard/pages/admin-dashboard.page.ts:397</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="inventoryService"></a>
+                    <span class="name">
+                        <span ><b>inventoryService</b></span>
+                        <a href="#inventoryService"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>inject(InventoryService)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="391" class="link-to-prism">src/app/features/dashboard/pages/admin-dashboard.page.ts:391</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="isLoading"></a>
+                    <span class="name">
+                        <span ><b>isLoading</b></span>
+                        <a href="#isLoading"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>signal&lt;boolean&gt;(true)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="399" class="link-to-prism">src/app/features/dashboard/pages/admin-dashboard.page.ts:399</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="lowStockCount"></a>
+                    <span class="name">
+                        <span ><b>lowStockCount</b></span>
+                        <a href="#lowStockCount"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>signal&lt;number&gt;(0)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="409" class="link-to-prism">src/app/features/dashboard/pages/admin-dashboard.page.ts:409</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="movements"></a>
+                    <span class="name">
+                        <span ><b>movements</b></span>
+                        <a href="#movements"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>signal&lt;MovementLog[]&gt;([])</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="405" class="link-to-prism">src/app/features/dashboard/pages/admin-dashboard.page.ts:405</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="movementsCount"></a>
+                    <span class="name">
+                        <span ><b>movementsCount</b></span>
+                        <a href="#movementsCount"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>signal&lt;number&gt;(0)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="410" class="link-to-prism">src/app/features/dashboard/pages/admin-dashboard.page.ts:410</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="products"></a>
+                    <span class="name">
+                        <span ><b>products</b></span>
+                        <a href="#products"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>signal&lt;Product[]&gt;([])</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="403" class="link-to-prism">src/app/features/dashboard/pages/admin-dashboard.page.ts:403</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="router"></a>
+                    <span class="name">
+                        <span ><b>router</b></span>
+                        <a href="#router"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>inject(Router)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="393" class="link-to-prism">src/app/features/dashboard/pages/admin-dashboard.page.ts:393</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="totalUnits"></a>
+                    <span class="name">
+                        <span ><b>totalUnits</b></span>
+                        <a href="#totalUnits"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>signal&lt;number&gt;(0)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="408" class="link-to-prism">src/app/features/dashboard/pages/admin-dashboard.page.ts:408</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="totalValue"></a>
+                    <span class="name">
+                        <span ><b>totalValue</b></span>
+                        <a href="#totalValue"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>signal&lt;number&gt;(0)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="407" class="link-to-prism">src/app/features/dashboard/pages/admin-dashboard.page.ts:407</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+</section>
+
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, OnInit, AfterViewInit, ViewChild, ElementRef, inject, signal, computed } from &#x27;@angular/core&#x27;;
+import { CommonModule } from &#x27;@angular/common&#x27;;
+import { Router } from &#x27;@angular/router&#x27;;
+import {
+  IonHeader,
+  IonToolbar,
+  IonTitle,
+  IonContent,
+  IonButton,
+  IonButtons,
+  IonIcon,
+  IonSpinner
+} from &#x27;@ionic/angular&#x27;;
+import { addIcons } from &#x27;ionicons&#x27;;
+import {
+  downloadOutline,
+  documentTextOutline,
+  refreshOutline,
+  arrowBackOutline,
+  logOutOutline,
+  analyticsOutline,
+  timeOutline,
+  serverOutline,
+  addCircleOutline,
+  cubeOutline,
+  trendingUpOutline,
+  alertCircleOutline,
+  barChartOutline
+} from &#x27;ionicons/icons&#x27;;
+
+import { Chart, registerables } from &#x27;chart.js&#x27;;
+Chart.register(...registerables);
+
+import { AuthService } from &#x27;../../../core/services/auth.service&#x27;;
+import { InventoryService } from &#x27;../../../core/services/inventory.service&#x27;;
+import { ExportService } from &#x27;../../../core/services/export.service&#x27;;
+import { Product, Category } from &#x27;../../../core/models/product.model&#x27;;
+import { MovementLog } from &#x27;../../../core/models/inventory-log.model&#x27;;
+import { EmployeeProfileCardComponent } from &#x27;../../../shared/components/employee-profile-card/employee-profile-card.component&#x27;;
+
+export type DashboardFilterMode &#x3D; &#x27;units&#x27; | &#x27;valuation&#x27; | &#x27;low-stock&#x27;;
+
+@Component({
+  selector: &#x27;app-admin-dashboard&#x27;,
+  standalone: true,
+  imports: [
+    CommonModule,
+    IonHeader,
+    IonToolbar,
+    IonTitle,
+    IonContent,
+    IonButton,
+    IonButtons,
+    IonIcon,
+    IonSpinner,
+    EmployeeProfileCardComponent
+  ],
+  template: &#x60;
+    &lt;ion-header&gt;
+      &lt;ion-toolbar color&#x3D;&quot;dark&quot;&gt;
+        &lt;ion-title&gt;Panel de administración&lt;/ion-title&gt;
+        &lt;ion-buttons slot&#x3D;&quot;end&quot;&gt;
+          &lt;ion-button (click)&#x3D;&quot;router.navigate([&#x27;/admin&#x27;])&quot; color&#x3D;&quot;primary&quot;&gt;
+            &lt;ion-icon name&#x3D;&quot;bar-chart-outline&quot; slot&#x3D;&quot;start&quot;&gt;&lt;/ion-icon&gt;
+            Dashboard
+          &lt;/ion-button&gt;
+          &lt;ion-button (click)&#x3D;&quot;router.navigate([&#x27;/movements&#x27;])&quot;&gt;
+            &lt;ion-icon name&#x3D;&quot;time-outline&quot; slot&#x3D;&quot;start&quot;&gt;&lt;/ion-icon&gt;
+            Movimientos
+          &lt;/ion-button&gt;
+          &lt;ion-button (click)&#x3D;&quot;router.navigate([&#x27;/inventory&#x27;])&quot;&gt;
+            &lt;ion-icon name&#x3D;&quot;cube-outline&quot; slot&#x3D;&quot;start&quot;&gt;&lt;/ion-icon&gt;
+            Catálogo
+          &lt;/ion-button&gt;
+          &lt;ion-button (click)&#x3D;&quot;onLogout()&quot; aria-label&#x3D;&quot;Cerrar sesión&quot; color&#x3D;&quot;danger&quot;&gt;
+            &lt;ion-icon name&#x3D;&quot;log-out-outline&quot; slot&#x3D;&quot;start&quot;&gt;&lt;/ion-icon&gt;
+            Salir
+          &lt;/ion-button&gt;
+        &lt;/ion-buttons&gt;
+      &lt;/ion-toolbar&gt;
+    &lt;/ion-header&gt;
+
+    &lt;ion-content class&#x3D;&quot;invent-shell&quot;&gt;
+      &lt;div class&#x3D;&quot;container-fluid py-4 px-3 px-lg-4&quot;&gt;
+        &lt;!-- Barra superior de acciones y exportación --&gt;
+        &lt;div class&#x3D;&quot;d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4&quot;&gt;
+          &lt;div&gt;
+            &lt;h4 class&#x3D;&quot;fw-bold text-dark mb-0&quot;&gt;Cuadro de mando ejecutivo&lt;/h4&gt;
+            &lt;p class&#x3D;&quot;text-muted small mb-0&quot;&gt;
+              Control de flujo de stock, comportamiento mensual y métricas de inventario
+            &lt;/p&gt;
+          &lt;/div&gt;
+          &lt;div class&#x3D;&quot;d-flex flex-wrap gap-2&quot;&gt;
+            &lt;button
+              type&#x3D;&quot;button&quot;
+              class&#x3D;&quot;btn btn-outline-secondary btn-sm fw-semibold rounded-3 d-flex align-items-center gap-1 px-3 py-2 bg-white&quot;
+              (click)&#x3D;&quot;loadDashboardData()&quot;
+            &gt;
+              &lt;ion-icon name&#x3D;&quot;refresh-outline&quot;&gt;&lt;/ion-icon&gt;
+              &lt;span&gt;Actualizar&lt;/span&gt;
+            &lt;/button&gt;
+            &lt;button
+              type&#x3D;&quot;button&quot;
+              class&#x3D;&quot;btn btn-success btn-sm fw-semibold rounded-3 d-flex align-items-center gap-1 px-3 py-2 text-white shadow-sm&quot;
+              (click)&#x3D;&quot;exportPdf()&quot;
+            &gt;
+              &lt;ion-icon name&#x3D;&quot;document-text-outline&quot;&gt;&lt;/ion-icon&gt;
+              &lt;span&gt;Descargar PDF&lt;/span&gt;
+            &lt;/button&gt;
+            &lt;button
+              type&#x3D;&quot;button&quot;
+              class&#x3D;&quot;btn btn-primary btn-sm fw-semibold rounded-3 d-flex align-items-center gap-1 px-3 py-2 shadow-sm&quot;
+              (click)&#x3D;&quot;exportCsv()&quot;
+            &gt;
+              &lt;ion-icon name&#x3D;&quot;download-outline&quot;&gt;&lt;/ion-icon&gt;
+              &lt;span&gt;Descargar CSV&lt;/span&gt;
+            &lt;/button&gt;
+            &lt;button
+              type&#x3D;&quot;button&quot;
+              class&#x3D;&quot;btn btn-dark btn-sm fw-semibold rounded-3 d-flex align-items-center gap-1 px-3 py-2&quot;
+              (click)&#x3D;&quot;router.navigate([&#x27;/inventory/new&#x27;])&quot;
+            &gt;
+              &lt;ion-icon name&#x3D;&quot;add-circle-outline&quot;&gt;&lt;/ion-icon&gt;
+              &lt;span&gt;Nuevo producto&lt;/span&gt;
+            &lt;/button&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+
+        @if (isLoading()) {
+          &lt;div class&#x3D;&quot;invent-card p-5 text-center my-4&quot;&gt;
+            &lt;ion-spinner name&#x3D;&quot;crescent&quot; color&#x3D;&quot;primary&quot;&gt;&lt;/ion-spinner&gt;
+            &lt;p class&#x3D;&quot;text-muted mt-2 mb-0&quot;&gt;Cargando métricas del inventario...&lt;/p&gt;
+          &lt;/div&gt;
+        } @else {
+          &lt;!-- FILA SUPERIOR: Perfil de empleado (izquierda) + Overview de lado a ancho completo (derecha) --&gt;
+          &lt;div class&#x3D;&quot;row g-4 align-items-stretch mb-4&quot;&gt;
+            &lt;!-- Columna izquierda: Perfil de empleado + cronómetro --&gt;
+            &lt;div class&#x3D;&quot;col-12 col-lg-3&quot;&gt;
+              &lt;app-employee-profile-card
+                [totalProducts]&#x3D;&quot;products().length&quot;
+                [totalMovements]&#x3D;&quot;movementsCount()&quot;
+              &gt;&lt;/app-employee-profile-card&gt;
+            &lt;/div&gt;
+
+            &lt;!-- Columna derecha superior: Overview — Flujo y comportamiento de stock --&gt;
+            &lt;div class&#x3D;&quot;col-12 col-lg-9&quot;&gt;
+              &lt;div class&#x3D;&quot;invent-card p-4 h-100 d-flex flex-column justify-content-between&quot;&gt;
+                &lt;div class&#x3D;&quot;d-flex flex-wrap justify-content-between align-items-start gap-2 mb-3&quot;&gt;
+                  &lt;div&gt;
+                    &lt;h5 class&#x3D;&quot;fw-bold text-dark mb-1&quot;&gt;
+                      &lt;ion-icon name&#x3D;&quot;analytics-outline&quot; class&#x3D;&quot;text-primary me-1 align-middle&quot;&gt;&lt;/ion-icon&gt;
+                      Overview — Flujo y comportamiento de stock
+                    &lt;/h5&gt;
+                    &lt;p class&#x3D;&quot;text-muted extra-small mb-0&quot;&gt;
+                      {{ chartMode() &#x3D;&#x3D;&#x3D; &#x27;months&#x27;
+                        ? &#x27;Evolución mensual de entradas, salidas y nivel de inventario (enero - junio)&#x27;
+                        : &#x27;Comparativa de comportamiento de stock actual frente a umbral mínimo por producto&#x27; }}
+                    &lt;/p&gt;
+                  &lt;/div&gt;
+
+                  &lt;!-- Selector interactivo: Por meses / Por productos --&gt;
+                  &lt;div class&#x3D;&quot;btn-group btn-group-sm&quot; role&#x3D;&quot;group&quot; aria-label&#x3D;&quot;Selector de modo de gráfico&quot;&gt;
+                    &lt;button
+                      type&#x3D;&quot;button&quot;
+                      class&#x3D;&quot;btn fw-semibold&quot;
+                      [ngClass]&#x3D;&quot;chartMode() &#x3D;&#x3D;&#x3D; &#x27;months&#x27; ? &#x27;btn-primary&#x27; : &#x27;btn-outline-primary&#x27;&quot;
+                      (click)&#x3D;&quot;switchFlowMode(&#x27;months&#x27;)&quot;
+                    &gt;
+                      Por meses
+                    &lt;/button&gt;
+                    &lt;button
+                      type&#x3D;&quot;button&quot;
+                      class&#x3D;&quot;btn fw-semibold&quot;
+                      [ngClass]&#x3D;&quot;chartMode() &#x3D;&#x3D;&#x3D; &#x27;products&#x27; ? &#x27;btn-primary&#x27; : &#x27;btn-outline-primary&#x27;&quot;
+                      (click)&#x3D;&quot;switchFlowMode(&#x27;products&#x27;)&quot;
+                    &gt;
+                      Por productos
+                    &lt;/button&gt;
+                  &lt;/div&gt;
+                &lt;/div&gt;
+
+                &lt;div class&#x3D;&quot;chart-flow-box flex-grow-1&quot;&gt;
+                  &lt;canvas #flowChartCanvas&gt;&lt;/canvas&gt;
+                &lt;/div&gt;
+              &lt;/div&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+
+          &lt;!-- SECCIÓN INFERIOR: 3 Tarjetas de filtro directo + Lista desplegada justo debajo --&gt;
+          &lt;div class&#x3D;&quot;row g-3 mb-4&quot;&gt;
+            &lt;div class&#x3D;&quot;col-12 col-md-4&quot;&gt;
+              &lt;div
+                class&#x3D;&quot;invent-kpi-coral p-3 h-100 d-flex flex-column justify-content-between kpi-clickable&quot;
+                [class.kpi-selected]&#x3D;&quot;activeFilter() &#x3D;&#x3D;&#x3D; &#x27;valuation&#x27;&quot;
+                style&#x3D;&quot;cursor: pointer;&quot;
+                (click)&#x3D;&quot;setDashboardFilter(&#x27;valuation&#x27;)&quot;
+              &gt;
+                &lt;div class&#x3D;&quot;d-flex flex-wrap justify-content-between align-items-start gap-1&quot;&gt;
+                  &lt;span class&#x3D;&quot;small opacity-75 fw-semibold&quot;&gt;Valoración de stock&lt;/span&gt;
+                  &lt;span class&#x3D;&quot;badge bg-white text-danger rounded-pill&quot;&gt;
+                    {{ activeFilter() &#x3D;&#x3D;&#x3D; &#x27;valuation&#x27; ? &#x27;Filtro activo&#x27; : &#x27;Filtrar por valor&#x27; }}
+                  &lt;/span&gt;
+                &lt;/div&gt;
+                &lt;div class&#x3D;&quot;fs-4 fw-bold my-2 text-break&quot;&gt;
+                  {{ (totalValue() | currency:&#x27;EUR&#x27;:&#x27;symbol&#x27;:&#x27;1.0-0&#x27;) || &#x27;0 €&#x27; }}
+                &lt;/div&gt;
+                &lt;div class&#x3D;&quot;extra-small opacity-75&quot;&gt;Pulsa para ordenar por valoración económica&lt;/div&gt;
+              &lt;/div&gt;
+            &lt;/div&gt;
+
+            &lt;div class&#x3D;&quot;col-12 col-md-4&quot;&gt;
+              &lt;div
+                class&#x3D;&quot;invent-kpi-amber p-3 h-100 d-flex flex-column justify-content-between kpi-clickable&quot;
+                [class.kpi-selected]&#x3D;&quot;activeFilter() &#x3D;&#x3D;&#x3D; &#x27;units&#x27;&quot;
+                style&#x3D;&quot;cursor: pointer;&quot;
+                (click)&#x3D;&quot;setDashboardFilter(&#x27;units&#x27;)&quot;
+              &gt;
+                &lt;div class&#x3D;&quot;d-flex flex-wrap justify-content-between align-items-start gap-1&quot;&gt;
+                  &lt;span class&#x3D;&quot;small opacity-75 fw-semibold&quot;&gt;Unidades físicas&lt;/span&gt;
+                  &lt;span class&#x3D;&quot;badge bg-white text-warning rounded-pill&quot;&gt;
+                    {{ activeFilter() &#x3D;&#x3D;&#x3D; &#x27;units&#x27; ? &#x27;Filtro activo&#x27; : &#x27;Ver unidades&#x27; }}
+                  &lt;/span&gt;
+                &lt;/div&gt;
+                &lt;div class&#x3D;&quot;fs-4 fw-bold my-2 text-break&quot;&gt;
+                  {{ totalUnits() }} uds.
+                &lt;/div&gt;
+                &lt;div class&#x3D;&quot;extra-small opacity-75&quot;&gt;{{ products().length }} referencias activas en almacén&lt;/div&gt;
+              &lt;/div&gt;
+            &lt;/div&gt;
+
+            &lt;div class&#x3D;&quot;col-12 col-md-4&quot;&gt;
+              &lt;div
+                class&#x3D;&quot;invent-kpi-indigo p-3 h-100 d-flex flex-column justify-content-between kpi-clickable&quot;
+                [class.kpi-selected]&#x3D;&quot;activeFilter() &#x3D;&#x3D;&#x3D; &#x27;low-stock&#x27;&quot;
+                style&#x3D;&quot;cursor: pointer;&quot;
+                (click)&#x3D;&quot;setDashboardFilter(&#x27;low-stock&#x27;)&quot;
+              &gt;
+                &lt;div class&#x3D;&quot;d-flex flex-wrap justify-content-between align-items-start gap-1&quot;&gt;
+                  &lt;span class&#x3D;&quot;small opacity-75 fw-semibold&quot;&gt;Alertas de stock bajo&lt;/span&gt;
+                  &lt;span class&#x3D;&quot;badge bg-white text-primary rounded-pill&quot;&gt;
+                    {{ activeFilter() &#x3D;&#x3D;&#x3D; &#x27;low-stock&#x27; ? &#x27;Filtro activo&#x27; : &#x27;Ver faltantes&#x27; }}
+                  &lt;/span&gt;
+                &lt;/div&gt;
+                &lt;div class&#x3D;&quot;fs-4 fw-bold my-2 text-break&quot;&gt;
+                  {{ lowStockCount() }} ítems
+                &lt;/div&gt;
+                &lt;div class&#x3D;&quot;extra-small opacity-75&quot;&gt;Pulsa para ver productos con stock bajo&lt;/div&gt;
+              &lt;/div&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+
+          &lt;!-- LISTA DINÁMICA DE PRODUCTOS (Justo debajo de los filtros) --&gt;
+          &lt;div class&#x3D;&quot;invent-card p-4&quot; id&#x3D;&quot;dashboard-products-section&quot;&gt;
+            &lt;div class&#x3D;&quot;d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3&quot;&gt;
+              &lt;div&gt;
+                @if (activeFilter() &#x3D;&#x3D;&#x3D; &#x27;low-stock&#x27;) {
+                  &lt;h5 class&#x3D;&quot;fw-bold text-danger mb-0&quot;&gt;
+                    Productos en alerta de stock bajo ({{ filteredDashboardProducts().length }})
+                  &lt;/h5&gt;
+                  &lt;p class&#x3D;&quot;text-muted extra-small mb-0&quot;&gt;
+                    Artículos con existencias iguales o inferiores al stock mínimo requerido
+                  &lt;/p&gt;
+                } @else if (activeFilter() &#x3D;&#x3D;&#x3D; &#x27;valuation&#x27;) {
+                  &lt;h5 class&#x3D;&quot;fw-bold text-dark mb-0&quot;&gt;
+                    Productos por valoración de stock ({{ filteredDashboardProducts().length }})
+                  &lt;/h5&gt;
+                  &lt;p class&#x3D;&quot;text-muted extra-small mb-0&quot;&gt;
+                    Artículos ordenados de mayor a menor capital inmovilizado en almacén
+                  &lt;/p&gt;
+                } @else {
+                  &lt;h5 class&#x3D;&quot;fw-bold text-dark mb-0&quot;&gt;
+                    Productos por unidades físicas ({{ filteredDashboardProducts().length }})
+                  &lt;/h5&gt;
+                  &lt;p class&#x3D;&quot;text-muted extra-small mb-0&quot;&gt;
+                    Listado general de existencias físicas y valoración unitaria
+                  &lt;/p&gt;
+                }
+              &lt;/div&gt;
+              &lt;div class&#x3D;&quot;d-flex flex-wrap gap-2&quot;&gt;
+                @if (activeFilter() !&#x3D;&#x3D; &#x27;units&#x27;) {
+                  &lt;button
+                    type&#x3D;&quot;button&quot;
+                    class&#x3D;&quot;btn btn-sm btn-outline-secondary rounded-pill px-3 fw-semibold&quot;
+                    (click)&#x3D;&quot;setDashboardFilter(&#x27;units&#x27;)&quot;
+                  &gt;
+                    Ver todos ({{ products().length }})
+                  &lt;/button&gt;
+                }
+                &lt;button
+                  type&#x3D;&quot;button&quot;
+                  class&#x3D;&quot;btn btn-sm btn-outline-primary rounded-pill px-3 fw-semibold&quot;
+                  (click)&#x3D;&quot;router.navigate([&#x27;/inventory&#x27;])&quot;
+                &gt;
+                  Ir al catálogo completo
+                &lt;/button&gt;
+              &lt;/div&gt;
+            &lt;/div&gt;
+
+            &lt;div class&#x3D;&quot;table-responsive&quot;&gt;
+              &lt;table class&#x3D;&quot;table align-middle mb-0&quot;&gt;
+                &lt;thead class&#x3D;&quot;table-light&quot;&gt;
+                  &lt;tr class&#x3D;&quot;text-muted extra-small&quot;&gt;
+                    &lt;th&gt;Producto&lt;/th&gt;
+                    &lt;th&gt;Categoría&lt;/th&gt;
+                    &lt;th class&#x3D;&quot;text-center&quot;&gt;Stock / Mínimo&lt;/th&gt;
+                    &lt;th class&#x3D;&quot;text-end&quot;&gt;Precio unitario&lt;/th&gt;
+                    &lt;th class&#x3D;&quot;text-end&quot;&gt;Valoración total&lt;/th&gt;
+                  &lt;/tr&gt;
+                &lt;/thead&gt;
+                &lt;tbody&gt;
+                  @for (prod of filteredDashboardProducts(); track prod.id) {
+                    &lt;tr
+                      class&#x3D;&quot;product-row&quot;
+                      style&#x3D;&quot;cursor: pointer;&quot;
+                      (click)&#x3D;&quot;router.navigate([&#x27;/inventory/edit&#x27;, prod.id])&quot;
+                    &gt;
+                      &lt;td&gt;
+                        &lt;div class&#x3D;&quot;d-flex align-items-center gap-3&quot;&gt;
+                          &lt;img
+                            [src]&#x3D;&quot;prod.image_url&quot;
+                            [alt]&#x3D;&quot;prod.name&quot;
+                            class&#x3D;&quot;rounded-3 border product-thumb&quot;
+                          /&gt;
+                          &lt;div&gt;
+                            &lt;div class&#x3D;&quot;fw-semibold text-dark small&quot;&gt;{{ prod.name }}&lt;/div&gt;
+                            &lt;div class&#x3D;&quot;text-muted extra-small&quot;&gt;{{ prod.sku }}&lt;/div&gt;
+                          &lt;/div&gt;
+                        &lt;/div&gt;
+                      &lt;/td&gt;
+                      &lt;td&gt;
+                        &lt;span class&#x3D;&quot;badge bg-light text-secondary border&quot;&gt;
+                          {{ prod.category?.name || &#x27;General&#x27; }}
+                        &lt;/span&gt;
+                      &lt;/td&gt;
+                      &lt;td class&#x3D;&quot;text-center&quot;&gt;
+                        &lt;span
+                          class&#x3D;&quot;badge rounded-pill px-2 py-1&quot;
+                          [ngClass]&#x3D;&quot;prod.stock &lt;&#x3D; prod.min_stock ? &#x27;bg-danger text-white&#x27; : &#x27;bg-success-subtle text-success&#x27;&quot;
+                        &gt;
+                          {{ prod.stock }} / mín. {{ prod.min_stock }}
+                        &lt;/span&gt;
+                      &lt;/td&gt;
+                      &lt;td class&#x3D;&quot;text-end text-secondary small&quot;&gt;
+                        {{ prod.unit_price | currency:&#x27;EUR&#x27;:&#x27;symbol&#x27;:&#x27;1.0-0&#x27; }}
+                      &lt;/td&gt;
+                      &lt;td class&#x3D;&quot;text-end fw-bold text-dark small&quot;&gt;
+                        {{ (prod.stock * prod.unit_price) | currency:&#x27;EUR&#x27;:&#x27;symbol&#x27;:&#x27;1.0-0&#x27; }}
+                      &lt;/td&gt;
+                    &lt;/tr&gt;
+                  }
+                &lt;/tbody&gt;
+              &lt;/table&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+        }
+      &lt;/div&gt;
+    &lt;/ion-content&gt;
+  &#x60;,
+  styles: [&#x60;
+    .extra-small {
+      font-size: 0.75rem;
+    }
+    .chart-flow-box {
+      position: relative;
+      min-height: 270px;
+      width: 100%;
+    }
+    .product-thumb {
+      width: 42px;
+      height: 42px;
+      object-fit: cover;
+      background-color: #f2f4f6;
+    }
+    .product-row:hover {
+      background-color: #f2f6f9;
+    }
+    .kpi-clickable {
+      transition: transform 0.18s ease, outline 0.18s ease;
+    }
+    .kpi-clickable:hover {
+      transform: translateY(-2px);
+    }
+    .kpi-selected {
+      outline: 3px solid #2889b8;
+      outline-offset: 2px;
+    }
+  &#x60;]
+})
+export class AdminDashboardPage implements OnInit, AfterViewInit {
+  authService &#x3D; inject(AuthService);
+  inventoryService &#x3D; inject(InventoryService);
+  exportService &#x3D; inject(ExportService);
+  router &#x3D; inject(Router);
+
+  @ViewChild(&#x27;flowChartCanvas&#x27;) flowCanvas?: ElementRef&lt;HTMLCanvasElement&gt;;
+
+  private flowChartInstance?: Chart;
+
+  isLoading &#x3D; signal&lt;boolean&gt;(true);
+  chartMode &#x3D; signal&lt;&#x27;months&#x27; | &#x27;products&#x27;&gt;(&#x27;months&#x27;);
+  activeFilter &#x3D; signal&lt;DashboardFilterMode&gt;(&#x27;units&#x27;);
+
+  products &#x3D; signal&lt;Product[]&gt;([]);
+  categories &#x3D; signal&lt;Category[]&gt;([]);
+  movements &#x3D; signal&lt;MovementLog[]&gt;([]);
+
+  totalValue &#x3D; signal&lt;number&gt;(0);
+  totalUnits &#x3D; signal&lt;number&gt;(0);
+  lowStockCount &#x3D; signal&lt;number&gt;(0);
+  movementsCount &#x3D; signal&lt;number&gt;(0);
+
+  readonly filteredDashboardProducts &#x3D; computed(() &#x3D;&gt; {
+    const all &#x3D; [...this.products()];
+    const mode &#x3D; this.activeFilter();
+    if (mode &#x3D;&#x3D;&#x3D; &#x27;low-stock&#x27;) {
+      return all.filter(p &#x3D;&gt; p.stock &lt;&#x3D; p.min_stock);
+    }
+    if (mode &#x3D;&#x3D;&#x3D; &#x27;valuation&#x27;) {
+      return all.sort((a, b) &#x3D;&gt; (b.stock * b.unit_price) - (a.stock * a.unit_price));
+    }
+    return all.sort((a, b) &#x3D;&gt; b.stock - a.stock);
+  });
+
+  constructor() {
+    addIcons({
+      downloadOutline,
+      documentTextOutline,
+      refreshOutline,
+      arrowBackOutline,
+      logOutOutline,
+      analyticsOutline,
+      timeOutline,
+      serverOutline,
+      addCircleOutline,
+      cubeOutline,
+      trendingUpOutline,
+      alertCircleOutline,
+      barChartOutline
+    });
+  }
+
+  async ngOnInit(): Promise&lt;void&gt; {
+    await this.loadDashboardData();
+  }
+
+  ngAfterViewInit(): void {}
+
+  async loadDashboardData(): Promise&lt;void&gt; {
+    this.isLoading.set(true);
+
+    try {
+      const [fetchedProducts, fetchedCategories, fetchedLogs] &#x3D; await Promise.all([
+        this.inventoryService.getProducts(),
+        this.inventoryService.getCategories(),
+        this.inventoryService.getMovements(50)
+      ]);
+
+      this.products.set(fetchedProducts);
+      this.categories.set(fetchedCategories);
+      this.movements.set(fetchedLogs);
+
+      this.totalValue.set(fetchedProducts.reduce((acc, p) &#x3D;&gt; acc + (p.stock * p.unit_price), 0));
+      this.totalUnits.set(fetchedProducts.reduce((acc, p) &#x3D;&gt; acc + p.stock, 0));
+      this.lowStockCount.set(fetchedProducts.filter(p &#x3D;&gt; p.stock &lt;&#x3D; p.min_stock).length);
+      this.movementsCount.set(fetchedLogs.length);
+
+      this.isLoading.set(false);
+
+      setTimeout(() &#x3D;&gt; {
+        this.renderFlowChart();
+      }, 80);
+
+    } catch (error) {
+      console.error(&#x27;Error en la carga de datos del Dashboard:&#x27;, error);
+      this.isLoading.set(false);
+    }
+  }
+
+  setDashboardFilter(mode: DashboardFilterMode): void {
+    this.activeFilter.set(mode);
+  }
+
+  switchFlowMode(mode: &#x27;months&#x27; | &#x27;products&#x27;): void {
+    this.chartMode.set(mode);
+    setTimeout(() &#x3D;&gt; this.renderFlowChart(), 30);
+  }
+
+  private renderFlowChart(): void {
+    if (!this.flowCanvas) return;
+
+    if (this.flowChartInstance) {
+      this.flowChartInstance.destroy();
+    }
+
+    const canvas &#x3D; this.flowCanvas.nativeElement;
+    const ctx &#x3D; canvas.getContext(&#x27;2d&#x27;);
+
+    let petrolGradient: string | CanvasGradient &#x3D; &#x27;rgba(24, 90, 122, 0.25)&#x27;;
+    let ochreGradient: string | CanvasGradient &#x3D; &#x27;rgba(212, 144, 53, 0.16)&#x27;;
+    if (ctx) {
+      petrolGradient &#x3D; ctx.createLinearGradient(0, 0, 0, 260);
+      petrolGradient.addColorStop(0, &#x27;rgba(24, 90, 122, 0.40)&#x27;);
+      petrolGradient.addColorStop(0.75, &#x27;rgba(40, 137, 184, 0.12)&#x27;);
+      petrolGradient.addColorStop(1, &#x27;rgba(40, 137, 184, 0.0)&#x27;);
+
+      ochreGradient &#x3D; ctx.createLinearGradient(0, 0, 0, 260);
+      ochreGradient.addColorStop(0, &#x27;rgba(212, 144, 53, 0.30)&#x27;);
+      ochreGradient.addColorStop(1, &#x27;rgba(212, 144, 53, 0.0)&#x27;);
+    }
+
+    const isMonthly &#x3D; this.chartMode() &#x3D;&#x3D;&#x3D; &#x27;months&#x27;;
+    const currentTotal &#x3D; this.totalUnits() || 83;
+
+    const labels &#x3D; isMonthly
+      ? [&#x27;Enero&#x27;, &#x27;Febrero&#x27;, &#x27;Marzo&#x27;, &#x27;Abril&#x27;, &#x27;Mayo&#x27;, &#x27;Junio&#x27;]
+      : this.products().map(p &#x3D;&gt; p.name.length &gt; 16 ? p.name.slice(0, 16) + &#x27;…&#x27; : p.name);
+
+    const primarySeries &#x3D; isMonthly
+      ? [45, 58, 52, 74, 68, currentTotal]
+      : this.products().map(p &#x3D;&gt; p.stock);
+
+    const secondarySeries &#x3D; isMonthly
+      ? [22, 31, 38, 29, 44, 36]
+      : this.products().map(p &#x3D;&gt; p.min_stock);
+
+    this.flowChartInstance &#x3D; new Chart(canvas, {
+      type: &#x27;line&#x27;,
+      data: {
+        labels,
+        datasets: [
+          {
+            label: isMonthly ? &#x27;Flujo de existencias (stock activo)&#x27; : &#x27;Stock actual (unidades)&#x27;,
+            data: primarySeries,
+            borderColor: &#x27;#185a7a&#x27;,
+            backgroundColor: petrolGradient,
+            borderWidth: 3,
+            pointBackgroundColor: &#x27;#ffffff&#x27;,
+            pointBorderColor: &#x27;#185a7a&#x27;,
+            pointBorderWidth: 2,
+            pointRadius: 4,
+            pointHoverRadius: 6,
+            tension: 0.42,
+            fill: true
+          },
+          {
+            label: isMonthly ? &#x27;Salidas / demanda mensual&#x27; : &#x27;Umbral mínimo de seguridad&#x27;,
+            data: secondarySeries,
+            borderColor: &#x27;#d49035&#x27;,
+            backgroundColor: ochreGradient,
+            borderWidth: 2,
+            borderDash: isMonthly ? [] : [5, 5],
+            pointBackgroundColor: &#x27;#ffffff&#x27;,
+            pointBorderColor: &#x27;#d49035&#x27;,
+            pointRadius: 3,
+            tension: 0.42,
+            fill: true
+          }
+        ]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        interaction: {
+          mode: &#x27;index&#x27;,
+          intersect: false
+        },
+        plugins: {
+          legend: {
+            position: &#x27;top&#x27;,
+            labels: {
+              usePointStyle: true,
+              boxWidth: 8
+            }
+          }
+        },
+        scales: {
+          x: {
+            grid: { display: false }
+          },
+          y: {
+            beginAtZero: true,
+            grid: {
+              color: &#x27;rgba(226, 232, 240, 0.7)&#x27;
+            },
+            ticks: { precision: 0 }
+          }
+        }
+      }
+    });
+  }
+
+  exportPdf(): void {
+    this.exportService.exportInventoryToPdf(this.filteredDashboardProducts());
+  }
+
+  exportCsv(): void {
+    this.exportService.exportProductsToCsv(this.filteredDashboardProducts());
+  }
+
+  async onLogout(): Promise&lt;void&gt; {
+    await this.authService.logout();
+    this.router.navigate([&#x27;/login&#x27;]);
+  }
+}
+</code></pre>
+    </div>
+
+
+    <div class="tab-pane fade " id="styleData">
+            <pre class="line-numbers"><code class="language-scss">
+    .extra-small {
+      font-size: 0.75rem;
+    }
+    .chart-flow-box {
+      position: relative;
+      min-height: 270px;
+      width: 100%;
+    }
+    .product-thumb {
+      width: 42px;
+      height: 42px;
+      object-fit: cover;
+      background-color: #f2f4f6;
+    }
+    .product-row:hover {
+      background-color: #f2f6f9;
+    }
+    .kpi-clickable {
+      transition: transform 0.18s ease, outline 0.18s ease;
+    }
+    .kpi-clickable:hover {
+      transform: translateY(-2px);
+    }
+    .kpi-selected {
+      outline: 3px solid #2889b8;
+      outline-offset: 2px;
+    }
+  
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis-network.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><ion-header>  <ion-toolbar color="dark">    <ion-title>Panel de administración</ion-title>    <ion-buttons slot="end">      <ion-button (click)="router.navigate([\'/admin\'])" color="primary">        <ion-icon name="bar-chart-outline" slot="start"></ion-icon>        Dashboard      </ion-button>      <ion-button (click)="router.navigate([\'/movements\'])">        <ion-icon name="time-outline" slot="start"></ion-icon>        Movimientos      </ion-button>      <ion-button (click)="router.navigate([\'/inventory\'])">        <ion-icon name="cube-outline" slot="start"></ion-icon>        Catálogo      </ion-button>      <ion-button (click)="onLogout()" aria-label="Cerrar sesión" color="danger">        <ion-icon name="log-out-outline" slot="start"></ion-icon>        Salir      </ion-button>    </ion-buttons>  </ion-toolbar></ion-header><ion-content class="invent-shell">  <div class="container-fluid py-4 px-3 px-lg-4">    <!-- Barra superior de acciones y exportación -->    <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">      <div>        <h4 class="fw-bold text-dark mb-0">Cuadro de mando ejecutivo</h4>        <p class="text-muted small mb-0">          Control de flujo de stock, comportamiento mensual y métricas de inventario        </p>      </div>      <div class="d-flex flex-wrap gap-2">        <button          type="button"          class="btn btn-outline-secondary btn-sm fw-semibold rounded-3 d-flex align-items-center gap-1 px-3 py-2 bg-white"          (click)="loadDashboardData()"        >          <ion-icon name="refresh-outline"></ion-icon>          <span>Actualizar</span>        </button>        <button          type="button"          class="btn btn-success btn-sm fw-semibold rounded-3 d-flex align-items-center gap-1 px-3 py-2 text-white shadow-sm"          (click)="exportPdf()"        >          <ion-icon name="document-text-outline"></ion-icon>          <span>Descargar PDF</span>        </button>        <button          type="button"          class="btn btn-primary btn-sm fw-semibold rounded-3 d-flex align-items-center gap-1 px-3 py-2 shadow-sm"          (click)="exportCsv()"        >          <ion-icon name="download-outline"></ion-icon>          <span>Descargar CSV</span>        </button>        <button          type="button"          class="btn btn-dark btn-sm fw-semibold rounded-3 d-flex align-items-center gap-1 px-3 py-2"          (click)="router.navigate([\'/inventory/new\'])"        >          <ion-icon name="add-circle-outline"></ion-icon>          <span>Nuevo producto</span>        </button>      </div>    </div>    @if (isLoading()) {      <div class="invent-card p-5 text-center my-4">        <ion-spinner name="crescent" color="primary"></ion-spinner>        <p class="text-muted mt-2 mb-0">Cargando métricas del inventario...</p>      </div>    } @else {      <!-- FILA SUPERIOR: Perfil de empleado (izquierda) + Overview de lado a ancho completo (derecha) -->      <div class="row g-4 align-items-stretch mb-4">        <!-- Columna izquierda: Perfil de empleado + cronómetro -->        <div class="col-12 col-lg-3">          <app-employee-profile-card            [totalProducts]="products().length"            [totalMovements]="movementsCount()"          ></app-employee-profile-card>        </div>        <!-- Columna derecha superior: Overview — Flujo y comportamiento de stock -->        <div class="col-12 col-lg-9">          <div class="invent-card p-4 h-100 d-flex flex-column justify-content-between">            <div class="d-flex flex-wrap justify-content-between align-items-start gap-2 mb-3">              <div>                <h5 class="fw-bold text-dark mb-1">                  <ion-icon name="analytics-outline" class="text-primary me-1 align-middle"></ion-icon>                  Overview — Flujo y comportamiento de stock                </h5>                <p class="text-muted extra-small mb-0">                  {{ chartMode() === \'months\'                    ? \'Evolución mensual de entradas, salidas y nivel de inventario (enero - junio)\'                    : \'Comparativa de comportamiento de stock actual frente a umbral mínimo por producto\' }}                </p>              </div>              <!-- Selector interactivo: Por meses / Por productos -->              <div class="btn-group btn-group-sm" role="group" aria-label="Selector de modo de gráfico">                <button                  type="button"                  class="btn fw-semibold"                  [ngClass]="chartMode() === \'months\' ? \'btn-primary\' : \'btn-outline-primary\'"                  (click)="switchFlowMode(\'months\')"                >                  Por meses                </button>                <button                  type="button"                  class="btn fw-semibold"                  [ngClass]="chartMode() === \'products\' ? \'btn-primary\' : \'btn-outline-primary\'"                  (click)="switchFlowMode(\'products\')"                >                  Por productos                </button>              </div>            </div>            <div class="chart-flow-box flex-grow-1">              <canvas #flowChartCanvas></canvas>            </div>          </div>        </div>      </div>      <!-- SECCIÓN INFERIOR: 3 Tarjetas de filtro directo + Lista desplegada justo debajo -->      <div class="row g-3 mb-4">        <div class="col-12 col-md-4">          <div            class="invent-kpi-coral p-3 h-100 d-flex flex-column justify-content-between kpi-clickable"            [class.kpi-selected]="activeFilter() === \'valuation\'"            style="cursor: pointer;"            (click)="setDashboardFilter(\'valuation\')"          >            <div class="d-flex flex-wrap justify-content-between align-items-start gap-1">              <span class="small opacity-75 fw-semibold">Valoración de stock</span>              <span class="badge bg-white text-danger rounded-pill">                {{ activeFilter() === \'valuation\' ? \'Filtro activo\' : \'Filtrar por valor\' }}              </span>            </div>            <div class="fs-4 fw-bold my-2 text-break">              {{ (totalValue() | currency:\'EUR\':\'symbol\':\'1.0-0\') || \'0 €\' }}            </div>            <div class="extra-small opacity-75">Pulsa para ordenar por valoración económica</div>          </div>        </div>        <div class="col-12 col-md-4">          <div            class="invent-kpi-amber p-3 h-100 d-flex flex-column justify-content-between kpi-clickable"            [class.kpi-selected]="activeFilter() === \'units\'"            style="cursor: pointer;"            (click)="setDashboardFilter(\'units\')"          >            <div class="d-flex flex-wrap justify-content-between align-items-start gap-1">              <span class="small opacity-75 fw-semibold">Unidades físicas</span>              <span class="badge bg-white text-warning rounded-pill">                {{ activeFilter() === \'units\' ? \'Filtro activo\' : \'Ver unidades\' }}              </span>            </div>            <div class="fs-4 fw-bold my-2 text-break">              {{ totalUnits() }} uds.            </div>            <div class="extra-small opacity-75">{{ products().length }} referencias activas en almacén</div>          </div>        </div>        <div class="col-12 col-md-4">          <div            class="invent-kpi-indigo p-3 h-100 d-flex flex-column justify-content-between kpi-clickable"            [class.kpi-selected]="activeFilter() === \'low-stock\'"            style="cursor: pointer;"            (click)="setDashboardFilter(\'low-stock\')"          >            <div class="d-flex flex-wrap justify-content-between align-items-start gap-1">              <span class="small opacity-75 fw-semibold">Alertas de stock bajo</span>              <span class="badge bg-white text-primary rounded-pill">                {{ activeFilter() === \'low-stock\' ? \'Filtro activo\' : \'Ver faltantes\' }}              </span>            </div>            <div class="fs-4 fw-bold my-2 text-break">              {{ lowStockCount() }} ítems            </div>            <div class="extra-small opacity-75">Pulsa para ver productos con stock bajo</div>          </div>        </div>      </div>      <!-- LISTA DINÁMICA DE PRODUCTOS (Justo debajo de los filtros) -->      <div class="invent-card p-4" id="dashboard-products-section">        <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3">          <div>            @if (activeFilter() === \'low-stock\') {              <h5 class="fw-bold text-danger mb-0">                Productos en alerta de stock bajo ({{ filteredDashboardProducts().length }})              </h5>              <p class="text-muted extra-small mb-0">                Artículos con existencias iguales o inferiores al stock mínimo requerido              </p>            } @else if (activeFilter() === \'valuation\') {              <h5 class="fw-bold text-dark mb-0">                Productos por valoración de stock ({{ filteredDashboardProducts().length }})              </h5>              <p class="text-muted extra-small mb-0">                Artículos ordenados de mayor a menor capital inmovilizado en almacén              </p>            } @else {              <h5 class="fw-bold text-dark mb-0">                Productos por unidades físicas ({{ filteredDashboardProducts().length }})              </h5>              <p class="text-muted extra-small mb-0">                Listado general de existencias físicas y valoración unitaria              </p>            }          </div>          <div class="d-flex flex-wrap gap-2">            @if (activeFilter() !== \'units\') {              <button                type="button"                class="btn btn-sm btn-outline-secondary rounded-pill px-3 fw-semibold"                (click)="setDashboardFilter(\'units\')"              >                Ver todos ({{ products().length }})              </button>            }            <button              type="button"              class="btn btn-sm btn-outline-primary rounded-pill px-3 fw-semibold"              (click)="router.navigate([\'/inventory\'])"            >              Ir al catálogo completo            </button>          </div>        </div>        <div class="table-responsive">          <table class="table align-middle mb-0">            <thead class="table-light">              <tr class="text-muted extra-small">                <th>Producto</th>                <th>Categoría</th>                <th class="text-center">Stock / Mínimo</th>                <th class="text-end">Precio unitario</th>                <th class="text-end">Valoración total</th>              </tr>            </thead>            <tbody>              @for (prod of filteredDashboardProducts(); track prod.id) {                <tr                  class="product-row"                  style="cursor: pointer;"                  (click)="router.navigate([\'/inventory/edit\', prod.id])"                >                  <td>                    <div class="d-flex align-items-center gap-3">                      <img                        [src]="prod.image_url"                        [alt]="prod.name"                        class="rounded-3 border product-thumb"                      />                      <div>                        <div class="fw-semibold text-dark small">{{ prod.name }}</div>                        <div class="text-muted extra-small">{{ prod.sku }}</div>                      </div>                    </div>                  </td>                  <td>                    <span class="badge bg-light text-secondary border">                      {{ prod.category?.name || \'General\' }}                    </span>                  </td>                  <td class="text-center">                    <span                      class="badge rounded-pill px-2 py-1"                      [ngClass]="prod.stock <= prod.min_stock ? \'bg-danger text-white\' : \'bg-success-subtle text-success\'"                    >                      {{ prod.stock }} / mín. {{ prod.min_stock }}                    </span>                  </td>                  <td class="text-end text-secondary small">                    {{ prod.unit_price | currency:\'EUR\':\'symbol\':\'1.0-0\' }}                  </td>                  <td class="text-end fw-bold text-dark small">                    {{ (prod.stock * prod.unit_price) | currency:\'EUR\':\'symbol\':\'1.0-0\' }}                  </td>                </tr>              }            </tbody>          </table>        </div>      </div>    }  </div></ion-content></div>'
+    var COMPONENTS = [{'name': 'AdminDashboardPage', 'selector': 'app-admin-dashboard'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'DataTableComponent', 'selector': 'app-data-table'},{'name': 'EmployeeProfileCardComponent', 'selector': 'app-employee-profile-card'},{'name': 'HomePage', 'selector': 'app-home'},{'name': 'InventoryListPage', 'selector': 'app-inventory-list'},{'name': 'LoginPage', 'selector': 'app-login'},{'name': 'MovementHistoryPage', 'selector': 'app-movement-history'},{'name': 'ProductFormPage', 'selector': 'app-product-form'},{'name': 'StatWidgetComponent', 'selector': 'app-stat-widget'},{'name': 'TemplatePlaygroundComponent', 'selector': 'template-playground-root'},{'name': 'UnauthorizedPage', 'selector': 'app-unauthorized'}];
+    var DIRECTIVES = [];
+    var ACTUAL_COMPONENT = {'name': 'AdminDashboardPage'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'AdminDashboardPage.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var updateDarkModeSwitchOffset = function () {
+                    var content = document.querySelector('.content');
+                    var scrollbarWidth = 0;
+
+                    if (content) {
+                         scrollbarWidth = Math.max(0, content.offsetWidth - content.clientWidth);
+                    }
+
+                    document.documentElement.style.setProperty(
+                         '--content-scrollbar-width',
+                         scrollbarWidth + 'px'
+                    );
+               };
+
+               updateDarkModeSwitchOffset();
+               requestAnimationFrame(updateDarkModeSwitchOffset);
+               window.addEventListener('resize', updateDarkModeSwitchOffset);
+
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

@@ -1,0 +1,726 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>stock-app documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+          <script>
+              // --- Iframe navigation tracking for Template Playground ---
+              function sendCurrentUrlToParent() {
+                  if (window.parent && window.parent !== window) {
+                      window.parent.postMessage({
+                          type: 'compodoc-iframe-navigate',
+                          url: window.location.pathname + window.location.hash
+                      }, '*');
+                  }
+              }
+              window.addEventListener('hashchange', sendCurrentUrlToParent, false);
+              window.addEventListener('popstate', sendCurrentUrlToParent, false);
+              window.addEventListener('DOMContentLoaded', sendCurrentUrlToParent, false);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">stock-app documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search">
+    <button type="button"
+        class="search-input-clear"
+        aria-label="Clear search"
+        data-search-input-clear>&times;</button>
+</div>
+            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content interface">
+                   <div class="content-data">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Interfaces</li>
+  <li class="breadcrumb-item"
+  >
+  UserSession</li>
+</ol>
+
+<div class="io-file io-file-path" data-compodoc="entity-file-path">
+    <span class="icon ion-ios-document" aria-hidden="true"></span>
+    <code>src/app/core/services/auth.service.ts</code>
+</div>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" 
+                class="nav-link"
+                class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#api" 
+                class="nav-link"
+                
+                role="tab" id="api-tab" data-bs-toggle="tab" data-link="api">API</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" 
+                class="nav-link"
+                
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info">
+
+            <p class="comment">
+                <h3>Description</h3>
+            </p>
+            <p class="comment">
+                <p>Estructura de sesión requerida por el dossier del laboratorio DAM2</p>
+
+            </p>
+
+
+            </div>
+
+    <div class="tab-pane fade " id="api"><section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+            <tr>
+                <td class="col-md-3">
+                    <h6><b>Properties</b></h6>
+                </td>
+                <td class="col-md-9">
+                    <ul class="index-list">
+                        <li>
+                                <a href="#isAuthenticated" class="reference-link ">
+                                    <span class="reference-badge reference-badge--property" aria-hidden="true">P</span><span class="reference-link-label">isAuthenticated</span>
+                                </a>
+                        </li>
+                        <li>
+                                <a href="#role" class="reference-link ">
+                                    <span class="reference-badge reference-badge--property" aria-hidden="true">P</span><span class="reference-link-label">role</span>
+                                </a>
+                        </li>
+                        <li>
+                                <a href="#username" class="reference-link ">
+                                    <span class="reference-badge reference-badge--property" aria-hidden="true">P</span><span class="reference-link-label">username</span>
+                                </a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+
+
+
+    <section data-compodoc="block-properties">
+        <h3 id="inputs">Properties</h3>
+            <table class="table table-sm table-bordered">
+                <tbody>
+                        <tr>
+                            <td class="col-md-4">
+                                <a name="isAuthenticated"></a>
+                                <span class="name "><b>isAuthenticated</b>
+                                    <a href="#isAuthenticated">
+                                        <span class="icon ion-ios-link"></span>
+                                    </a>
+                                </span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <code>isAuthenticated:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+</code>
+                            </td>
+                        </tr>
+
+
+                            <tr>
+                                <td class="col-md-4">
+                                    <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                                </td>
+                            </tr>
+
+
+
+
+
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="12" class="link-to-prism">src/app/core/services/auth.service.ts:12</a></div>
+                                </td>
+                            </tr>
+
+                </tbody>
+            </table>
+            <table class="table table-sm table-bordered">
+                <tbody>
+                        <tr>
+                            <td class="col-md-4">
+                                <a name="role"></a>
+                                <span class="name "><b>role</b>
+                                    <a href="#role">
+                                        <span class="icon ion-ios-link"></span>
+                                    </a>
+                                </span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <code>role:     <code>&quot;admin&quot; | &quot;user&quot;</code>
+</code>
+                            </td>
+                        </tr>
+
+
+                            <tr>
+                                <td class="col-md-4">
+                                    <i>Type : </i>    <code>&quot;admin&quot; | &quot;user&quot;</code>
+
+                                </td>
+                            </tr>
+
+
+
+
+
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="11" class="link-to-prism">src/app/core/services/auth.service.ts:11</a></div>
+                                </td>
+                            </tr>
+
+                </tbody>
+            </table>
+            <table class="table table-sm table-bordered">
+                <tbody>
+                        <tr>
+                            <td class="col-md-4">
+                                <a name="username"></a>
+                                <span class="name "><b>username</b>
+                                    <a href="#username">
+                                        <span class="icon ion-ios-link"></span>
+                                    </a>
+                                </span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <code>username:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+</code>
+                            </td>
+                        </tr>
+
+
+                            <tr>
+                                <td class="col-md-4">
+                                    <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                                </td>
+                            </tr>
+
+
+
+
+
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="10" class="link-to-prism">src/app/core/services/auth.service.ts:10</a></div>
+                                </td>
+                            </tr>
+
+                </tbody>
+            </table>
+    </section>
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Injectable, signal, computed } from &#x27;@angular/core&#x27;;
+import { createClient, SupabaseClient, User, Session } from &#x27;@supabase/supabase-js&#x27;;
+import { environment } from &#x27;../../../environments/environment&#x27;;
+import { UserProfile, UserRole } from &#x27;../models/user.model&#x27;;
+
+/**
+ * Estructura de sesión requerida por el dossier del laboratorio DAM2
+ */
+export interface UserSession {
+    username: string;
+    role: &#x27;admin&#x27; | &#x27;user&#x27;;
+    isAuthenticated: boolean;
+}
+
+@Injectable({
+    providedIn: &#x27;root&#x27;
+})
+export class AuthService {
+    private supabase: SupabaseClient;
+
+    /**
+     * Clave empleada en la Web Storage API (sessionStorage) requerida por el profesor
+     */
+    private readonly STORAGE_KEY &#x3D; &#x27;DAM2_AUTH_SESSION&#x27;;
+    private readonly CLOCK_KEY &#x3D; &#x27;STOCKFLOW_CLOCK_START&#x27;;
+    private readonly CLOCK_ACTIVE_KEY &#x3D; &#x27;STOCKFLOW_CLOCK_ACTIVE&#x27;;
+
+    // Signals reactivos para el estado de autenticación, perfil y cronómetro de turno
+    private currentUserSignal &#x3D; signal&lt;User | null&gt;(null);
+    private currentProfileSignal &#x3D; signal&lt;UserProfile | null&gt;(null);
+    private isLoadingSignal &#x3D; signal&lt;boolean&gt;(true);
+    private sessionStartTimeSignal &#x3D; signal&lt;number | null&gt;(null);
+    private isClockedInSignal &#x3D; signal&lt;boolean&gt;(false);
+
+    // Exposición pública de sólo lectura
+    readonly currentUser &#x3D; this.currentUserSignal.asReadonly();
+    readonly currentProfile &#x3D; this.currentProfileSignal.asReadonly();
+    readonly isLoading &#x3D; this.isLoadingSignal.asReadonly();
+    readonly sessionStartTime &#x3D; this.sessionStartTimeSignal.asReadonly();
+    readonly isClockedIn &#x3D; this.isClockedInSignal.asReadonly();
+
+    // Selectores computados automáticos
+    readonly isAuthenticated &#x3D; computed(() &#x3D;&gt; !!this.currentUserSignal());
+    readonly isAdmin &#x3D; computed(() &#x3D;&gt; this.currentProfileSignal()?.role &#x3D;&#x3D;&#x3D; &#x27;admin&#x27;);
+    readonly userRole &#x3D; computed(() &#x3D;&gt; this.currentProfileSignal()?.role ?? &#x27;standard&#x27;);
+
+    constructor() {
+        this.supabase &#x3D; createClient(environment.supabaseUrl, environment.supabaseAnonKey);
+        this.initAuth();
+    }
+
+    /**
+     * Inicializa la sesión actual y suscribe al observador de cambios de autenticación
+     */
+    private async initAuth(): Promise&lt;void&gt; {
+        try {
+            // 1. Restaurar sesión síncrona/local desde sessionStorage si existe (laboratorio DAM2)
+            const localSession &#x3D; this.readSessionFromStorage();
+            if (localSession &amp;&amp; localSession.isAuthenticated) {
+                this.setLocalUserSession(localSession);
+                this.restoreClockState();
+            }
+
+            // 2. Verificar sesión activa en Supabase
+            const { data: { session } } &#x3D; await this.supabase.auth.getSession();
+            if (session) {
+                await this.updateUserState(session);
+                this.restoreClockState();
+            }
+
+            this.supabase.auth.onAuthStateChange(async (_event, session) &#x3D;&gt; {
+                await this.updateUserState(session);
+            });
+        } catch (error) {
+            console.error(&#x27;Error inicializando autenticación:&#x27;, error);
+        } finally {
+            this.isLoadingSignal.set(false);
+        }
+    }
+
+    /**
+     * Inicia o restaura el cronómetro de jornada laboral al iniciar sesión
+     */
+    private restoreClockState(): void {
+        const savedStart &#x3D; sessionStorage.getItem(this.CLOCK_KEY);
+        const savedActive &#x3D; sessionStorage.getItem(this.CLOCK_ACTIVE_KEY);
+        if (savedStart) {
+            this.sessionStartTimeSignal.set(Number(savedStart));
+            this.isClockedInSignal.set(savedActive !&#x3D;&#x3D; &#x27;false&#x27;);
+        } else {
+            this.startWorkShift();
+        }
+    }
+
+    public startWorkShift(): void {
+        const now &#x3D; Date.now();
+        sessionStorage.setItem(this.CLOCK_KEY, String(now));
+        sessionStorage.setItem(this.CLOCK_ACTIVE_KEY, &#x27;true&#x27;);
+        this.sessionStartTimeSignal.set(now);
+        this.isClockedInSignal.set(true);
+    }
+
+    public toggleClockInOut(): void {
+        if (this.isClockedInSignal()) {
+            sessionStorage.setItem(this.CLOCK_ACTIVE_KEY, &#x27;false&#x27;);
+            this.isClockedInSignal.set(false);
+        } else {
+            this.startWorkShift();
+        }
+    }
+
+    public updateAvatarUrl(newAvatarUrl: string): void {
+        const current &#x3D; this.currentProfileSignal();
+        if (!current) return;
+        const usernameKey &#x3D; current.role &#x3D;&#x3D;&#x3D; &#x27;admin&#x27; ? &#x27;admin&#x27; : &#x27;operador&#x27;;
+        localStorage.setItem(&#x60;STOCKFLOW_AVATAR_${usernameKey}&#x60;, newAvatarUrl);
+        this.currentProfileSignal.set({
+            ...current,
+            avatar_url: newAvatarUrl
+        });
+    }
+
+    /**
+     * Establece la sesión en memoria para los usuarios simulados del laboratorio
+     */
+    private setLocalUserSession(sessionData: UserSession): void {
+        const isAdminUser &#x3D; sessionData.role &#x3D;&#x3D;&#x3D; &#x27;admin&#x27;;
+        const usernameKey &#x3D; isAdminUser ? &#x27;admin&#x27; : &#x27;operador&#x27;;
+        const savedAvatar &#x3D; localStorage.getItem(&#x60;STOCKFLOW_AVATAR_${usernameKey}&#x60;);
+
+        const defaultAdminAvatar &#x3D; &#x27;https://rxhsemwcylhhbgfnogle.supabase.co/storage/v1/object/public/stockflow-media/employees/admin-ivanna.jpg&#x27;;
+        const defaultOperadorAvatar &#x3D; &#x27;https://rxhsemwcylhhbgfnogle.supabase.co/storage/v1/object/public/stockflow-media/employees/operador-carlos.jpg&#x27;;
+
+        const mockUser: User &#x3D; {
+            id: &#x27;mock-&#x27; + sessionData.username,
+            app_metadata: {},
+            user_metadata: { full_name: sessionData.username },
+            aud: &#x27;authenticated&#x27;,
+            created_at: new Date().toISOString(),
+            email: sessionData.username.includes(&#x27;@&#x27;) ? sessionData.username : &#x60;${sessionData.username}@stockflow.local&#x60;
+        };
+
+        const mockProfile: UserProfile &#x3D; {
+            id: mockUser.id,
+            email: mockUser.email || &#x60;${sessionData.username}@stockflow.local&#x60;,
+            full_name: isAdminUser ? &#x27;Ivanna Simosa (Admin)&#x27; : &#x27;Carlos Méndez (Operador)&#x27;,
+            position: isAdminUser ? &#x27;Directora de Operaciones y Stock&#x27; : &#x27;Técnico Logístico de Almacén&#x27;,
+            avatar_url: savedAvatar || (isAdminUser ? defaultAdminAvatar : defaultOperadorAvatar),
+            role: isAdminUser ? &#x27;admin&#x27; : &#x27;standard&#x27;,
+            created_at: new Date().toISOString(),
+            updated_at: new Date().toISOString()
+        };
+
+        this.currentUserSignal.set(mockUser);
+        this.currentProfileSignal.set(mockProfile);
+    }
+
+    /**
+     * Recupera la sesión desde sessionStorage al refrescar la página (F5)
+     */
+    public readSessionFromStorage(): UserSession | null {
+        const rawData &#x3D; sessionStorage.getItem(this.STORAGE_KEY);
+        if (!rawData) {
+            return null;
+        }
+        try {
+            return JSON.parse(rawData) as UserSession;
+        } catch {
+            sessionStorage.removeItem(this.STORAGE_KEY);
+            return null;
+        }
+    }
+
+    /**
+     * Actualiza el usuario y consulta su perfil en la tabla &#x27;profiles&#x27;
+     */
+    private async updateUserState(session: Session | null): Promise&lt;void&gt; {
+        if (session?.user) {
+            this.currentUserSignal.set(session.user);
+            const profile &#x3D; await this.fetchUserProfile(session.user.id);
+            this.currentProfileSignal.set(profile);
+
+            // Sincronizar en sessionStorage para las Developer Tools
+            const sessionData: UserSession &#x3D; {
+                username: session.user.email?.split(&#x27;@&#x27;)[0] || &#x27;usuario&#x27;,
+                role: profile?.role &#x3D;&#x3D;&#x3D; &#x27;admin&#x27; ? &#x27;admin&#x27; : &#x27;user&#x27;,
+                isAuthenticated: true
+            };
+            sessionStorage.setItem(this.STORAGE_KEY, JSON.stringify(sessionData));
+        } else {
+            // Solo si no hay sesión mock activa
+            if (!this.readSessionFromStorage()) {
+                this.currentUserSignal.set(null);
+                this.currentProfileSignal.set(null);
+            }
+        }
+    }
+
+    /**
+     * Obtiene el perfil (con rol admin o standard) desde la base de datos de Supabase
+     */
+    async fetchUserProfile(userId: string): Promise&lt;UserProfile | null&gt; {
+        const { data, error } &#x3D; await this.supabase
+            .from(&#x27;profiles&#x27;)
+            .select(&#x27;*&#x27;)
+            .eq(&#x27;id&#x27;, userId)
+            .single();
+
+        if (error || !data) {
+            console.warn(&#x27;No se pudo obtener el perfil del usuario:&#x27;, error);
+            return null;
+        }
+        return data as UserProfile;
+    }
+
+    /**
+     * Inicio de sesión dual:
+     * 1. Soporta credenciales requeridas por el enunciado del laboratorio:
+     *    - admin / 123 (Rol: &#x27;admin&#x27;)
+     *    - operador / 123 (Rol: &#x27;user&#x27;)
+     * 2. Conexión estándar mediante Supabase Auth
+     */
+    async login(userOrEmail: string, pass: string) {
+        const trimmedUser &#x3D; (userOrEmail || &#x27;&#x27;).trim().toLowerCase();
+
+        // 1. Validación de credenciales didácticas requeridas por el dossier
+        if ((trimmedUser &#x3D;&#x3D;&#x3D; &#x27;admin&#x27; || trimmedUser &#x3D;&#x3D;&#x3D; &#x27;operador&#x27;) &amp;&amp; pass &#x3D;&#x3D;&#x3D; &#x27;123&#x27;) {
+            const role: &#x27;admin&#x27; | &#x27;user&#x27; &#x3D; trimmedUser &#x3D;&#x3D;&#x3D; &#x27;admin&#x27; ? &#x27;admin&#x27; : &#x27;user&#x27;;
+            const sessionData: UserSession &#x3D; {
+                username: trimmedUser,
+                role: role,
+                isAuthenticated: true
+            };
+
+            // Guardar en memoria reactiva (Signals) e iniciar cronómetro de sesión
+            this.setLocalUserSession(sessionData);
+            this.startWorkShift();
+
+            // Persistir en sessionStorage bajo DAM2_AUTH_SESSION
+            sessionStorage.setItem(this.STORAGE_KEY, JSON.stringify(sessionData));
+
+            return {
+                user: this.currentUserSignal(),
+                session: sessionData,
+                role: role
+            };
+        }
+
+        // 2. Flujo estándar con Supabase
+        const response &#x3D; await this.supabase.auth.signInWithPassword({ email: userOrEmail, password: pass });
+        if (response.error) throw response.error;
+        await this.updateUserState(response.data.session);
+        this.startWorkShift();
+
+        return response.data;
+    }
+
+    /**
+     * Registro de nuevo usuario (por defecto rol &#x27;standard&#x27;)
+     */
+    async register(email: string, password: string, fullName: string, role: UserRole &#x3D; &#x27;standard&#x27;) {
+        const response &#x3D; await this.supabase.auth.signUp({
+            email,
+            password,
+            options: {
+                data: {
+                    full_name: fullName,
+                    role: role
+                }
+            }
+        });
+        if (response.error) throw response.error;
+        return response.data;
+    }
+
+    /**
+     * Cierre de sesión seguro:
+     * Destruye la sesión activa en memoria, en sessionStorage y en Supabase
+     */
+    async logout(): Promise&lt;void&gt; {
+        sessionStorage.removeItem(this.STORAGE_KEY);
+        sessionStorage.removeItem(this.CLOCK_KEY);
+        sessionStorage.removeItem(this.CLOCK_ACTIVE_KEY);
+        try {
+            await this.supabase.auth.signOut();
+        } catch {
+            // Ignorar si era sesión mock del laboratorio
+        }
+        this.currentUserSignal.set(null);
+        this.currentProfileSignal.set(null);
+        this.sessionStartTimeSignal.set(null);
+        this.isClockedInSignal.set(false);
+    }
+
+    /**
+     * Acceso directo a la instancia de Supabase para otros servicios
+     */
+    get client(): SupabaseClient {
+        return this.supabase;
+    }
+}
+</code></pre>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'interface';
+            var COMPODOC_CURRENT_PAGE_URL = 'UserSession.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var updateDarkModeSwitchOffset = function () {
+                    var content = document.querySelector('.content');
+                    var scrollbarWidth = 0;
+
+                    if (content) {
+                         scrollbarWidth = Math.max(0, content.offsetWidth - content.clientWidth);
+                    }
+
+                    document.documentElement.style.setProperty(
+                         '--content-scrollbar-width',
+                         scrollbarWidth + 'px'
+                    );
+               };
+
+               updateDarkModeSwitchOffset();
+               requestAnimationFrame(updateDarkModeSwitchOffset);
+               window.addEventListener('resize', updateDarkModeSwitchOffset);
+
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

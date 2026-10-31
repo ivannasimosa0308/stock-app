@@ -1,0 +1,2427 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>stock-app documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+          <script>
+              // --- Iframe navigation tracking for Template Playground ---
+              function sendCurrentUrlToParent() {
+                  if (window.parent && window.parent !== window) {
+                      window.parent.postMessage({
+                          type: 'compodoc-iframe-navigate',
+                          url: window.location.pathname + window.location.hash
+                      }, '*');
+                  }
+              }
+              window.addEventListener('hashchange', sendCurrentUrlToParent, false);
+              window.addEventListener('popstate', sendCurrentUrlToParent, false);
+              window.addEventListener('DOMContentLoaded', sendCurrentUrlToParent, false);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">stock-app documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search">
+    <button type="button"
+        class="search-input-clear"
+        aria-label="Clear search"
+        data-search-input-clear>&times;</button>
+</div>
+            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Components</li>
+  <li class="breadcrumb-item"
+  >
+  InventoryListPage</li>
+</ol>
+
+<div class="io-file io-file-path" data-compodoc="entity-file-path">
+    <span class="icon ion-ios-document" aria-hidden="true"></span>
+    <code>src/app/features/inventory/pages/inventory-list/inventory-list.page.ts</code>
+</div>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#api" class="nav-link"
+                role="tab" id="api-tab" data-bs-toggle="tab" data-link="api">API</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" class="nav-link"
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li class="nav-item">
+            <a href="#styleData" class="nav-link"
+                role="tab" id="styleData-tab" data-bs-toggle="tab" data-link="style">Styles</a>
+        </li>
+        <li class="nav-item">
+            <a href="#tree" class="nav-link"
+                role="tab" id="tree-tab" data-bs-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info">
+
+
+    <p class="comment">
+        <h3>Implements</h3>
+    </p>
+    <p class="comment">
+                    <code><a href="https://angular.dev/api/core/OnInit" target="_blank" >OnInit</a></code>
+    </p>
+
+
+<section data-compodoc="block-metadata">
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover metadata">
+        <tbody>
+
+            <tr>
+                <td class="col-md-3">changeDetection</td>
+                <td class="col-md-9"><code>ChangeDetectionStrategy.OnPush</code></td>
+            </tr>
+
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>app-inventory-list</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">standalone</td>
+                <td class="col-md-9"><code>true</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">imports</td>
+                <td class="col-md-9">
+                        <div>        <code><a href="https://angular.dev/api/common/CommonModule" target="_blank" >CommonModule</a></code>
+</div>
+                        <div>    <code>IonHeader</code>
+</div>
+                        <div>    <code>IonToolbar</code>
+</div>
+                        <div>    <code>IonTitle</code>
+</div>
+                        <div>    <code>IonContent</code>
+</div>
+                        <div>    <code>IonButton</code>
+</div>
+                        <div>    <code>IonButtons</code>
+</div>
+                        <div>    <code>IonIcon</code>
+</div>
+                        <div>    <code>IonToast</code>
+</div>
+                        <div>        <code><a href="../components/DataTableComponent.html" target="_self" >DataTableComponent</a></code>
+</div>
+                        <div>        <code><a href="../components/EmployeeProfileCardComponent.html" target="_self" >EmployeeProfileCardComponent</a></code>
+</div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-3">styles</td>
+                <td class="col-md-9"><code>
+      .extra-small {
+        font-size: 0.75rem;
+      }
+      .kpi-selectable {
+        transition: transform 0.18s ease, box-shadow 0.18s ease, outline 0.18s ease;
+      }
+      .kpi-selectable:hover {
+        transform: translateY(-2px);
+      }
+      .kpi-active {
+        outline: 3px solid #2889b8;
+        outline-offset: 2px;
+      }
+    </code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">template</td>
+                <td class="col-md-9"><pre class="line-numbers"><code class="language-html">&lt;ion-header&gt;
+  &lt;ion-toolbar color&#x3D;&quot;dark&quot;&gt;
+    &lt;ion-title&gt;Catálogo de inventario&lt;/ion-title&gt;
+    &lt;ion-buttons slot&#x3D;&quot;end&quot;&gt;
+      @if (authService.isAdmin()) {
+        &lt;ion-button (click)&#x3D;&quot;router.navigate([&#x27;/admin&#x27;])&quot; aria-label&#x3D;&quot;Ir al panel de administración&quot;&gt;
+          &lt;ion-icon name&#x3D;&quot;bar-chart-outline&quot; slot&#x3D;&quot;start&quot;&gt;&lt;/ion-icon&gt;
+          Dashboard
+        &lt;/ion-button&gt;
+      }
+      &lt;ion-button (click)&#x3D;&quot;router.navigate([&#x27;/movements&#x27;])&quot; aria-label&#x3D;&quot;Ir a movimientos&quot;&gt;
+        &lt;ion-icon name&#x3D;&quot;time-outline&quot; slot&#x3D;&quot;start&quot;&gt;&lt;/ion-icon&gt;
+        Movimientos
+      &lt;/ion-button&gt;
+      &lt;ion-button (click)&#x3D;&quot;onLogout()&quot; color&#x3D;&quot;danger&quot; aria-label&#x3D;&quot;Cerrar sesión&quot;&gt;
+        &lt;ion-icon name&#x3D;&quot;log-out-outline&quot; slot&#x3D;&quot;start&quot;&gt;&lt;/ion-icon&gt;
+        Salir
+      &lt;/ion-button&gt;
+    &lt;/ion-buttons&gt;
+  &lt;/ion-toolbar&gt;
+&lt;/ion-header&gt;
+
+&lt;ion-content class&#x3D;&quot;invent-shell&quot;&gt;
+  &lt;div class&#x3D;&quot;container-fluid py-4 px-3 px-lg-4&quot;&gt;
+    &lt;!-- Alerta de acceso prohibido (403) — Solo aparece si el usuario intenta cambiar la ruta en la URL --&gt;
+    @if (forbiddenAlert()) {
+      &lt;div class&#x3D;&quot;alert alert-danger border-danger shadow-sm rounded-4 d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4 p-3&quot;&gt;
+        &lt;div class&#x3D;&quot;d-flex align-items-center gap-3&quot;&gt;
+          &lt;div class&#x3D;&quot;bg-danger text-white rounded-circle d-flex align-items-center justify-content-center flex-shrink-0&quot; style&#x3D;&quot;width: 42px; height: 42px;&quot;&gt;
+            &lt;ion-icon name&#x3D;&quot;warning-outline&quot; class&#x3D;&quot;fs-4&quot;&gt;&lt;/ion-icon&gt;
+          &lt;/div&gt;
+          &lt;div&gt;
+            &lt;h6 class&#x3D;&quot;fw-bold mb-1 text-danger&quot;&gt;
+              Acceso prohibido (error 403) — Ruta restringida interceptada
+            &lt;/h6&gt;
+            &lt;p class&#x3D;&quot;small mb-0 text-dark&quot;&gt;
+              Has intentado acceder manualmente a la ruta restringida &lt;code&gt;{{ forbiddenAlert()?.attemptedUrl }}&lt;/code&gt;
+              con una cuenta de rol &lt;code&gt;{{ forbiddenAlert()?.role }}&lt;/code&gt;.
+              El sistema de seguridad te ha redirigido a tu panel autorizado.
+            &lt;/p&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div class&#x3D;&quot;d-flex gap-2&quot;&gt;
+          &lt;button
+            type&#x3D;&quot;button&quot;
+            class&#x3D;&quot;btn btn-sm btn-danger fw-semibold rounded-3&quot;
+            (click)&#x3D;&quot;router.navigate([&#x27;/unauthorized&#x27;])&quot;
+          &gt;
+            Ver aviso 403
+          &lt;/button&gt;
+          &lt;button
+            type&#x3D;&quot;button&quot;
+            class&#x3D;&quot;btn btn-sm btn-outline-danger fw-semibold rounded-3&quot;
+            (click)&#x3D;&quot;dismissForbiddenAlert()&quot;
+          &gt;
+            Cerrar
+          &lt;/button&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    }
+
+    &lt;!-- Layout principal con Bootstrap 5 Grid --&gt;
+    &lt;div class&#x3D;&quot;row g-4&quot;&gt;
+      &lt;!-- Columna izquierda: Perfil de empleado + foto + cronómetro --&gt;
+      &lt;div class&#x3D;&quot;col-12 col-lg-3&quot;&gt;
+        &lt;app-employee-profile-card
+          [totalProducts]&#x3D;&quot;totalProductsCount()&quot;
+          [totalMovements]&#x3D;&quot;movementsCount()&quot;
+        &gt;&lt;/app-employee-profile-card&gt;
+      &lt;/div&gt;
+
+      &lt;!-- Columna derecha: Filtros KPI + exportación PDF/CSV + catálogo --&gt;
+      &lt;div class&#x3D;&quot;col-12 col-lg-9&quot;&gt;
+        &lt;!-- Barra superior con botones de descarga CSV/PDF y alta --&gt;
+        &lt;div class&#x3D;&quot;d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4&quot;&gt;
+          &lt;div&gt;
+            &lt;h4 class&#x3D;&quot;fw-bold text-dark mb-0&quot;&gt;Catálogo general de existencias&lt;/h4&gt;
+            &lt;p class&#x3D;&quot;text-muted small mb-0&quot;&gt;
+              Conectado como &lt;strong&gt;{{ authService.currentProfile()?.full_name }}&lt;/strong&gt;
+              ({{ authService.currentUser()?.email }})
+            &lt;/p&gt;
+          &lt;/div&gt;
+
+          &lt;div class&#x3D;&quot;d-flex flex-wrap gap-2&quot;&gt;
+            &lt;button
+              type&#x3D;&quot;button&quot;
+              class&#x3D;&quot;btn btn-outline-secondary btn-sm fw-semibold rounded-3 d-flex align-items-center gap-1 px-3 py-2 bg-white&quot;
+              (click)&#x3D;&quot;loadProducts()&quot;
+              [disabled]&#x3D;&quot;isLoading()&quot;
+            &gt;
+              &lt;ion-icon name&#x3D;&quot;refresh-outline&quot;&gt;&lt;/ion-icon&gt;
+              &lt;span&gt;Actualizar&lt;/span&gt;
+            &lt;/button&gt;
+            &lt;button
+              type&#x3D;&quot;button&quot;
+              class&#x3D;&quot;btn btn-success btn-sm fw-semibold rounded-3 d-flex align-items-center gap-1 px-3 py-2 text-white shadow-sm&quot;
+              (click)&#x3D;&quot;exportPdf()&quot;
+            &gt;
+              &lt;ion-icon name&#x3D;&quot;document-text-outline&quot;&gt;&lt;/ion-icon&gt;
+              &lt;span&gt;Descargar PDF&lt;/span&gt;
+            &lt;/button&gt;
+            &lt;button
+              type&#x3D;&quot;button&quot;
+              class&#x3D;&quot;btn btn-primary btn-sm fw-semibold rounded-3 d-flex align-items-center gap-1 px-3 py-2 shadow-sm&quot;
+              (click)&#x3D;&quot;exportCsv()&quot;
+            &gt;
+              &lt;ion-icon name&#x3D;&quot;download-outline&quot;&gt;&lt;/ion-icon&gt;
+              &lt;span&gt;Descargar CSV&lt;/span&gt;
+            &lt;/button&gt;
+            &lt;button
+              type&#x3D;&quot;button&quot;
+              class&#x3D;&quot;btn btn-dark btn-sm fw-semibold rounded-3 d-flex align-items-center gap-1 px-3 py-2&quot;
+              (click)&#x3D;&quot;onNewProduct()&quot;
+            &gt;
+              &lt;ion-icon name&#x3D;&quot;add-outline&quot;&gt;&lt;/ion-icon&gt;
+              &lt;span&gt;Nuevo producto&lt;/span&gt;
+            &lt;/button&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+
+        &lt;!-- 3 Tarjetas KPI interactivas como filtros directos --&gt;
+        &lt;div class&#x3D;&quot;row g-3 mb-4&quot;&gt;
+          &lt;div class&#x3D;&quot;col-12 col-md-4&quot;&gt;
+            &lt;div
+              class&#x3D;&quot;invent-kpi-indigo p-3 h-100 d-flex flex-column justify-content-between kpi-selectable&quot;
+              [class.kpi-active]&#x3D;&quot;catalogFilter() &#x3D;&#x3D;&#x3D; &#x27;all&#x27;&quot;
+              style&#x3D;&quot;cursor: pointer;&quot;
+              (click)&#x3D;&quot;setCatalogFilter(&#x27;all&#x27;)&quot;
+            &gt;
+              &lt;div class&#x3D;&quot;d-flex flex-wrap justify-content-between align-items-start gap-1&quot;&gt;
+                &lt;span class&#x3D;&quot;small opacity-75 fw-semibold&quot;&gt;Unidades físicas&lt;/span&gt;
+                &lt;span class&#x3D;&quot;badge bg-white text-primary rounded-pill&quot;&gt;
+                  {{ catalogFilter() &#x3D;&#x3D;&#x3D; &#x27;all&#x27; ? &#x27;Filtro activo&#x27; : &#x27;Ver todos&#x27; }}
+                &lt;/span&gt;
+              &lt;/div&gt;
+              &lt;div class&#x3D;&quot;fs-3 fw-bold my-1 text-break&quot;&gt;{{ totalUnitsCount() }} uds.&lt;/div&gt;
+              &lt;div class&#x3D;&quot;extra-small opacity-75&quot;&gt;{{ totalProductsCount() }} referencias activas en catálogo&lt;/div&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+
+          &lt;div class&#x3D;&quot;col-12 col-md-4&quot;&gt;
+            &lt;div
+              class&#x3D;&quot;invent-kpi-coral p-3 h-100 d-flex flex-column justify-content-between kpi-selectable&quot;
+              [class.kpi-active]&#x3D;&quot;catalogFilter() &#x3D;&#x3D;&#x3D; &#x27;low-stock&#x27;&quot;
+              style&#x3D;&quot;cursor: pointer;&quot;
+              (click)&#x3D;&quot;setCatalogFilter(&#x27;low-stock&#x27;)&quot;
+            &gt;
+              &lt;div class&#x3D;&quot;d-flex flex-wrap justify-content-between align-items-start gap-1&quot;&gt;
+                &lt;span class&#x3D;&quot;small opacity-75 fw-semibold&quot;&gt;Alerta de stock bajo&lt;/span&gt;
+                &lt;span class&#x3D;&quot;badge bg-white text-danger rounded-pill&quot;&gt;
+                  {{ catalogFilter() &#x3D;&#x3D;&#x3D; &#x27;low-stock&#x27; ? &#x27;Filtro activo&#x27; : &#x27;Ver faltantes&#x27; }}
+                &lt;/span&gt;
+              &lt;/div&gt;
+              &lt;div class&#x3D;&quot;fs-3 fw-bold my-1 text-break&quot;&gt;{{ lowStockCount() }} alertas&lt;/div&gt;
+              &lt;div class&#x3D;&quot;extra-small opacity-75&quot;&gt;Pulsa para desplegar productos con stock bajo&lt;/div&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+
+          &lt;div class&#x3D;&quot;col-12 col-md-4&quot;&gt;
+            &lt;div
+              class&#x3D;&quot;invent-kpi-emerald p-3 h-100 d-flex flex-column justify-content-between kpi-selectable&quot;
+              [class.kpi-active]&#x3D;&quot;catalogFilter() &#x3D;&#x3D;&#x3D; &#x27;valuation&#x27;&quot;
+              style&#x3D;&quot;cursor: pointer;&quot;
+              (click)&#x3D;&quot;setCatalogFilter(&#x27;valuation&#x27;)&quot;
+            &gt;
+              &lt;div class&#x3D;&quot;d-flex flex-wrap justify-content-between align-items-start gap-1&quot;&gt;
+                &lt;span class&#x3D;&quot;small opacity-75 fw-semibold&quot;&gt;Valoración de stock&lt;/span&gt;
+                &lt;span class&#x3D;&quot;badge bg-white text-success rounded-pill&quot;&gt;
+                  {{ catalogFilter() &#x3D;&#x3D;&#x3D; &#x27;valuation&#x27; ? &#x27;Filtro activo&#x27; : &#x27;Ordenar por valor&#x27; }}
+                &lt;/span&gt;
+              &lt;/div&gt;
+              &lt;div class&#x3D;&quot;fs-3 fw-bold my-1 text-break&quot;&gt;
+                {{ (totalStockValue() | currency:&#x27;EUR&#x27;:&#x27;symbol&#x27;:&#x27;1.0-0&#x27;) || &#x27;0 €&#x27; }}
+              &lt;/div&gt;
+              &lt;div class&#x3D;&quot;extra-small opacity-75&quot;&gt;Pulsa para ordenar por valoración financiera&lt;/div&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+
+        &lt;!-- Cabecera dinámica del listado filtrado --&gt;
+        &lt;div class&#x3D;&quot;invent-card p-3 p-md-4&quot;&gt;
+          &lt;div class&#x3D;&quot;d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3 pb-2 border-bottom&quot;&gt;
+            &lt;div&gt;
+              &lt;h5 class&#x3D;&quot;fw-bold text-dark mb-0&quot;&gt;
+                @if (catalogFilter() &#x3D;&#x3D;&#x3D; &#x27;low-stock&#x27;) {
+                  &lt;span class&#x3D;&quot;text-danger&quot;&gt;Productos en alerta de stock bajo ({{ displayedProducts().length }})&lt;/span&gt;
+                } @else if (catalogFilter() &#x3D;&#x3D;&#x3D; &#x27;valuation&#x27;) {
+                  &lt;span&gt;Productos ordenados por valoración de stock ({{ displayedProducts().length }})&lt;/span&gt;
+                } @else {
+                  &lt;span&gt;Listado completo de productos ({{ displayedProducts().length }})&lt;/span&gt;
+                }
+              &lt;/h5&gt;
+              &lt;p class&#x3D;&quot;text-muted extra-small mb-0&quot;&gt;
+                @if (catalogFilter() &#x3D;&#x3D;&#x3D; &#x27;low-stock&#x27;) {
+                  Mostrando únicamente los artículos cuyas existencias están en o por debajo del mínimo de seguridad
+                } @else if (catalogFilter() &#x3D;&#x3D;&#x3D; &#x27;valuation&#x27;) {
+                  Artículos ordenados de mayor a menor valor total en almacén
+                } @else {
+                  Todos los artículos disponibles actualmente en el inventario
+                }
+              &lt;/p&gt;
+            &lt;/div&gt;
+
+            @if (catalogFilter() !&#x3D;&#x3D; &#x27;all&#x27;) {
+              &lt;button
+                type&#x3D;&quot;button&quot;
+                class&#x3D;&quot;btn btn-sm btn-outline-secondary rounded-pill px-3 fw-semibold&quot;
+                (click)&#x3D;&quot;setCatalogFilter(&#x27;all&#x27;)&quot;
+              &gt;
+                Mostrar todos los productos ({{ totalProductsCount() }})
+              &lt;/button&gt;
+            }
+          &lt;/div&gt;
+
+          &lt;app-data-table
+            title&#x3D;&quot;Productos en almacén&quot;
+            [data]&#x3D;&quot;displayedProducts()&quot;
+            [columns]&#x3D;&quot;tableColumns&quot;
+            [isAdmin]&#x3D;&quot;authService.isAdmin()&quot;
+            [isLoading]&#x3D;&quot;isLoading()&quot;
+            searchPlaceholder&#x3D;&quot;Buscar por SKU, nombre o categoría...&quot;
+            [pageSize]&#x3D;&quot;6&quot;
+            (edit)&#x3D;&quot;onEditProduct($event)&quot;
+            (delete)&#x3D;&quot;onDeleteProduct($event)&quot;
+          &gt;&lt;/app-data-table&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+
+  &lt;ion-toast
+    [isOpen]&#x3D;&quot;toastMessage() !&#x3D;&#x3D; null&quot;
+    [message]&#x3D;&quot;toastMessage() || &#x27;&#x27;&quot;
+    [duration]&#x3D;&quot;3000&quot;
+    (didDismiss)&#x3D;&quot;toastMessage.set(null)&quot;
+  &gt;&lt;/ion-toast&gt;
+&lt;/ion-content&gt;
+</code></pre></td>
+            </tr>
+
+
+
+
+
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+        <section data-compodoc="block-relationships">
+            <h3>Relationships</h3>
+
+            <div class="row pt-3">
+                <div class="col-sm-6">
+                    <h4>Used by</h4>
+                        <p class="comment"><i>No results matching.</i></p>
+                </div>
+
+                <div class="col-sm-6">
+                    <h4>Depends on</h4>
+                        <ul class="list-unstyled relationships-list">
+                                <li>
+                                            <code><a href="https://angular.dev/api/common/CommonModule" target="_blank" >CommonModule</a></code>
+                                </li>
+                                <li>
+                                        <code>IonHeader</code>
+                                </li>
+                                <li>
+                                        <code>IonToolbar</code>
+                                </li>
+                                <li>
+                                        <code>IonTitle</code>
+                                </li>
+                                <li>
+                                        <code>IonContent</code>
+                                </li>
+                                <li>
+                                        <code>IonButton</code>
+                                </li>
+                                <li>
+                                        <code>IonButtons</code>
+                                </li>
+                                <li>
+                                        <code>IonIcon</code>
+                                </li>
+                                <li>
+                                        <code>IonToast</code>
+                                </li>
+                                <li>
+                                            <code><a href="../components/DataTableComponent.html" target="_self" >DataTableComponent</a></code>
+                                </li>
+                                <li>
+                                            <code><a href="../components/EmployeeProfileCardComponent.html" target="_self" >EmployeeProfileCardComponent</a></code>
+                                </li>
+                                <li>
+                                            <code><a href="https://angular.dev/api/core/OnInit" target="_blank" >OnInit</a></code>
+                                </li>
+                        </ul>
+                </div>
+            </div>
+        </section>
+</div>
+
+    <div class="tab-pane fade " id="api">    <section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+        <table class="table table-sm table-bordered index-table">
+            <tbody>
+                <tr>
+                    <td class="col-md-3">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                    <td class="col-md-9">
+                        <ul class="index-list">
+                            <li>
+                                <span class="reference-badge reference-badge--property" aria-hidden="true">P</span>
+                                <a href="#authService" >authService</a>
+                            </li>
+                            <li>
+                                <span class="reference-badge reference-badge--property" aria-hidden="true">P</span>
+                                <a href="#catalogFilter" >catalogFilter</a>
+                            </li>
+                            <li>
+                                <span class="reference-badge reference-badge--property" aria-hidden="true">P</span>
+                                    <span class="modifier">Readonly</span>
+                                <a href="#displayedProducts" >displayedProducts</a>
+                            </li>
+                            <li>
+                                <span class="reference-badge reference-badge--property" aria-hidden="true">P</span>
+                                <a href="#exportService" >exportService</a>
+                            </li>
+                            <li>
+                                <span class="reference-badge reference-badge--property" aria-hidden="true">P</span>
+                                <a href="#forbiddenAlert" >forbiddenAlert</a>
+                            </li>
+                            <li>
+                                <span class="reference-badge reference-badge--property" aria-hidden="true">P</span>
+                                <a href="#inventoryService" >inventoryService</a>
+                            </li>
+                            <li>
+                                <span class="reference-badge reference-badge--property" aria-hidden="true">P</span>
+                                <a href="#isLoading" >isLoading</a>
+                            </li>
+                            <li>
+                                <span class="reference-badge reference-badge--property" aria-hidden="true">P</span>
+                                    <span class="modifier">Readonly</span>
+                                <a href="#lowStockCount" >lowStockCount</a>
+                            </li>
+                            <li>
+                                <span class="reference-badge reference-badge--property" aria-hidden="true">P</span>
+                                <a href="#movementsCount" >movementsCount</a>
+                            </li>
+                            <li>
+                                <span class="reference-badge reference-badge--property" aria-hidden="true">P</span>
+                                <a href="#products" >products</a>
+                            </li>
+                            <li>
+                                <span class="reference-badge reference-badge--property" aria-hidden="true">P</span>
+                                <a href="#route" >route</a>
+                            </li>
+                            <li>
+                                <span class="reference-badge reference-badge--property" aria-hidden="true">P</span>
+                                <a href="#router" >router</a>
+                            </li>
+                            <li>
+                                <span class="reference-badge reference-badge--property" aria-hidden="true">P</span>
+                                    <span class="modifier">Readonly</span>
+                                <a href="#tableColumns" >tableColumns</a>
+                            </li>
+                            <li>
+                                <span class="reference-badge reference-badge--property" aria-hidden="true">P</span>
+                                <a href="#toastMessage" >toastMessage</a>
+                            </li>
+                            <li>
+                                <span class="reference-badge reference-badge--property" aria-hidden="true">P</span>
+                                    <span class="modifier">Readonly</span>
+                                <a href="#totalProductsCount" >totalProductsCount</a>
+                            </li>
+                            <li>
+                                <span class="reference-badge reference-badge--property" aria-hidden="true">P</span>
+                                    <span class="modifier">Readonly</span>
+                                <a href="#totalStockValue" >totalStockValue</a>
+                            </li>
+                            <li>
+                                <span class="reference-badge reference-badge--property" aria-hidden="true">P</span>
+                                    <span class="modifier">Readonly</span>
+                                <a href="#totalUnitsCount" >totalUnitsCount</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <table class="table table-sm table-bordered index-table">
+            <tbody>
+                <tr>
+                    <td class="col-md-3">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                    <td class="col-md-9">
+                        <ul class="index-list">
+                            <li>
+                                <span class="reference-badge reference-badge--method" aria-hidden="true">M</span>
+                                    <span class="modifier">Private</span>
+                                <a href="#checkForbiddenIntrusion" >checkForbiddenIntrusion</a>
+                            </li>
+                            <li>
+                                <span class="reference-badge reference-badge--method" aria-hidden="true">M</span>
+                                <a href="#dismissForbiddenAlert" >dismissForbiddenAlert</a>
+                            </li>
+                            <li>
+                                <span class="reference-badge reference-badge--method" aria-hidden="true">M</span>
+                                <a href="#exportCsv" >exportCsv</a>
+                            </li>
+                            <li>
+                                <span class="reference-badge reference-badge--method" aria-hidden="true">M</span>
+                                <a href="#exportPdf" >exportPdf</a>
+                            </li>
+                            <li>
+                                <span class="reference-badge reference-badge--method" aria-hidden="true">M</span>
+                                    <span class="modifier">Async</span>
+                                <a href="#loadProducts" >loadProducts</a>
+                            </li>
+                            <li>
+                                <span class="reference-badge reference-badge--method" aria-hidden="true">M</span>
+                                    <span class="modifier">Async</span>
+                                <a href="#ngOnInit" >ngOnInit</a>
+                            </li>
+                            <li>
+                                <span class="reference-badge reference-badge--method" aria-hidden="true">M</span>
+                                    <span class="modifier">Async</span>
+                                <a href="#onDeleteProduct" >onDeleteProduct</a>
+                            </li>
+                            <li>
+                                <span class="reference-badge reference-badge--method" aria-hidden="true">M</span>
+                                <a href="#onEditProduct" >onEditProduct</a>
+                            </li>
+                            <li>
+                                <span class="reference-badge reference-badge--method" aria-hidden="true">M</span>
+                                    <span class="modifier">Async</span>
+                                <a href="#onLogout" >onLogout</a>
+                            </li>
+                            <li>
+                                <span class="reference-badge reference-badge--method" aria-hidden="true">M</span>
+                                <a href="#onNewProduct" >onNewProduct</a>
+                            </li>
+                            <li>
+                                <span class="reference-badge reference-badge--method" aria-hidden="true">M</span>
+                                <a href="#setCatalogFilter" >setCatalogFilter</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+
+
+
+
+</section>
+
+    <section data-compodoc="block-constructor">
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor()</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="329" class="link-to-prism">src/app/features/inventory/pages/inventory-list/inventory-list.page.ts:329</a></div>
+                            </td>
+                        </tr>
+
+            </tbody>
+        </table>
+</section>
+
+
+
+
+
+    <section data-compodoc="block-methods">
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="checkForbiddenIntrusion"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>checkForbiddenIntrusion</b></span>
+                        <a href="#checkForbiddenIntrusion"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>checkForbiddenIntrusion()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="358"
+                                    class="link-to-prism">src/app/features/inventory/pages/inventory-list/inventory-list.page.ts:358</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="dismissForbiddenAlert"></a>
+                    <span class="name">
+                        <span ><b>dismissForbiddenAlert</b></span>
+                        <a href="#dismissForbiddenAlert"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>dismissForbiddenAlert()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="369"
+                                    class="link-to-prism">src/app/features/inventory/pages/inventory-list/inventory-list.page.ts:369</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="exportCsv"></a>
+                    <span class="name">
+                        <span ><b>exportCsv</b></span>
+                        <a href="#exportCsv"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>exportCsv()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="425"
+                                    class="link-to-prism">src/app/features/inventory/pages/inventory-list/inventory-list.page.ts:425</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="exportPdf"></a>
+                    <span class="name">
+                        <span ><b>exportPdf</b></span>
+                        <a href="#exportPdf"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>exportPdf()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="420"
+                                    class="link-to-prism">src/app/features/inventory/pages/inventory-list/inventory-list.page.ts:420</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="loadProducts"></a>
+                    <span class="name">
+                            <span class="modifier">Async</span>
+                        <span ><b>loadProducts</b></span>
+                        <a href="#loadProducts"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>loadProducts()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="374"
+                                    class="link-to-prism">src/app/features/inventory/pages/inventory-list/inventory-list.page.ts:374</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>Promise&lt;void&gt;</code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngOnInit"></a>
+                    <span class="name">
+                            <span class="modifier">Async</span>
+                        <span ><b>ngOnInit</b></span>
+                        <a href="#ngOnInit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>ngOnInit()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="347"
+                                    class="link-to-prism">src/app/features/inventory/pages/inventory-list/inventory-list.page.ts:347</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>Promise&lt;void&gt;</code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="onDeleteProduct"></a>
+                    <span class="name">
+                            <span class="modifier">Async</span>
+                        <span ><b>onDeleteProduct</b></span>
+                        <a href="#onDeleteProduct"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>onDeleteProduct(product: <a href="../interfaces/Product.html" target="_self">Product</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="438"
+                                    class="link-to-prism">src/app/features/inventory/pages/inventory-list/inventory-list.page.ts:438</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>product</td>
+                                            <td>
+                                                            <code><a href="../interfaces/Product.html" target="_self" >Product</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>Promise&lt;void&gt;</code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="onEditProduct"></a>
+                    <span class="name">
+                        <span ><b>onEditProduct</b></span>
+                        <a href="#onEditProduct"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>onEditProduct(product: <a href="../interfaces/Product.html" target="_self">Product</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="434"
+                                    class="link-to-prism">src/app/features/inventory/pages/inventory-list/inventory-list.page.ts:434</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>product</td>
+                                            <td>
+                                                            <code><a href="../interfaces/Product.html" target="_self" >Product</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="onLogout"></a>
+                    <span class="name">
+                            <span class="modifier">Async</span>
+                        <span ><b>onLogout</b></span>
+                        <a href="#onLogout"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>onLogout()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="456"
+                                    class="link-to-prism">src/app/features/inventory/pages/inventory-list/inventory-list.page.ts:456</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>Promise&lt;void&gt;</code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="onNewProduct"></a>
+                    <span class="name">
+                        <span ><b>onNewProduct</b></span>
+                        <a href="#onNewProduct"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>onNewProduct()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="430"
+                                    class="link-to-prism">src/app/features/inventory/pages/inventory-list/inventory-list.page.ts:430</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="setCatalogFilter"></a>
+                    <span class="name">
+                        <span ><b>setCatalogFilter</b></span>
+                        <a href="#setCatalogFilter"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>setCatalogFilter(mode: <a href="../miscellaneous/typealiases.html#CatalogFilterMode" target="_self">CatalogFilterMode</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="416"
+                                    class="link-to-prism">src/app/features/inventory/pages/inventory-list/inventory-list.page.ts:416</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>mode</td>
+                                            <td>
+                                                            <code><a href="../miscellaneous/typealiases.html#CatalogFilterMode" target="_self" >CatalogFilterMode</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-properties">
+    
+    <h3 id="inputs">
+        Properties
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="authService"></a>
+                    <span class="name">
+                        <span ><b>authService</b></span>
+                        <a href="#authService"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>inject(AuthService)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="310" class="link-to-prism">src/app/features/inventory/pages/inventory-list/inventory-list.page.ts:310</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="catalogFilter"></a>
+                    <span class="name">
+                        <span ><b>catalogFilter</b></span>
+                        <a href="#catalogFilter"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>signal&lt;CatalogFilterMode&gt;(&#x27;all&#x27;)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="319" class="link-to-prism">src/app/features/inventory/pages/inventory-list/inventory-list.page.ts:319</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="displayedProducts"></a>
+                    <span class="name">
+                            <span class="modifier">Readonly</span>
+                        <span ><b>displayedProducts</b></span>
+                        <a href="#displayedProducts"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>computed(() &#x3D;&gt; {
+        const all &#x3D; [...this.products()];
+        const mode &#x3D; this.catalogFilter();
+        if (mode &#x3D;&#x3D;&#x3D; &#x27;low-stock&#x27;) {
+            return all.filter(p &#x3D;&gt; p.stock &lt;&#x3D; p.min_stock);
+        }
+        if (mode &#x3D;&#x3D;&#x3D; &#x27;valuation&#x27;) {
+            return all.sort((a, b) &#x3D;&gt; (b.stock * b.unit_price) - (a.stock * a.unit_price));
+        }
+        return all;
+    })</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="404" class="link-to-prism">src/app/features/inventory/pages/inventory-list/inventory-list.page.ts:404</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="exportService"></a>
+                    <span class="name">
+                        <span ><b>exportService</b></span>
+                        <a href="#exportService"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>inject(ExportService)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="312" class="link-to-prism">src/app/features/inventory/pages/inventory-list/inventory-list.page.ts:312</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="forbiddenAlert"></a>
+                    <span class="name">
+                        <span ><b>forbiddenAlert</b></span>
+                        <a href="#forbiddenAlert"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>signal&lt;{ attemptedUrl: string; user: string; role: string; timestamp: string } | null&gt;(null)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="321" class="link-to-prism">src/app/features/inventory/pages/inventory-list/inventory-list.page.ts:321</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="inventoryService"></a>
+                    <span class="name">
+                        <span ><b>inventoryService</b></span>
+                        <a href="#inventoryService"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>inject(InventoryService)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="311" class="link-to-prism">src/app/features/inventory/pages/inventory-list/inventory-list.page.ts:311</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="isLoading"></a>
+                    <span class="name">
+                        <span ><b>isLoading</b></span>
+                        <a href="#isLoading"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>signal&lt;boolean&gt;(false)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="318" class="link-to-prism">src/app/features/inventory/pages/inventory-list/inventory-list.page.ts:318</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="lowStockCount"></a>
+                    <span class="name">
+                            <span class="modifier">Readonly</span>
+                        <span ><b>lowStockCount</b></span>
+                        <a href="#lowStockCount"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>computed(() &#x3D;&gt; {
+        return this.products().filter(p &#x3D;&gt; p.stock &lt;&#x3D; p.min_stock).length;
+    })</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="396" class="link-to-prism">src/app/features/inventory/pages/inventory-list/inventory-list.page.ts:396</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="movementsCount"></a>
+                    <span class="name">
+                        <span ><b>movementsCount</b></span>
+                        <a href="#movementsCount"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>signal&lt;number&gt;(5)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="317" class="link-to-prism">src/app/features/inventory/pages/inventory-list/inventory-list.page.ts:317</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="products"></a>
+                    <span class="name">
+                        <span ><b>products</b></span>
+                        <a href="#products"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>signal&lt;Product[]&gt;([])</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="316" class="link-to-prism">src/app/features/inventory/pages/inventory-list/inventory-list.page.ts:316</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="route"></a>
+                    <span class="name">
+                        <span ><b>route</b></span>
+                        <a href="#route"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>inject(ActivatedRoute)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="314" class="link-to-prism">src/app/features/inventory/pages/inventory-list/inventory-list.page.ts:314</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="router"></a>
+                    <span class="name">
+                        <span ><b>router</b></span>
+                        <a href="#router"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>inject(Router)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="313" class="link-to-prism">src/app/features/inventory/pages/inventory-list/inventory-list.page.ts:313</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="tableColumns"></a>
+                    <span class="name">
+                            <span class="modifier">Readonly</span>
+                        <span ><b>tableColumns</b></span>
+                        <a href="#tableColumns"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../interfaces/ColumnDef.html" target="_self" >ColumnDef[]</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[
+        { key: &#x27;sku&#x27;, label: &#x27;SKU / Código&#x27;, sortable: true },
+        { key: &#x27;name&#x27;, label: &#x27;Nombre del producto&#x27;, sortable: true },
+        { key: &#x27;category.name&#x27;, label: &#x27;Categoría&#x27;, sortable: true },
+        { key: &#x27;stock&#x27;, label: &#x27;Stock&#x27;, sortable: true, type: &#x27;stock&#x27; },
+        { key: &#x27;unit_price&#x27;, label: &#x27;Precio unitario&#x27;, sortable: true, type: &#x27;currency&#x27; }
+    ]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="323" class="link-to-prism">src/app/features/inventory/pages/inventory-list/inventory-list.page.ts:323</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="toastMessage"></a>
+                    <span class="name">
+                        <span ><b>toastMessage</b></span>
+                        <a href="#toastMessage"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>signal&lt;string | null&gt;(null)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="320" class="link-to-prism">src/app/features/inventory/pages/inventory-list/inventory-list.page.ts:320</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="totalProductsCount"></a>
+                    <span class="name">
+                            <span class="modifier">Readonly</span>
+                        <span ><b>totalProductsCount</b></span>
+                        <a href="#totalProductsCount"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>computed(() &#x3D;&gt; this.products().length)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="390" class="link-to-prism">src/app/features/inventory/pages/inventory-list/inventory-list.page.ts:390</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="totalStockValue"></a>
+                    <span class="name">
+                            <span class="modifier">Readonly</span>
+                        <span ><b>totalStockValue</b></span>
+                        <a href="#totalStockValue"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>computed(() &#x3D;&gt; {
+        return this.products().reduce((acc, p) &#x3D;&gt; acc + (p.stock * p.unit_price), 0);
+    })</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="400" class="link-to-prism">src/app/features/inventory/pages/inventory-list/inventory-list.page.ts:400</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="totalUnitsCount"></a>
+                    <span class="name">
+                            <span class="modifier">Readonly</span>
+                        <span ><b>totalUnitsCount</b></span>
+                        <a href="#totalUnitsCount"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>computed(() &#x3D;&gt; {
+        return this.products().reduce((acc, p) &#x3D;&gt; acc + p.stock, 0);
+    })</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="392" class="link-to-prism">src/app/features/inventory/pages/inventory-list/inventory-list.page.ts:392</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+</section>
+
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, OnInit, inject, signal, computed } from &#x27;@angular/core&#x27;;
+import { CommonModule } from &#x27;@angular/common&#x27;;
+import { Router, ActivatedRoute } from &#x27;@angular/router&#x27;;
+import {
+    IonHeader,
+    IonToolbar,
+    IonTitle,
+    IonContent,
+    IonButton,
+    IonButtons,
+    IonIcon,
+    IonToast
+} from &#x27;@ionic/angular&#x27;;
+import { addIcons } from &#x27;ionicons&#x27;;
+import {
+    addOutline,
+    cubeOutline,
+    alertCircleOutline,
+    cashOutline,
+    barChartOutline,
+    logOutOutline,
+    refreshOutline,
+    timeOutline,
+    downloadOutline,
+    documentTextOutline,
+    warningOutline
+} from &#x27;ionicons/icons&#x27;;
+
+import { AuthService } from &#x27;../../../../core/services/auth.service&#x27;;
+import { InventoryService } from &#x27;../../../../core/services/inventory.service&#x27;;
+import { ExportService } from &#x27;../../../../core/services/export.service&#x27;;
+import { Product } from &#x27;../../../../core/models/product.model&#x27;;
+import { DataTableComponent, ColumnDef } from &#x27;../../../../shared/components/data-table/data-table.component&#x27;;
+import { EmployeeProfileCardComponent } from &#x27;../../../../shared/components/employee-profile-card/employee-profile-card.component&#x27;;
+
+export type CatalogFilterMode &#x3D; &#x27;all&#x27; | &#x27;low-stock&#x27; | &#x27;valuation&#x27;;
+
+@Component({
+    selector: &#x27;app-inventory-list&#x27;,
+    standalone: true,
+    imports: [
+        CommonModule,
+        IonHeader,
+        IonToolbar,
+        IonTitle,
+        IonContent,
+        IonButton,
+        IonButtons,
+        IonIcon,
+        IonToast,
+        DataTableComponent,
+        EmployeeProfileCardComponent
+    ],
+    template: &#x60;
+    &lt;ion-header&gt;
+      &lt;ion-toolbar color&#x3D;&quot;dark&quot;&gt;
+        &lt;ion-title&gt;Catálogo de inventario&lt;/ion-title&gt;
+        &lt;ion-buttons slot&#x3D;&quot;end&quot;&gt;
+          @if (authService.isAdmin()) {
+            &lt;ion-button (click)&#x3D;&quot;router.navigate([&#x27;/admin&#x27;])&quot; aria-label&#x3D;&quot;Ir al panel de administración&quot;&gt;
+              &lt;ion-icon name&#x3D;&quot;bar-chart-outline&quot; slot&#x3D;&quot;start&quot;&gt;&lt;/ion-icon&gt;
+              Dashboard
+            &lt;/ion-button&gt;
+          }
+          &lt;ion-button (click)&#x3D;&quot;router.navigate([&#x27;/movements&#x27;])&quot; aria-label&#x3D;&quot;Ir a movimientos&quot;&gt;
+            &lt;ion-icon name&#x3D;&quot;time-outline&quot; slot&#x3D;&quot;start&quot;&gt;&lt;/ion-icon&gt;
+            Movimientos
+          &lt;/ion-button&gt;
+          &lt;ion-button (click)&#x3D;&quot;onLogout()&quot; color&#x3D;&quot;danger&quot; aria-label&#x3D;&quot;Cerrar sesión&quot;&gt;
+            &lt;ion-icon name&#x3D;&quot;log-out-outline&quot; slot&#x3D;&quot;start&quot;&gt;&lt;/ion-icon&gt;
+            Salir
+          &lt;/ion-button&gt;
+        &lt;/ion-buttons&gt;
+      &lt;/ion-toolbar&gt;
+    &lt;/ion-header&gt;
+
+    &lt;ion-content class&#x3D;&quot;invent-shell&quot;&gt;
+      &lt;div class&#x3D;&quot;container-fluid py-4 px-3 px-lg-4&quot;&gt;
+        &lt;!-- Alerta de acceso prohibido (403) — Solo aparece si el usuario intenta cambiar la ruta en la URL --&gt;
+        @if (forbiddenAlert()) {
+          &lt;div class&#x3D;&quot;alert alert-danger border-danger shadow-sm rounded-4 d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4 p-3&quot;&gt;
+            &lt;div class&#x3D;&quot;d-flex align-items-center gap-3&quot;&gt;
+              &lt;div class&#x3D;&quot;bg-danger text-white rounded-circle d-flex align-items-center justify-content-center flex-shrink-0&quot; style&#x3D;&quot;width: 42px; height: 42px;&quot;&gt;
+                &lt;ion-icon name&#x3D;&quot;warning-outline&quot; class&#x3D;&quot;fs-4&quot;&gt;&lt;/ion-icon&gt;
+              &lt;/div&gt;
+              &lt;div&gt;
+                &lt;h6 class&#x3D;&quot;fw-bold mb-1 text-danger&quot;&gt;
+                  Acceso prohibido (error 403) — Ruta restringida interceptada
+                &lt;/h6&gt;
+                &lt;p class&#x3D;&quot;small mb-0 text-dark&quot;&gt;
+                  Has intentado acceder manualmente a la ruta restringida &lt;code&gt;{{ forbiddenAlert()?.attemptedUrl }}&lt;/code&gt;
+                  con una cuenta de rol &lt;code&gt;{{ forbiddenAlert()?.role }}&lt;/code&gt;.
+                  El sistema de seguridad te ha redirigido a tu panel autorizado.
+                &lt;/p&gt;
+              &lt;/div&gt;
+            &lt;/div&gt;
+            &lt;div class&#x3D;&quot;d-flex gap-2&quot;&gt;
+              &lt;button
+                type&#x3D;&quot;button&quot;
+                class&#x3D;&quot;btn btn-sm btn-danger fw-semibold rounded-3&quot;
+                (click)&#x3D;&quot;router.navigate([&#x27;/unauthorized&#x27;])&quot;
+              &gt;
+                Ver aviso 403
+              &lt;/button&gt;
+              &lt;button
+                type&#x3D;&quot;button&quot;
+                class&#x3D;&quot;btn btn-sm btn-outline-danger fw-semibold rounded-3&quot;
+                (click)&#x3D;&quot;dismissForbiddenAlert()&quot;
+              &gt;
+                Cerrar
+              &lt;/button&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+        }
+
+        &lt;!-- Layout principal con Bootstrap 5 Grid --&gt;
+        &lt;div class&#x3D;&quot;row g-4&quot;&gt;
+          &lt;!-- Columna izquierda: Perfil de empleado + foto + cronómetro --&gt;
+          &lt;div class&#x3D;&quot;col-12 col-lg-3&quot;&gt;
+            &lt;app-employee-profile-card
+              [totalProducts]&#x3D;&quot;totalProductsCount()&quot;
+              [totalMovements]&#x3D;&quot;movementsCount()&quot;
+            &gt;&lt;/app-employee-profile-card&gt;
+          &lt;/div&gt;
+
+          &lt;!-- Columna derecha: Filtros KPI + exportación PDF/CSV + catálogo --&gt;
+          &lt;div class&#x3D;&quot;col-12 col-lg-9&quot;&gt;
+            &lt;!-- Barra superior con botones de descarga CSV/PDF y alta --&gt;
+            &lt;div class&#x3D;&quot;d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4&quot;&gt;
+              &lt;div&gt;
+                &lt;h4 class&#x3D;&quot;fw-bold text-dark mb-0&quot;&gt;Catálogo general de existencias&lt;/h4&gt;
+                &lt;p class&#x3D;&quot;text-muted small mb-0&quot;&gt;
+                  Conectado como &lt;strong&gt;{{ authService.currentProfile()?.full_name }}&lt;/strong&gt;
+                  ({{ authService.currentUser()?.email }})
+                &lt;/p&gt;
+              &lt;/div&gt;
+
+              &lt;div class&#x3D;&quot;d-flex flex-wrap gap-2&quot;&gt;
+                &lt;button
+                  type&#x3D;&quot;button&quot;
+                  class&#x3D;&quot;btn btn-outline-secondary btn-sm fw-semibold rounded-3 d-flex align-items-center gap-1 px-3 py-2 bg-white&quot;
+                  (click)&#x3D;&quot;loadProducts()&quot;
+                  [disabled]&#x3D;&quot;isLoading()&quot;
+                &gt;
+                  &lt;ion-icon name&#x3D;&quot;refresh-outline&quot;&gt;&lt;/ion-icon&gt;
+                  &lt;span&gt;Actualizar&lt;/span&gt;
+                &lt;/button&gt;
+                &lt;button
+                  type&#x3D;&quot;button&quot;
+                  class&#x3D;&quot;btn btn-success btn-sm fw-semibold rounded-3 d-flex align-items-center gap-1 px-3 py-2 text-white shadow-sm&quot;
+                  (click)&#x3D;&quot;exportPdf()&quot;
+                &gt;
+                  &lt;ion-icon name&#x3D;&quot;document-text-outline&quot;&gt;&lt;/ion-icon&gt;
+                  &lt;span&gt;Descargar PDF&lt;/span&gt;
+                &lt;/button&gt;
+                &lt;button
+                  type&#x3D;&quot;button&quot;
+                  class&#x3D;&quot;btn btn-primary btn-sm fw-semibold rounded-3 d-flex align-items-center gap-1 px-3 py-2 shadow-sm&quot;
+                  (click)&#x3D;&quot;exportCsv()&quot;
+                &gt;
+                  &lt;ion-icon name&#x3D;&quot;download-outline&quot;&gt;&lt;/ion-icon&gt;
+                  &lt;span&gt;Descargar CSV&lt;/span&gt;
+                &lt;/button&gt;
+                &lt;button
+                  type&#x3D;&quot;button&quot;
+                  class&#x3D;&quot;btn btn-dark btn-sm fw-semibold rounded-3 d-flex align-items-center gap-1 px-3 py-2&quot;
+                  (click)&#x3D;&quot;onNewProduct()&quot;
+                &gt;
+                  &lt;ion-icon name&#x3D;&quot;add-outline&quot;&gt;&lt;/ion-icon&gt;
+                  &lt;span&gt;Nuevo producto&lt;/span&gt;
+                &lt;/button&gt;
+              &lt;/div&gt;
+            &lt;/div&gt;
+
+            &lt;!-- 3 Tarjetas KPI interactivas como filtros directos --&gt;
+            &lt;div class&#x3D;&quot;row g-3 mb-4&quot;&gt;
+              &lt;div class&#x3D;&quot;col-12 col-md-4&quot;&gt;
+                &lt;div
+                  class&#x3D;&quot;invent-kpi-indigo p-3 h-100 d-flex flex-column justify-content-between kpi-selectable&quot;
+                  [class.kpi-active]&#x3D;&quot;catalogFilter() &#x3D;&#x3D;&#x3D; &#x27;all&#x27;&quot;
+                  style&#x3D;&quot;cursor: pointer;&quot;
+                  (click)&#x3D;&quot;setCatalogFilter(&#x27;all&#x27;)&quot;
+                &gt;
+                  &lt;div class&#x3D;&quot;d-flex flex-wrap justify-content-between align-items-start gap-1&quot;&gt;
+                    &lt;span class&#x3D;&quot;small opacity-75 fw-semibold&quot;&gt;Unidades físicas&lt;/span&gt;
+                    &lt;span class&#x3D;&quot;badge bg-white text-primary rounded-pill&quot;&gt;
+                      {{ catalogFilter() &#x3D;&#x3D;&#x3D; &#x27;all&#x27; ? &#x27;Filtro activo&#x27; : &#x27;Ver todos&#x27; }}
+                    &lt;/span&gt;
+                  &lt;/div&gt;
+                  &lt;div class&#x3D;&quot;fs-3 fw-bold my-1 text-break&quot;&gt;{{ totalUnitsCount() }} uds.&lt;/div&gt;
+                  &lt;div class&#x3D;&quot;extra-small opacity-75&quot;&gt;{{ totalProductsCount() }} referencias activas en catálogo&lt;/div&gt;
+                &lt;/div&gt;
+              &lt;/div&gt;
+
+              &lt;div class&#x3D;&quot;col-12 col-md-4&quot;&gt;
+                &lt;div
+                  class&#x3D;&quot;invent-kpi-coral p-3 h-100 d-flex flex-column justify-content-between kpi-selectable&quot;
+                  [class.kpi-active]&#x3D;&quot;catalogFilter() &#x3D;&#x3D;&#x3D; &#x27;low-stock&#x27;&quot;
+                  style&#x3D;&quot;cursor: pointer;&quot;
+                  (click)&#x3D;&quot;setCatalogFilter(&#x27;low-stock&#x27;)&quot;
+                &gt;
+                  &lt;div class&#x3D;&quot;d-flex flex-wrap justify-content-between align-items-start gap-1&quot;&gt;
+                    &lt;span class&#x3D;&quot;small opacity-75 fw-semibold&quot;&gt;Alerta de stock bajo&lt;/span&gt;
+                    &lt;span class&#x3D;&quot;badge bg-white text-danger rounded-pill&quot;&gt;
+                      {{ catalogFilter() &#x3D;&#x3D;&#x3D; &#x27;low-stock&#x27; ? &#x27;Filtro activo&#x27; : &#x27;Ver faltantes&#x27; }}
+                    &lt;/span&gt;
+                  &lt;/div&gt;
+                  &lt;div class&#x3D;&quot;fs-3 fw-bold my-1 text-break&quot;&gt;{{ lowStockCount() }} alertas&lt;/div&gt;
+                  &lt;div class&#x3D;&quot;extra-small opacity-75&quot;&gt;Pulsa para desplegar productos con stock bajo&lt;/div&gt;
+                &lt;/div&gt;
+              &lt;/div&gt;
+
+              &lt;div class&#x3D;&quot;col-12 col-md-4&quot;&gt;
+                &lt;div
+                  class&#x3D;&quot;invent-kpi-emerald p-3 h-100 d-flex flex-column justify-content-between kpi-selectable&quot;
+                  [class.kpi-active]&#x3D;&quot;catalogFilter() &#x3D;&#x3D;&#x3D; &#x27;valuation&#x27;&quot;
+                  style&#x3D;&quot;cursor: pointer;&quot;
+                  (click)&#x3D;&quot;setCatalogFilter(&#x27;valuation&#x27;)&quot;
+                &gt;
+                  &lt;div class&#x3D;&quot;d-flex flex-wrap justify-content-between align-items-start gap-1&quot;&gt;
+                    &lt;span class&#x3D;&quot;small opacity-75 fw-semibold&quot;&gt;Valoración de stock&lt;/span&gt;
+                    &lt;span class&#x3D;&quot;badge bg-white text-success rounded-pill&quot;&gt;
+                      {{ catalogFilter() &#x3D;&#x3D;&#x3D; &#x27;valuation&#x27; ? &#x27;Filtro activo&#x27; : &#x27;Ordenar por valor&#x27; }}
+                    &lt;/span&gt;
+                  &lt;/div&gt;
+                  &lt;div class&#x3D;&quot;fs-3 fw-bold my-1 text-break&quot;&gt;
+                    {{ (totalStockValue() | currency:&#x27;EUR&#x27;:&#x27;symbol&#x27;:&#x27;1.0-0&#x27;) || &#x27;0 €&#x27; }}
+                  &lt;/div&gt;
+                  &lt;div class&#x3D;&quot;extra-small opacity-75&quot;&gt;Pulsa para ordenar por valoración financiera&lt;/div&gt;
+                &lt;/div&gt;
+              &lt;/div&gt;
+            &lt;/div&gt;
+
+            &lt;!-- Cabecera dinámica del listado filtrado --&gt;
+            &lt;div class&#x3D;&quot;invent-card p-3 p-md-4&quot;&gt;
+              &lt;div class&#x3D;&quot;d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3 pb-2 border-bottom&quot;&gt;
+                &lt;div&gt;
+                  &lt;h5 class&#x3D;&quot;fw-bold text-dark mb-0&quot;&gt;
+                    @if (catalogFilter() &#x3D;&#x3D;&#x3D; &#x27;low-stock&#x27;) {
+                      &lt;span class&#x3D;&quot;text-danger&quot;&gt;Productos en alerta de stock bajo ({{ displayedProducts().length }})&lt;/span&gt;
+                    } @else if (catalogFilter() &#x3D;&#x3D;&#x3D; &#x27;valuation&#x27;) {
+                      &lt;span&gt;Productos ordenados por valoración de stock ({{ displayedProducts().length }})&lt;/span&gt;
+                    } @else {
+                      &lt;span&gt;Listado completo de productos ({{ displayedProducts().length }})&lt;/span&gt;
+                    }
+                  &lt;/h5&gt;
+                  &lt;p class&#x3D;&quot;text-muted extra-small mb-0&quot;&gt;
+                    @if (catalogFilter() &#x3D;&#x3D;&#x3D; &#x27;low-stock&#x27;) {
+                      Mostrando únicamente los artículos cuyas existencias están en o por debajo del mínimo de seguridad
+                    } @else if (catalogFilter() &#x3D;&#x3D;&#x3D; &#x27;valuation&#x27;) {
+                      Artículos ordenados de mayor a menor valor total en almacén
+                    } @else {
+                      Todos los artículos disponibles actualmente en el inventario
+                    }
+                  &lt;/p&gt;
+                &lt;/div&gt;
+
+                @if (catalogFilter() !&#x3D;&#x3D; &#x27;all&#x27;) {
+                  &lt;button
+                    type&#x3D;&quot;button&quot;
+                    class&#x3D;&quot;btn btn-sm btn-outline-secondary rounded-pill px-3 fw-semibold&quot;
+                    (click)&#x3D;&quot;setCatalogFilter(&#x27;all&#x27;)&quot;
+                  &gt;
+                    Mostrar todos los productos ({{ totalProductsCount() }})
+                  &lt;/button&gt;
+                }
+              &lt;/div&gt;
+
+              &lt;app-data-table
+                title&#x3D;&quot;Productos en almacén&quot;
+                [data]&#x3D;&quot;displayedProducts()&quot;
+                [columns]&#x3D;&quot;tableColumns&quot;
+                [isAdmin]&#x3D;&quot;authService.isAdmin()&quot;
+                [isLoading]&#x3D;&quot;isLoading()&quot;
+                searchPlaceholder&#x3D;&quot;Buscar por SKU, nombre o categoría...&quot;
+                [pageSize]&#x3D;&quot;6&quot;
+                (edit)&#x3D;&quot;onEditProduct($event)&quot;
+                (delete)&#x3D;&quot;onDeleteProduct($event)&quot;
+              &gt;&lt;/app-data-table&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+
+      &lt;ion-toast
+        [isOpen]&#x3D;&quot;toastMessage() !&#x3D;&#x3D; null&quot;
+        [message]&#x3D;&quot;toastMessage() || &#x27;&#x27;&quot;
+        [duration]&#x3D;&quot;3000&quot;
+        (didDismiss)&#x3D;&quot;toastMessage.set(null)&quot;
+      &gt;&lt;/ion-toast&gt;
+    &lt;/ion-content&gt;
+  &#x60;,
+    styles: [&#x60;
+      .extra-small {
+        font-size: 0.75rem;
+      }
+      .kpi-selectable {
+        transition: transform 0.18s ease, box-shadow 0.18s ease, outline 0.18s ease;
+      }
+      .kpi-selectable:hover {
+        transform: translateY(-2px);
+      }
+      .kpi-active {
+        outline: 3px solid #2889b8;
+        outline-offset: 2px;
+      }
+    &#x60;]
+})
+export class InventoryListPage implements OnInit {
+    authService &#x3D; inject(AuthService);
+    inventoryService &#x3D; inject(InventoryService);
+    exportService &#x3D; inject(ExportService);
+    router &#x3D; inject(Router);
+    route &#x3D; inject(ActivatedRoute);
+
+    products &#x3D; signal&lt;Product[]&gt;([]);
+    movementsCount &#x3D; signal&lt;number&gt;(5);
+    isLoading &#x3D; signal&lt;boolean&gt;(false);
+    catalogFilter &#x3D; signal&lt;CatalogFilterMode&gt;(&#x27;all&#x27;);
+    toastMessage &#x3D; signal&lt;string | null&gt;(null);
+    forbiddenAlert &#x3D; signal&lt;{ attemptedUrl: string; user: string; role: string; timestamp: string } | null&gt;(null);
+
+    readonly tableColumns: ColumnDef[] &#x3D; [
+        { key: &#x27;sku&#x27;, label: &#x27;SKU / Código&#x27;, sortable: true },
+        { key: &#x27;name&#x27;, label: &#x27;Nombre del producto&#x27;, sortable: true },
+        { key: &#x27;category.name&#x27;, label: &#x27;Categoría&#x27;, sortable: true },
+        { key: &#x27;stock&#x27;, label: &#x27;Stock&#x27;, sortable: true, type: &#x27;stock&#x27; },
+        { key: &#x27;unit_price&#x27;, label: &#x27;Precio unitario&#x27;, sortable: true, type: &#x27;currency&#x27; }
+    ];
+
+    constructor() {
+        addIcons({
+            addOutline,
+            cubeOutline,
+            alertCircleOutline,
+            cashOutline,
+            barChartOutline,
+            logOutOutline,
+            refreshOutline,
+            timeOutline,
+            downloadOutline,
+            documentTextOutline,
+            warningOutline
+        });
+    }
+
+    async ngOnInit(): Promise&lt;void&gt; {
+        this.checkForbiddenIntrusion();
+        this.route.queryParams.subscribe(params &#x3D;&gt; {
+            this.checkForbiddenIntrusion();
+            if (params[&#x27;filter&#x27;] &#x3D;&#x3D;&#x3D; &#x27;low-stock&#x27;) {
+                this.catalogFilter.set(&#x27;low-stock&#x27;);
+            }
+        });
+        await this.loadProducts();
+    }
+
+    private checkForbiddenIntrusion(): void {
+        const raw &#x3D; sessionStorage.getItem(&#x27;STOCKFLOW_FORBIDDEN_ATTEMPT&#x27;);
+        if (raw) {
+            try {
+                this.forbiddenAlert.set(JSON.parse(raw));
+            } catch {
+                this.forbiddenAlert.set(null);
+            }
+        }
+    }
+
+    dismissForbiddenAlert(): void {
+        sessionStorage.removeItem(&#x27;STOCKFLOW_FORBIDDEN_ATTEMPT&#x27;);
+        this.forbiddenAlert.set(null);
+    }
+
+    async loadProducts(): Promise&lt;void&gt; {
+        this.isLoading.set(true);
+        try {
+            const [data, movs] &#x3D; await Promise.all([
+                this.inventoryService.getProducts(),
+                this.inventoryService.getMovements(50)
+            ]);
+            this.products.set(data);
+            this.movementsCount.set(movs.length);
+        } catch {
+            this.toastMessage.set(&#x27;Error al cargar el inventario.&#x27;);
+        } finally {
+            this.isLoading.set(false);
+        }
+    }
+
+    readonly totalProductsCount &#x3D; computed(() &#x3D;&gt; this.products().length);
+
+    readonly totalUnitsCount &#x3D; computed(() &#x3D;&gt; {
+        return this.products().reduce((acc, p) &#x3D;&gt; acc + p.stock, 0);
+    });
+
+    readonly lowStockCount &#x3D; computed(() &#x3D;&gt; {
+        return this.products().filter(p &#x3D;&gt; p.stock &lt;&#x3D; p.min_stock).length;
+    });
+
+    readonly totalStockValue &#x3D; computed(() &#x3D;&gt; {
+        return this.products().reduce((acc, p) &#x3D;&gt; acc + (p.stock * p.unit_price), 0);
+    });
+
+    readonly displayedProducts &#x3D; computed(() &#x3D;&gt; {
+        const all &#x3D; [...this.products()];
+        const mode &#x3D; this.catalogFilter();
+        if (mode &#x3D;&#x3D;&#x3D; &#x27;low-stock&#x27;) {
+            return all.filter(p &#x3D;&gt; p.stock &lt;&#x3D; p.min_stock);
+        }
+        if (mode &#x3D;&#x3D;&#x3D; &#x27;valuation&#x27;) {
+            return all.sort((a, b) &#x3D;&gt; (b.stock * b.unit_price) - (a.stock * a.unit_price));
+        }
+        return all;
+    });
+
+    setCatalogFilter(mode: CatalogFilterMode): void {
+        this.catalogFilter.set(mode);
+    }
+
+    exportPdf(): void {
+        this.exportService.exportInventoryToPdf(this.displayedProducts());
+        this.toastMessage.set(&#x27;Informe PDF del inventario descargado.&#x27;);
+    }
+
+    exportCsv(): void {
+        this.exportService.exportProductsToCsv(this.displayedProducts());
+        this.toastMessage.set(&#x27;Archivo CSV del inventario descargado.&#x27;);
+    }
+
+    onNewProduct(): void {
+        this.router.navigate([&#x27;/inventory/new&#x27;]);
+    }
+
+    onEditProduct(product: Product): void {
+        this.router.navigate([&#x27;/inventory/edit&#x27;, product.id]);
+    }
+
+    async onDeleteProduct(product: Product): Promise&lt;void&gt; {
+        if (!this.authService.isAdmin()) {
+            this.router.navigate([&#x27;/unauthorized&#x27;]);
+            return;
+        }
+
+        const confirmed &#x3D; confirm(&#x60;¿Estás seguro de que deseas eliminar permanentemente &quot;${product.name}&quot;?&#x60;);
+        if (!confirmed) return;
+
+        try {
+            await this.inventoryService.deleteProduct(product.id);
+            this.toastMessage.set(&#x60;Producto &quot;${product.name}&quot; eliminado correctamente.&#x60;);
+            await this.loadProducts();
+        } catch (err: any) {
+            this.toastMessage.set(err.message || &#x27;Error eliminando producto.&#x27;);
+        }
+    }
+
+    async onLogout(): Promise&lt;void&gt; {
+        await this.authService.logout();
+        this.router.navigate([&#x27;/login&#x27;]);
+    }
+}
+</code></pre>
+    </div>
+
+
+    <div class="tab-pane fade " id="styleData">
+            <pre class="line-numbers"><code class="language-scss">
+      .extra-small {
+        font-size: 0.75rem;
+      }
+      .kpi-selectable {
+        transition: transform 0.18s ease, box-shadow 0.18s ease, outline 0.18s ease;
+      }
+      .kpi-selectable:hover {
+        transform: translateY(-2px);
+      }
+      .kpi-active {
+        outline: 3px solid #2889b8;
+        outline-offset: 2px;
+      }
+    
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis-network.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><ion-header>  <ion-toolbar color="dark">    <ion-title>Catálogo de inventario</ion-title>    <ion-buttons slot="end">      @if (authService.isAdmin()) {        <ion-button (click)="router.navigate([\'/admin\'])" aria-label="Ir al panel de administración">          <ion-icon name="bar-chart-outline" slot="start"></ion-icon>          Dashboard        </ion-button>      }      <ion-button (click)="router.navigate([\'/movements\'])" aria-label="Ir a movimientos">        <ion-icon name="time-outline" slot="start"></ion-icon>        Movimientos      </ion-button>      <ion-button (click)="onLogout()" color="danger" aria-label="Cerrar sesión">        <ion-icon name="log-out-outline" slot="start"></ion-icon>        Salir      </ion-button>    </ion-buttons>  </ion-toolbar></ion-header><ion-content class="invent-shell">  <div class="container-fluid py-4 px-3 px-lg-4">    <!-- Alerta de acceso prohibido (403) — Solo aparece si el usuario intenta cambiar la ruta en la URL -->    @if (forbiddenAlert()) {      <div class="alert alert-danger border-danger shadow-sm rounded-4 d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4 p-3">        <div class="d-flex align-items-center gap-3">          <div class="bg-danger text-white rounded-circle d-flex align-items-center justify-content-center flex-shrink-0" style="width: 42px; height: 42px;">            <ion-icon name="warning-outline" class="fs-4"></ion-icon>          </div>          <div>            <h6 class="fw-bold mb-1 text-danger">              Acceso prohibido (error 403) — Ruta restringida interceptada            </h6>            <p class="small mb-0 text-dark">              Has intentado acceder manualmente a la ruta restringida <code>{{ forbiddenAlert()?.attemptedUrl }}</code>              con una cuenta de rol <code>{{ forbiddenAlert()?.role }}</code>.              El sistema de seguridad te ha redirigido a tu panel autorizado.            </p>          </div>        </div>        <div class="d-flex gap-2">          <button            type="button"            class="btn btn-sm btn-danger fw-semibold rounded-3"            (click)="router.navigate([\'/unauthorized\'])"          >            Ver aviso 403          </button>          <button            type="button"            class="btn btn-sm btn-outline-danger fw-semibold rounded-3"            (click)="dismissForbiddenAlert()"          >            Cerrar          </button>        </div>      </div>    }    <!-- Layout principal con Bootstrap 5 Grid -->    <div class="row g-4">      <!-- Columna izquierda: Perfil de empleado + foto + cronómetro -->      <div class="col-12 col-lg-3">        <app-employee-profile-card          [totalProducts]="totalProductsCount()"          [totalMovements]="movementsCount()"        ></app-employee-profile-card>      </div>      <!-- Columna derecha: Filtros KPI + exportación PDF/CSV + catálogo -->      <div class="col-12 col-lg-9">        <!-- Barra superior con botones de descarga CSV/PDF y alta -->        <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">          <div>            <h4 class="fw-bold text-dark mb-0">Catálogo general de existencias</h4>            <p class="text-muted small mb-0">              Conectado como <strong>{{ authService.currentProfile()?.full_name }}</strong>              ({{ authService.currentUser()?.email }})            </p>          </div>          <div class="d-flex flex-wrap gap-2">            <button              type="button"              class="btn btn-outline-secondary btn-sm fw-semibold rounded-3 d-flex align-items-center gap-1 px-3 py-2 bg-white"              (click)="loadProducts()"              [disabled]="isLoading()"            >              <ion-icon name="refresh-outline"></ion-icon>              <span>Actualizar</span>            </button>            <button              type="button"              class="btn btn-success btn-sm fw-semibold rounded-3 d-flex align-items-center gap-1 px-3 py-2 text-white shadow-sm"              (click)="exportPdf()"            >              <ion-icon name="document-text-outline"></ion-icon>              <span>Descargar PDF</span>            </button>            <button              type="button"              class="btn btn-primary btn-sm fw-semibold rounded-3 d-flex align-items-center gap-1 px-3 py-2 shadow-sm"              (click)="exportCsv()"            >              <ion-icon name="download-outline"></ion-icon>              <span>Descargar CSV</span>            </button>            <button              type="button"              class="btn btn-dark btn-sm fw-semibold rounded-3 d-flex align-items-center gap-1 px-3 py-2"              (click)="onNewProduct()"            >              <ion-icon name="add-outline"></ion-icon>              <span>Nuevo producto</span>            </button>          </div>        </div>        <!-- 3 Tarjetas KPI interactivas como filtros directos -->        <div class="row g-3 mb-4">          <div class="col-12 col-md-4">            <div              class="invent-kpi-indigo p-3 h-100 d-flex flex-column justify-content-between kpi-selectable"              [class.kpi-active]="catalogFilter() === \'all\'"              style="cursor: pointer;"              (click)="setCatalogFilter(\'all\')"            >              <div class="d-flex flex-wrap justify-content-between align-items-start gap-1">                <span class="small opacity-75 fw-semibold">Unidades físicas</span>                <span class="badge bg-white text-primary rounded-pill">                  {{ catalogFilter() === \'all\' ? \'Filtro activo\' : \'Ver todos\' }}                </span>              </div>              <div class="fs-3 fw-bold my-1 text-break">{{ totalUnitsCount() }} uds.</div>              <div class="extra-small opacity-75">{{ totalProductsCount() }} referencias activas en catálogo</div>            </div>          </div>          <div class="col-12 col-md-4">            <div              class="invent-kpi-coral p-3 h-100 d-flex flex-column justify-content-between kpi-selectable"              [class.kpi-active]="catalogFilter() === \'low-stock\'"              style="cursor: pointer;"              (click)="setCatalogFilter(\'low-stock\')"            >              <div class="d-flex flex-wrap justify-content-between align-items-start gap-1">                <span class="small opacity-75 fw-semibold">Alerta de stock bajo</span>                <span class="badge bg-white text-danger rounded-pill">                  {{ catalogFilter() === \'low-stock\' ? \'Filtro activo\' : \'Ver faltantes\' }}                </span>              </div>              <div class="fs-3 fw-bold my-1 text-break">{{ lowStockCount() }} alertas</div>              <div class="extra-small opacity-75">Pulsa para desplegar productos con stock bajo</div>            </div>          </div>          <div class="col-12 col-md-4">            <div              class="invent-kpi-emerald p-3 h-100 d-flex flex-column justify-content-between kpi-selectable"              [class.kpi-active]="catalogFilter() === \'valuation\'"              style="cursor: pointer;"              (click)="setCatalogFilter(\'valuation\')"            >              <div class="d-flex flex-wrap justify-content-between align-items-start gap-1">                <span class="small opacity-75 fw-semibold">Valoración de stock</span>                <span class="badge bg-white text-success rounded-pill">                  {{ catalogFilter() === \'valuation\' ? \'Filtro activo\' : \'Ordenar por valor\' }}                </span>              </div>              <div class="fs-3 fw-bold my-1 text-break">                {{ (totalStockValue() | currency:\'EUR\':\'symbol\':\'1.0-0\') || \'0 €\' }}              </div>              <div class="extra-small opacity-75">Pulsa para ordenar por valoración financiera</div>            </div>          </div>        </div>        <!-- Cabecera dinámica del listado filtrado -->        <div class="invent-card p-3 p-md-4">          <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3 pb-2 border-bottom">            <div>              <h5 class="fw-bold text-dark mb-0">                @if (catalogFilter() === \'low-stock\') {                  <span class="text-danger">Productos en alerta de stock bajo ({{ displayedProducts().length }})</span>                } @else if (catalogFilter() === \'valuation\') {                  <span>Productos ordenados por valoración de stock ({{ displayedProducts().length }})</span>                } @else {                  <span>Listado completo de productos ({{ displayedProducts().length }})</span>                }              </h5>              <p class="text-muted extra-small mb-0">                @if (catalogFilter() === \'low-stock\') {                  Mostrando únicamente los artículos cuyas existencias están en o por debajo del mínimo de seguridad                } @else if (catalogFilter() === \'valuation\') {                  Artículos ordenados de mayor a menor valor total en almacén                } @else {                  Todos los artículos disponibles actualmente en el inventario                }              </p>            </div>            @if (catalogFilter() !== \'all\') {              <button                type="button"                class="btn btn-sm btn-outline-secondary rounded-pill px-3 fw-semibold"                (click)="setCatalogFilter(\'all\')"              >                Mostrar todos los productos ({{ totalProductsCount() }})              </button>            }          </div>          <app-data-table            title="Productos en almacén"            [data]="displayedProducts()"            [columns]="tableColumns"            [isAdmin]="authService.isAdmin()"            [isLoading]="isLoading()"            searchPlaceholder="Buscar por SKU, nombre o categoría..."            [pageSize]="6"            (edit)="onEditProduct($event)"            (delete)="onDeleteProduct($event)"          ></app-data-table>        </div>      </div>    </div>  </div>  <ion-toast    [isOpen]="toastMessage() !== null"    [message]="toastMessage() || \'\'"    [duration]="3000"    (didDismiss)="toastMessage.set(null)"  ></ion-toast></ion-content></div>'
+    var COMPONENTS = [{'name': 'AdminDashboardPage', 'selector': 'app-admin-dashboard'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'DataTableComponent', 'selector': 'app-data-table'},{'name': 'EmployeeProfileCardComponent', 'selector': 'app-employee-profile-card'},{'name': 'HomePage', 'selector': 'app-home'},{'name': 'InventoryListPage', 'selector': 'app-inventory-list'},{'name': 'LoginPage', 'selector': 'app-login'},{'name': 'MovementHistoryPage', 'selector': 'app-movement-history'},{'name': 'ProductFormPage', 'selector': 'app-product-form'},{'name': 'StatWidgetComponent', 'selector': 'app-stat-widget'},{'name': 'TemplatePlaygroundComponent', 'selector': 'template-playground-root'},{'name': 'UnauthorizedPage', 'selector': 'app-unauthorized'}];
+    var DIRECTIVES = [];
+    var ACTUAL_COMPONENT = {'name': 'InventoryListPage'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'InventoryListPage.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var updateDarkModeSwitchOffset = function () {
+                    var content = document.querySelector('.content');
+                    var scrollbarWidth = 0;
+
+                    if (content) {
+                         scrollbarWidth = Math.max(0, content.offsetWidth - content.clientWidth);
+                    }
+
+                    document.documentElement.style.setProperty(
+                         '--content-scrollbar-width',
+                         scrollbarWidth + 'px'
+                    );
+               };
+
+               updateDarkModeSwitchOffset();
+               requestAnimationFrame(updateDarkModeSwitchOffset);
+               window.addEventListener('resize', updateDarkModeSwitchOffset);
+
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>
