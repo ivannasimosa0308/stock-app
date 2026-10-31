@@ -17,18 +17,18 @@ export const routes: Routes = [
   },
   {
     path: 'admin',
-    canActivate: [authGuard, roleGuard('admin')], // Protección mediante Functional Guard + Factoría
+    canActivate: [authGuard, roleGuard('admin')], // Protección exclusiva para rol 'admin'
     loadComponent: () => import('./features/dashboard/pages/admin-dashboard.page')
       .then(m => m.AdminDashboardPage)
   },
   {
     path: 'user-dashboard',
-    canActivate: [authGuard], // Ruta de destino para rol 'user' (operador)
+    canActivate: [authGuard], // Ruta de destino para rol 'operator' / 'user'
     loadComponent: () => import('./features/inventory/pages/inventory-list/inventory-list.page')
       .then(m => m.InventoryListPage)
   },
 
-  // Rutas extendidas de StockFlow Enterprise
+  // Rutas operativas de StockFlow Enterprise
   {
     path: 'auth/login',
     loadComponent: () => import('./features/auth/pages/login/login.page')
@@ -36,19 +36,19 @@ export const routes: Routes = [
   },
   {
     path: 'inventory',
-    canActivate: [authGuard], // Requiere estar autenticado (Admin o Standard)
+    canActivate: [authGuard], // Accesible para Admin y Operador
     loadComponent: () => import('./features/inventory/pages/inventory-list/inventory-list.page')
       .then(m => m.InventoryListPage)
   },
   {
     path: 'inventory/new',
-    canActivate: [authGuard, roleGuard('admin')], // Exclusivo Administrador
+    canActivate: [authGuard], // Create habilitado para Admin y Operador (alta de mercancía en recepción)
     loadComponent: () => import('./features/inventory/pages/product-form/product-form.page')
       .then(m => m.ProductFormPage)
   },
   {
     path: 'inventory/edit/:id',
-    canActivate: [authGuard, roleGuard('admin')], // Exclusivo Administrador
+    canActivate: [authGuard], // Update habilitado para Admin (edición total) y Operador (ajuste operativo de almacén sin tocar precios)
     loadComponent: () => import('./features/inventory/pages/product-form/product-form.page')
       .then(m => m.ProductFormPage)
   },

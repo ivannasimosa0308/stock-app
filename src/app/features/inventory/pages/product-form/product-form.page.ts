@@ -18,10 +18,12 @@ import {
   closeCircleOutline,
   arrowBackOutline,
   cloudUploadOutline,
-  imageOutline
+  imageOutline,
+  lockClosedOutline
 } from 'ionicons/icons';
 import { Observable, from, of } from 'rxjs';
 import { map, catchError, debounceTime, switchMap, first } from 'rxjs/operators';
+import { AuthService } from '../../../../core/services/auth.service';
 import { InventoryService } from '../../../../core/services/inventory.service';
 import { StorageService } from '../../../../core/services/storage.service';
 import { Category } from '../../../../core/models/product.model';
@@ -50,7 +52,7 @@ import { Category } from '../../../../core/models/product.model';
             Volver
           </ion-button>
         </ion-buttons>
-        <ion-title>{{ isEditMode() ? 'Editar Producto' : 'Nuevo Producto en Catálogo' }}</ion-title>
+        <ion-title>{{ isEditMode() ? 'Actualizar producto' : 'Nuevo producto en catálogo' }}</ion-title>
       </ion-toolbar>
     </ion-header>
 
@@ -59,22 +61,30 @@ import { Category } from '../../../../core/models/product.model';
         <div class="row justify-content-center">
           <div class="col-12 col-lg-8">
             <div class="invent-card p-4 p-md-5">
-              <div class="d-flex justify-content-between align-items-center mb-4 border-bottom pb-3">
+              <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-4 border-bottom pb-3">
                 <div>
                   <h4 class="fw-bold text-dark mb-1">
-                    {{ isEditMode() ? 'Modificar Información del Producto' : 'Alta de Producto con Supabase Storage' }}
+                    @if (isEditMode()) {
+                      {{ authService.isAdmin() ? 'Modificar información maestra del producto' : 'Actualización operativa de existencias y ficha de almacén' }}
+                    } @else {
+                      Alta de producto en almacén
+                    }
                   </h4>
                   <p class="text-muted small mb-0">
-                    Formulario reactivo con validador asíncrono de SKU único y almacenamiento multimedia
+                    @if (isEditMode() && !authService.isAdmin()) {
+                      Como operador puedes actualizar stock físico, categoría, descripción e imagen. El precio unitario y el SKU están protegidos.
+                    } @else {
+                      Formulario reactivo con validador asíncrono de SKU único y almacenamiento multimedia
+                    }
                   </p>
                 </div>
                 <span class="badge bg-primary-subtle text-primary rounded-pill px-3 py-2">
-                  {{ isEditMode() ? 'Edición' : 'Nuevo Registro' }}
+                  {{ isEditMode() ? (authService.isAdmin() ? 'Edición completa (Admin)' : 'Edición operativa (Operador)') : 'Nuevo registro' }}
                 </span>
               </div>
 
               <form [formGroup]="productForm" (ngSubmit)="onSubmit()">
-                <!-- Bloque de Imagen del Producto (Supabase Storage) -->
+                <!-- Bloque de imagen del producto (Supabase Storage) -->
                 <div class="storage-upload-box p-3 rounded-4 mb-4">
                   <div class="row align-items-center g-3">
                     <div class="col-12 col-sm-auto text-center">
@@ -88,7 +98,7 @@ import { Category } from '../../../../core/models/product.model';
                     <div class="col">
                       <label class="form-label fw-bold text-dark small mb-1">
                         <ion-icon name="cloud-upload-outline" class="text-primary me-1 align-middle"></ion-icon>
-                        Imagen Visual del Producto (Supabase Storage Bucket)
+                        Imagen visual del producto (Supabase Storage)
                       </label>
                       <p class="text-muted extra-small mb-2">
                         Sube una fotografía desde tu equipo al bucket <code>stockflow-media/products</code> o introduce una URL directa.
@@ -105,7 +115,7 @@ import { Category } from '../../../../core/models/product.model';
                             <span>Subiendo a Storage...</span>
                           } @else {
                             <ion-icon name="image-outline"></ion-icon>
-                            <span>Subir Imagen desde Equipo</span>
+                            <span>Subir imagen desde equipo</span>
                           }
                         </button>
                         <input
@@ -130,14 +140,16 @@ import { Category } from '../../../../core/models/product.model';
                 <div class="row g-3 mb-3">
                   <div class="col-12 col-md-5">
                     <label class="form-label fw-semibold small text-secondary">
-                      Código SKU * (Validador Asíncrono)
+                      Código SKU * (validador asíncrono)
                     </label>
                     <div class="input-group">
                       <input
                         type="text"
                         class="form-control"
+                        [class.bg-light]="isEditMode() && !authService.isAdmin()"
                         formControlName="sku"
                         placeholder="Ej. LAP-DELL-001"
+                        [readonly]="isEditMode() && !authService.isAdmin()"
                         (input)="onSkuInput()"
                       />
                       <span class="input-group-text bg-white">
@@ -162,7 +174,7 @@ import { Category } from '../../../../core/models/product.model';
 
                   <div class="col-12 col-md-7">
                     <label class="form-label fw-semibold small text-secondary">
-                      Nombre Comercial del Producto *
+                      Nombre comercial del producto *
                     </label>
                     <input
                       type="text"
@@ -191,12 +203,12 @@ import { Category } from '../../../../core/models/product.model';
                   </div>
 
                   <div class="col-12 col-md-7">
-                    <label class="form-label fw-semibold small text-secondary">Descripción Técnica</label>
+                    <label class="form-label fw-semibold small text-secondary">Descripción técnica / ubicación en pasillo</label>
                     <input
                       type="text"
                       class="form-control"
                       formControlName="description"
-                      placeholder="Especificaciones, serie, proveedor..."
+                      placeholder="Especificaciones, pasillo, estantería o proveedor..."
                     />
                   </div>
                 </div>
@@ -204,18 +216,31 @@ import { Category } from '../../../../core/models/product.model';
                 <!-- Stock, Stock Mínimo y Precio -->
                 <div class="row g-3 mb-4">
                   <div class="col-12 col-sm-4">
-                    <label class="form-label fw-semibold small text-secondary">Stock Actual *</label>
+                    <label class="form-label fw-semibold small text-secondary">Stock actual *</label>
                     <input type="number" class="form-control" formControlName="stock" min="0" />
                   </div>
 
                   <div class="col-12 col-sm-4">
-                    <label class="form-label fw-semibold small text-secondary">Stock Mínimo (Alerta) *</label>
+                    <label class="form-label fw-semibold small text-secondary">Stock mínimo (alerta) *</label>
                     <input type="number" class="form-control" formControlName="min_stock" min="0" />
                   </div>
 
                   <div class="col-12 col-sm-4">
-                    <label class="form-label fw-semibold small text-secondary">Precio Unitario (€) *</label>
-                    <input type="number" step="0.01" class="form-control" formControlName="unit_price" min="0" />
+                    <label class="form-label fw-semibold small text-secondary d-flex align-items-center justify-content-between">
+                      <span>Precio unitario (€) *</span>
+                      @if (isEditMode() && !authService.isAdmin()) {
+                        <span class="badge bg-secondary-subtle text-secondary extra-small">Solo Admin</span>
+                      }
+                    </label>
+                    <input
+                      type="number"
+                      step="0.01"
+                      class="form-control"
+                      [class.bg-light]="isEditMode() && !authService.isAdmin()"
+                      formControlName="unit_price"
+                      [readonly]="isEditMode() && !authService.isAdmin()"
+                      min="0"
+                    />
                   </div>
                 </div>
 
@@ -225,7 +250,7 @@ import { Category } from '../../../../core/models/product.model';
                   </div>
                 }
 
-                <div class="d-flex justify-content-end gap-2 pt-3 border-top">
+                <div class="d-flex flex-wrap justify-content-end gap-2 pt-3 border-top">
                   <button type="button" class="btn btn-outline-secondary px-4 fw-semibold rounded-3" (click)="goBack()">
                     Cancelar
                   </button>
@@ -237,7 +262,7 @@ import { Category } from '../../../../core/models/product.model';
                     @if (isSaving()) {
                       <ion-spinner name="crescent" color="light" style="width: 16px; height: 16px;"></ion-spinner>
                     } @else {
-                      {{ isEditMode() ? 'Guardar Cambios' : 'Registrar Producto' }}
+                      {{ isEditMode() ? 'Guardar cambios' : 'Registrar producto' }}
                     }
                   </button>
                 </div>
@@ -260,6 +285,7 @@ import { Category } from '../../../../core/models/product.model';
 })
 export class ProductFormPage implements OnInit {
   private fb = inject(FormBuilder);
+  authService = inject(AuthService);
   private inventoryService = inject(InventoryService);
   private storageService = inject(StorageService);
   private router = inject(Router);
@@ -290,7 +316,8 @@ export class ProductFormPage implements OnInit {
       closeCircleOutline,
       arrowBackOutline,
       cloudUploadOutline,
-      imageOutline
+      imageOutline,
+      lockClosedOutline
     });
   }
 
@@ -386,7 +413,7 @@ export class ProductFormPage implements OnInit {
       } else {
         await this.inventoryService.createProduct(formValues);
       }
-      this.router.navigate(['/admin']);
+      this.goBack();
     } catch (err: any) {
       this.errorMessage.set(err.message || 'Error guardando producto.');
     } finally {
@@ -395,7 +422,7 @@ export class ProductFormPage implements OnInit {
   }
 
   goBack(): void {
-    if (this.isEditMode()) {
+    if (this.authService.isAdmin() && this.isEditMode()) {
       this.router.navigate(['/admin']);
     } else {
       this.router.navigate(['/inventory']);

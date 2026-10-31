@@ -161,16 +161,14 @@ export type CatalogFilterMode = 'all' | 'low-stock' | 'valuation';
                   <ion-icon name="download-outline"></ion-icon>
                   <span>Descargar CSV</span>
                 </button>
-                @if (authService.isAdmin()) {
-                  <button
-                    type="button"
-                    class="btn btn-dark btn-sm fw-semibold rounded-3 d-flex align-items-center gap-1 px-3 py-2"
-                    (click)="onNewProduct()"
-                  >
-                    <ion-icon name="add-outline"></ion-icon>
-                    <span>Nuevo producto</span>
-                  </button>
-                }
+                <button
+                  type="button"
+                  class="btn btn-dark btn-sm fw-semibold rounded-3 d-flex align-items-center gap-1 px-3 py-2"
+                  (click)="onNewProduct()"
+                >
+                  <ion-icon name="add-outline"></ion-icon>
+                  <span>Nuevo producto</span>
+                </button>
               </div>
             </div>
 
@@ -434,10 +432,6 @@ export class InventoryListPage implements OnInit {
     }
 
     onEditProduct(product: Product): void {
-        if (!this.authService.isAdmin()) {
-            this.router.navigate(['/unauthorized']);
-            return;
-        }
         this.router.navigate(['/inventory/edit', product.id]);
     }
 

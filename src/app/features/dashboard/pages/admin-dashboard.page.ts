@@ -18,7 +18,6 @@ import {
   refreshOutline,
   arrowBackOutline,
   logOutOutline,
-  pieChartOutline,
   analyticsOutline,
   timeOutline,
   serverOutline,
@@ -133,7 +132,7 @@ export type DashboardFilterMode = 'units' | 'valuation' | 'low-stock';
             <p class="text-muted mt-2 mb-0">Cargando métricas del inventario...</p>
           </div>
         } @else {
-          <!-- FILA SUPERIOR: Perfil de empleado (izquierda) + Overview de lado (centro) + Cuota por categoría (derecha) -->
+          <!-- FILA SUPERIOR: Perfil de empleado (izquierda) + Overview de lado a ancho completo (derecha) -->
           <div class="row g-4 align-items-stretch mb-4">
             <!-- Columna izquierda: Perfil de empleado + cronómetro -->
             <div class="col-12 col-lg-3">
@@ -143,8 +142,8 @@ export type DashboardFilterMode = 'units' | 'valuation' | 'low-stock';
               ></app-employee-profile-card>
             </div>
 
-            <!-- Columna central superior: Overview — Flujo y comportamiento de stock -->
-            <div class="col-12 col-lg-6">
+            <!-- Columna derecha superior: Overview — Flujo y comportamiento de stock -->
+            <div class="col-12 col-lg-9">
               <div class="invent-card p-4 h-100 d-flex flex-column justify-content-between">
                 <div class="d-flex flex-wrap justify-content-between align-items-start gap-2 mb-3">
                   <div>
@@ -182,34 +181,6 @@ export type DashboardFilterMode = 'units' | 'valuation' | 'low-stock';
 
                 <div class="chart-flow-box flex-grow-1">
                   <canvas #flowChartCanvas></canvas>
-                </div>
-              </div>
-            </div>
-
-            <!-- Columna derecha superior: Cuota mensual por categoría -->
-            <div class="col-12 col-lg-3">
-              <div class="invent-card p-4 h-100 d-flex flex-column justify-content-between">
-                <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-2">
-                  <div>
-                    <span class="fw-bold text-dark d-block">Cuota por categoría</span>
-                    <span class="text-muted extra-small">Distribución mensual de stock</span>
-                  </div>
-                  <select
-                    class="form-select form-select-sm w-auto mw-100 fw-semibold text-primary border-primary-subtle"
-                    [value]="selectedCategoryMonth()"
-                    (change)="onCategoryMonthChange($event)"
-                    aria-label="Seleccionar mes de categoría"
-                  >
-                    <option value="Enero">Enero</option>
-                    <option value="Febrero">Febrero</option>
-                    <option value="Marzo">Marzo</option>
-                    <option value="Abril">Abril</option>
-                    <option value="Mayo">Mayo</option>
-                    <option value="Junio">Junio (actual)</option>
-                  </select>
-                </div>
-                <div class="chart-doughnut-box my-auto">
-                  <canvas #categoryChartCanvas></canvas>
                 </div>
               </div>
             </div>
@@ -391,12 +362,7 @@ export type DashboardFilterMode = 'units' | 'valuation' | 'low-stock';
     }
     .chart-flow-box {
       position: relative;
-      min-height: 250px;
-      width: 100%;
-    }
-    .chart-doughnut-box {
-      position: relative;
-      height: 240px;
+      min-height: 270px;
       width: 100%;
     }
     .product-thumb {
@@ -427,14 +393,11 @@ export class AdminDashboardPage implements OnInit, AfterViewInit {
   router = inject(Router);
 
   @ViewChild('flowChartCanvas') flowCanvas?: ElementRef<HTMLCanvasElement>;
-  @ViewChild('categoryChartCanvas') categoryCanvas?: ElementRef<HTMLCanvasElement>;
 
   private flowChartInstance?: Chart;
-  private categoryChartInstance?: Chart;
 
   isLoading = signal<boolean>(true);
   chartMode = signal<'months' | 'products'>('months');
-  selectedCategoryMonth = signal<string>('Junio');
   activeFilter = signal<DashboardFilterMode>('units');
 
   products = signal<Product[]>([]);
@@ -458,16 +421,6 @@ export class AdminDashboardPage implements OnInit, AfterViewInit {
     return all.sort((a, b) => b.stock - a.stock);
   });
 
-  // Datos mensuales por categoría (enero a junio) para la gráfica de cuota mensual por categoría
-  private readonly monthlyCategoryDistribution: Record<string, number[]> = {
-    'Enero':   [10, 14, 18, 5],
-    'Febrero': [12, 18, 22, 6],
-    'Marzo':   [11, 20, 19, 4],
-    'Abril':   [15, 25, 28, 6],
-    'Mayo':    [16, 24, 25, 5],
-    'Junio':   [18, 30, 32, 3]
-  };
-
   constructor() {
     addIcons({
       downloadOutline,
@@ -475,7 +428,6 @@ export class AdminDashboardPage implements OnInit, AfterViewInit {
       refreshOutline,
       arrowBackOutline,
       logOutOutline,
-      pieChartOutline,
       analyticsOutline,
       timeOutline,
       serverOutline,
@@ -516,7 +468,6 @@ export class AdminDashboardPage implements OnInit, AfterViewInit {
 
       setTimeout(() => {
         this.renderFlowChart();
-        this.renderCategoryChart();
       }, 80);
 
     } catch (error) {
@@ -534,12 +485,6 @@ export class AdminDashboardPage implements OnInit, AfterViewInit {
     setTimeout(() => this.renderFlowChart(), 30);
   }
 
-  onCategoryMonthChange(event: Event): void {
-    const select = event.target as HTMLSelectElement;
-    this.selectedCategoryMonth.set(select.value);
-    this.renderCategoryChart();
-  }
-
   private renderFlowChart(): void {
     if (!this.flowCanvas) return;
 
@@ -553,12 +498,12 @@ export class AdminDashboardPage implements OnInit, AfterViewInit {
     let purpleGradient: string | CanvasGradient = 'rgba(91, 71, 251, 0.25)';
     let coralGradient: string | CanvasGradient = 'rgba(255, 107, 74, 0.12)';
     if (ctx) {
-      purpleGradient = ctx.createLinearGradient(0, 0, 0, 250);
+      purpleGradient = ctx.createLinearGradient(0, 0, 0, 260);
       purpleGradient.addColorStop(0, 'rgba(91, 71, 251, 0.42)');
       purpleGradient.addColorStop(0.75, 'rgba(91, 71, 251, 0.08)');
       purpleGradient.addColorStop(1, 'rgba(91, 71, 251, 0.0)');
 
-      coralGradient = ctx.createLinearGradient(0, 0, 0, 250);
+      coralGradient = ctx.createLinearGradient(0, 0, 0, 260);
       coralGradient.addColorStop(0, 'rgba(255, 107, 74, 0.28)');
       coralGradient.addColorStop(1, 'rgba(255, 107, 74, 0.0)');
     }
@@ -638,57 +583,6 @@ export class AdminDashboardPage implements OnInit, AfterViewInit {
               color: 'rgba(226, 232, 240, 0.7)'
             },
             ticks: { precision: 0 }
-          }
-        }
-      }
-    });
-  }
-
-  private renderCategoryChart(): void {
-    if (!this.categoryCanvas) return;
-
-    if (this.categoryChartInstance) {
-      this.categoryChartInstance.destroy();
-    }
-
-    const month = this.selectedCategoryMonth();
-    const labels = [
-      'Portátiles y workstations',
-      'Monitores y pantallas',
-      'Periféricos y accesorios',
-      'Redes y servidores'
-    ];
-
-    const data = this.monthlyCategoryDistribution[month] || [18, 30, 32, 3];
-
-    this.categoryChartInstance = new Chart(this.categoryCanvas.nativeElement, {
-      type: 'doughnut',
-      data: {
-        labels,
-        datasets: [{
-          label: `Unidades (${month})`,
-          data,
-          backgroundColor: [
-            '#5b47fb',
-            '#ff6b4a',
-            '#ffaa2c',
-            '#10b981'
-          ],
-          borderWidth: 2,
-          borderColor: '#ffffff'
-        }]
-      },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        cutout: '64%',
-        plugins: {
-          legend: {
-            position: 'bottom',
-            labels: {
-              boxWidth: 10,
-              font: { size: 10 }
-            }
           }
         }
       }
