@@ -275,8 +275,8 @@ import { Category } from '../../../../core/models/product.model';
   `,
   styles: [`
     .storage-upload-box {
-      background-color: #f5f3ff;
-      border: 1px dashed #c4b5fd;
+      background-color: #f5efe4;
+      border: 1px dashed #c8b99e;
     }
     .extra-small {
       font-size: 0.75rem;

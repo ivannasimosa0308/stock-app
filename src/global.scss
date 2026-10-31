@@ -1,27 +1,26 @@
 /*
  * App Global SCSS + Bootstrap 5 Custom Integration
  * ----------------------------------------------------------------------------
- * Personalización de variables SCSS de Bootstrap antes de su importación
- * inspirada en el diseño corporativo "Store Inventory Dashboard"
+ * Paleta ejecutiva sobria y profesional: Marrones, Beige Arena y Negro Carbón
  */
 
-// 1. Variables SCSS personalizadas de Bootstrap 5
-$primary: #867ae7;
-$secondary: #64748b;
-$success: #10b981;
-$info: #0ea5e9;
-$warning: #ffaa2c;
-$danger: #ff6b4a;
-$light: #f8fafc;
-$dark: #1e1b4b;
+// 1. Variables SCSS personalizadas de Bootstrap 5 (Paleta Marrón / Beige / Negro)
+$primary: #6b4f3a;
+$secondary: #7c6f64;
+$success: #3f624d;
+$info: #8c735b;
+$warning: #b87d3b;
+$danger: #9e3b33;
+$light: #f7f3eb;
+$dark: #1c1917;
 
-$body-bg: #f4f6fb;
-$body-color: #1e293b;
+$body-bg: #f3ede2;
+$body-color: #1c1917;
 $border-radius: 0.75rem;
 $border-radius-lg: 1rem;
 $border-radius-sm: 0.5rem;
-$box-shadow-sm: 0 2px 10px rgba(30, 27, 75, 0.05);
-$box-shadow: 0 8px 24px rgba(30, 27, 75, 0.08);
+$box-shadow-sm: 0 2px 10px rgba(28, 25, 23, 0.06);
+$box-shadow: 0 8px 24px rgba(28, 25, 23, 0.09);
 
 // 2. Importación de Bootstrap 5 SCSS
 @import "bootstrap/scss/bootstrap";
@@ -40,47 +39,47 @@ $box-shadow: 0 8px 24px rgba(30, 27, 75, 0.08);
 @import "@ionic/angular/css/text-transformation.css";
 @import "@ionic/angular/css/flex-utils.css";
 
-// 4. Variables globales de tema claro empresarial para Ionic + Bootstrap
+// 4. Variables globales de tema ejecutivo (Marrón, Beige y Negro Carbón) para Ionic + Bootstrap
 :root {
-  --ion-color-primary: #5b47fb;
-  --ion-color-primary-rgb: 91, 71, 251;
+  --ion-color-primary: #6b4f3a;
+  --ion-color-primary-rgb: 107, 79, 58;
   --ion-color-primary-contrast: #ffffff;
-  --ion-color-primary-shade: #503edd;
-  --ion-color-primary-tint: #6b59fb;
+  --ion-color-primary-shade: #594130;
+  --ion-color-primary-tint: #7d624d;
 
-  --ion-color-secondary: #ff6b4a;
-  --ion-color-secondary-rgb: 255, 107, 74;
+  --ion-color-secondary: #8c735b;
+  --ion-color-secondary-rgb: 140, 115, 91;
   --ion-color-secondary-contrast: #ffffff;
 
-  --ion-color-tertiary: #3b28cc;
-  --ion-color-success: #10b981;
-  --ion-color-warning: #ffaa2c;
-  --ion-color-danger: #ef4444;
-  --ion-color-dark: #1e1b4b;
-  --ion-color-medium: #64748b;
-  --ion-color-light: #f4f6fb;
+  --ion-color-tertiary: #4a3525;
+  --ion-color-success: #3f624d;
+  --ion-color-warning: #b87d3b;
+  --ion-color-danger: #9e3b33;
+  --ion-color-dark: #1c1917;
+  --ion-color-medium: #78716c;
+  --ion-color-light: #f3ede2;
 
-  --ion-background-color: #f4f6fb;
-  --ion-background-color-rgb: 244, 246, 251;
-  --ion-text-color: #1e293b;
-  --ion-text-color-rgb: 30, 41, 59;
-  --ion-card-background: #ffffff;
-  --ion-item-background: #ffffff;
-  --ion-toolbar-background: #1e1b4b;
-  --ion-toolbar-color: #ffffff;
+  --ion-background-color: #f3ede2;
+  --ion-background-color-rgb: 243, 237, 226;
+  --ion-text-color: #1c1917;
+  --ion-text-color-rgb: 28, 25, 23;
+  --ion-card-background: #fcfaf5;
+  --ion-item-background: #fcfaf5;
+  --ion-toolbar-background: #1c1917;
+  --ion-toolbar-color: #f5f0e6;
 }
 
-// Clases reutilizables estilo Store Inventory Dashboard
+// Clases reutilizables con acabado Beige / Crema / Marrón / Negro
 .invent-shell {
-  background-color: #f4f6fb;
+  background-color: #f3ede2;
   min-height: 100%;
 }
 
 .invent-card {
-  background: #ffffff;
-  border: 1px solid rgba(226, 232, 240, 0.85);
+  background: #fcfaf5;
+  border: 1px solid #e4dccb;
   border-radius: 1rem;
-  box-shadow: 0 6px 20px rgba(30, 27, 75, 0.05);
+  box-shadow: 0 6px 20px rgba(28, 25, 23, 0.06);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
   overflow: hidden;
   word-wrap: break-word;
@@ -98,6 +97,20 @@ $box-shadow: 0 8px 24px rgba(30, 27, 75, 0.08);
 
 .btn-primary {
   color: #ffffff !important;
+  background-color: #6b4f3a;
+  border-color: #6b4f3a;
+}
+
+.btn-primary:hover,
+.btn-primary:focus {
+  background-color: #563e2d;
+  border-color: #563e2d;
+}
+
+.btn-dark {
+  background-color: #1c1917;
+  border-color: #1c1917;
+  color: #f7f3eb !important;
 }
 
 .invent-card .badge,
@@ -115,38 +128,51 @@ $box-shadow: 0 8px 24px rgba(30, 27, 75, 0.08);
   max-width: 100%;
 }
 
+// Tarjetas KPI con paleta Marrón Espresso, Bronce, Terracota Tostado y Negro Carbón
 .invent-kpi-coral {
-  background: linear-gradient(135deg, #ff7452 0%, #ff5232 100%);
-  color: #ffffff;
+  background: linear-gradient(135deg, #7c4736 0%, #572f22 100%);
+  color: #fcfaf5;
+  border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 1rem;
-  box-shadow: 0 8px 20px rgba(255, 107, 74, 0.28);
+  box-shadow: 0 8px 20px rgba(87, 47, 34, 0.24);
   overflow: hidden;
   word-wrap: break-word;
 }
 
 .invent-kpi-amber {
-  background: linear-gradient(135deg, #ffbe3d 0%, #ff9f1a 100%);
-  color: #ffffff;
+  background: linear-gradient(135deg, #8c6747 0%, #63462d 100%);
+  color: #fcfaf5;
+  border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 1rem;
-  box-shadow: 0 8px 20px rgba(255, 170, 44, 0.28);
+  box-shadow: 0 8px 20px rgba(99, 70, 45, 0.24);
   overflow: hidden;
   word-wrap: break-word;
 }
 
 .invent-kpi-indigo {
-  background: linear-gradient(135deg, #4f39f6 0%, #311b92 100%);
-  color: #ffffff;
+  background: linear-gradient(135deg, #2e2621 0%, #171412 100%);
+  color: #fcfaf5;
+  border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 1rem;
-  box-shadow: 0 8px 20px rgba(79, 57, 246, 0.28);
+  box-shadow: 0 8px 20px rgba(23, 20, 18, 0.28);
   overflow: hidden;
   word-wrap: break-word;
 }
 
 .invent-kpi-emerald {
-  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
-  color: #ffffff;
+  background: linear-gradient(135deg, #4a5d4e 0%, #2f3e33 100%);
+  color: #fcfaf5;
+  border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 1rem;
-  box-shadow: 0 8px 20px rgba(16, 185, 129, 0.25);
+  box-shadow: 0 8px 20px rgba(47, 62, 51, 0.24);
   overflow: hidden;
   word-wrap: break-word;
+}
+
+.invent-kpi-coral .badge.bg-white,
+.invent-kpi-amber .badge.bg-white,
+.invent-kpi-indigo .badge.bg-white,
+.invent-kpi-emerald .badge.bg-white {
+  background-color: #f7f3eb !important;
+  color: #2e2621 !important;
 }

@@ -301,7 +301,7 @@ export type CatalogFilterMode = 'all' | 'low-stock' | 'valuation';
         transform: translateY(-2px);
       }
       .kpi-active {
-        outline: 3px solid #1e1b4b;
+        outline: 3px solid #1c1917;
         outline-offset: 2px;
       }
     `]

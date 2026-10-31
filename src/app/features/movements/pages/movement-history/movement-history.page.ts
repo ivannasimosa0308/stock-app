@@ -472,12 +472,12 @@ import { Product } from '../../../../core/models/product.model';
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
     }
     .movement-in {
-      background-color: #f0fdf4;
-      border: 1px solid #bbf7d0;
+      background-color: #f3f6f3;
+      border: 1px solid #c5d4c8;
     }
     .movement-out {
-      background-color: #fef2f2;
-      border: 1px solid #fecaca;
+      background-color: #faf3ef;
+      border: 1px solid #e3c8be;
     }
   `]
 })

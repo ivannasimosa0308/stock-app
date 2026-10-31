@@ -129,7 +129,7 @@ import { StorageService } from '../../../core/services/storage.service';
       width: 92px;
       height: 92px;
       object-fit: cover;
-      border: 3px solid #5b47fb;
+      border: 3px solid #6b4f3a;
     }
     .avatar-upload-btn {
       position: absolute;
@@ -141,16 +141,16 @@ import { StorageService } from '../../../core/services/storage.service';
       display: flex;
       align-items: center;
       justify-content: center;
-      border: 2px solid #ffffff;
+      border: 2px solid #fcfaf5;
     }
     .clock-box {
-      background: linear-gradient(180deg, #f8fafc 0%, #eef2ff 100%);
-      border: 1px solid #e0e7ff;
+      background: linear-gradient(180deg, #f7f2e7 0%, #ebe1cf 100%);
+      border: 1px solid #dcd0b8;
     }
     .timer-display {
       font-family: 'Consolas', 'Courier New', monospace;
       font-size: clamp(1.25rem, 2vw, 1.65rem);
-      color: #1e1b4b;
+      color: #1c1917;
       letter-spacing: 1px;
     }
     .extra-small {

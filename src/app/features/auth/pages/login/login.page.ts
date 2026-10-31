@@ -92,7 +92,7 @@ import { AuthService } from '../../../../core/services/auth.service';
               </form>
 
               <div class="divider-text text-center my-4">
-                <span class="bg-white px-3 text-muted small">Acceso Rápido Demo</span>
+                <span class="px-3 text-muted small" style="background-color: #fcfaf5;">Acceso rápido demo</span>
               </div>
 
               <!-- Botones Demo Debajo del Inicio de Sesión (Izquierda: Admin | Derecha: Operador) -->
@@ -131,8 +131,8 @@ import { AuthService } from '../../../../core/services/auth.service';
         width: 56px;
         height: 56px;
         border-radius: 16px;
-        background: linear-gradient(135deg, #5b47fb 0%, #3b28cc 100%);
-        box-shadow: 0 8px 20px rgba(91, 71, 251, 0.3);
+        background: linear-gradient(135deg, #29231e 0%, #6b4f3a 100%);
+        box-shadow: 0 8px 20px rgba(41, 35, 30, 0.28);
       }
       .divider-text {
         position: relative;
@@ -143,7 +143,7 @@ import { AuthService } from '../../../../core/services/auth.service';
         top: 50%;
         left: 0;
         right: 0;
-        border-top: 1px solid #e2e8f0;
+        border-top: 1px solid #e4dccb;
         z-index: 0;
       }
       .divider-text span {

@@ -369,10 +369,10 @@ export type DashboardFilterMode = 'units' | 'valuation' | 'low-stock';
       width: 42px;
       height: 42px;
       object-fit: cover;
-      background-color: #f8fafc;
+      background-color: #f7f3eb;
     }
     .product-row:hover {
-      background-color: #f8fafc;
+      background-color: #f7f3eb;
     }
     .kpi-clickable {
       transition: transform 0.18s ease, outline 0.18s ease;
@@ -381,7 +381,7 @@ export type DashboardFilterMode = 'units' | 'valuation' | 'low-stock';
       transform: translateY(-2px);
     }
     .kpi-selected {
-      outline: 3px solid #1e1b4b;
+      outline: 3px solid #1c1917;
       outline-offset: 2px;
     }
   `]
@@ -495,17 +495,17 @@ export class AdminDashboardPage implements OnInit, AfterViewInit {
     const canvas = this.flowCanvas.nativeElement;
     const ctx = canvas.getContext('2d');
 
-    let purpleGradient: string | CanvasGradient = 'rgba(91, 71, 251, 0.25)';
-    let coralGradient: string | CanvasGradient = 'rgba(255, 107, 74, 0.12)';
+    let espressoGradient: string | CanvasGradient = 'rgba(107, 79, 58, 0.25)';
+    let bronzeGradient: string | CanvasGradient = 'rgba(158, 59, 51, 0.14)';
     if (ctx) {
-      purpleGradient = ctx.createLinearGradient(0, 0, 0, 260);
-      purpleGradient.addColorStop(0, 'rgba(91, 71, 251, 0.42)');
-      purpleGradient.addColorStop(0.75, 'rgba(91, 71, 251, 0.08)');
-      purpleGradient.addColorStop(1, 'rgba(91, 71, 251, 0.0)');
+      espressoGradient = ctx.createLinearGradient(0, 0, 0, 260);
+      espressoGradient.addColorStop(0, 'rgba(107, 79, 58, 0.42)');
+      espressoGradient.addColorStop(0.75, 'rgba(107, 79, 58, 0.10)');
+      espressoGradient.addColorStop(1, 'rgba(107, 79, 58, 0.0)');
 
-      coralGradient = ctx.createLinearGradient(0, 0, 0, 260);
-      coralGradient.addColorStop(0, 'rgba(255, 107, 74, 0.28)');
-      coralGradient.addColorStop(1, 'rgba(255, 107, 74, 0.0)');
+      bronzeGradient = ctx.createLinearGradient(0, 0, 0, 260);
+      bronzeGradient.addColorStop(0, 'rgba(158, 59, 51, 0.26)');
+      bronzeGradient.addColorStop(1, 'rgba(158, 59, 51, 0.0)');
     }
 
     const isMonthly = this.chartMode() === 'months';
@@ -531,11 +531,11 @@ export class AdminDashboardPage implements OnInit, AfterViewInit {
           {
             label: isMonthly ? 'Flujo de existencias (stock activo)' : 'Stock actual (unidades)',
             data: primarySeries,
-            borderColor: '#5b47fb',
-            backgroundColor: purpleGradient,
+            borderColor: '#6b4f3a',
+            backgroundColor: espressoGradient,
             borderWidth: 3,
-            pointBackgroundColor: '#ffffff',
-            pointBorderColor: '#5b47fb',
+            pointBackgroundColor: '#fcfaf5',
+            pointBorderColor: '#6b4f3a',
             pointBorderWidth: 2,
             pointRadius: 4,
             pointHoverRadius: 6,
@@ -545,12 +545,12 @@ export class AdminDashboardPage implements OnInit, AfterViewInit {
           {
             label: isMonthly ? 'Salidas / demanda mensual' : 'Umbral mínimo de seguridad',
             data: secondarySeries,
-            borderColor: '#ff6b4a',
-            backgroundColor: coralGradient,
+            borderColor: '#9e3b33',
+            backgroundColor: bronzeGradient,
             borderWidth: 2,
             borderDash: isMonthly ? [] : [5, 5],
-            pointBackgroundColor: '#ffffff',
-            pointBorderColor: '#ff6b4a',
+            pointBackgroundColor: '#fcfaf5',
+            pointBorderColor: '#9e3b33',
             pointRadius: 3,
             tension: 0.42,
             fill: true

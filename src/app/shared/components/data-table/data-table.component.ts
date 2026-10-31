@@ -262,25 +262,25 @@ export interface ColumnDef {
 
     ion-searchbar {
       padding: 0;
-      --box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
-      --background: #ffffff;
+      --box-shadow: 0 2px 8px rgba(28, 25, 23, 0.05);
+      --background: #fcfaf5;
       --border-radius: 12px;
-      border: 1px solid #e2e8f0;
+      border: 1px solid #e4dccb;
     }
 
     .sort-wrapper {
       display: flex;
       align-items: center;
-      background: #ffffff;
+      background: #fcfaf5;
       border-radius: 12px;
-      border: 1px solid #e2e8f0;
+      border: 1px solid #e4dccb;
       padding: 2px 8px;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+      box-shadow: 0 2px 8px rgba(28, 25, 23, 0.05);
     }
 
     .sort-icon {
       font-size: 18px;
-      color: #64748b;
+      color: #6b4f3a;
       margin-right: 4px;
     }
 
@@ -303,14 +303,14 @@ export interface ColumnDef {
 
     /* Tarjeta individual de Inventario (Mobile-Friendly) */
     .inventory-card {
-      background: #ffffff;
+      background: #fcfaf5;
       border-radius: 14px;
-      border: 1px solid #e2e8f0;
+      border: 1px solid #e4dccb;
       padding: 16px;
       display: flex;
       flex-direction: column;
       justify-content: space-between; flex-wrap: wrap; gap: 6px;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+      box-shadow: 0 2px 8px rgba(28, 25, 23, 0.05);
       transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
       cursor: pointer;
       outline: none; overflow: hidden;
@@ -318,12 +318,12 @@ export interface ColumnDef {
 
     .inventory-card:hover {
       transform: translateY(-2px);
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
-      border-color: #cbd5e1;
+      box-shadow: 0 8px 20px rgba(28, 25, 23, 0.09);
+      border-color: #c8b99e;
     }
 
     .inventory-card:focus-visible {
-      outline: 3px solid #3b82f6;
+      outline: 3px solid #6b4f3a;
       outline-offset: 2px;
     }
 
@@ -338,8 +338,8 @@ export interface ColumnDef {
       display: inline-flex;
       align-items: center;
       gap: 5px;
-      background: #f1f5f9;
-      color: #475569;
+      background: #EFE9DC;
+      color: #4a3525;
       padding: 3px 8px;
       border-radius: 6px;
       font-size: 0.8rem;
@@ -357,22 +357,22 @@ export interface ColumnDef {
       margin: 0 0 6px 0;
       font-size: 1.1rem;
       font-weight: 700;
-      color: #0f172a;
+      color: #1c1917;
       line-height: 1.3;
     }
 
     .category-tag {
       font-size: 0.78rem;
-      color: #64748b;
-      background: #f8fafc;
-      border: 1px solid #e2e8f0;
+      color: #5c4d3c;
+      background: #f5efe4;
+      border: 1px solid #e4dccb;
       padding: 2px 8px;
       border-radius: 12px;
     }
 
     .reason-tag {
       font-size: 0.8rem;
-      color: #64748b;
+      color: #78716c;
     }
 
     /* Detalles y Métricas de la Tarjeta */
@@ -380,7 +380,7 @@ export interface ColumnDef {
       display: flex;
       justify-content: space-between; flex-wrap: wrap; gap: 6px;
       align-items: baseline;
-      background: #f8fafc;
+      background: #f5efe4;
       padding: 10px 12px;
       border-radius: 10px;
       margin-bottom: 14px;
@@ -396,19 +396,19 @@ export interface ColumnDef {
       text-transform: uppercase;
       font-weight: 600;
       letter-spacing: 0.05em;
-      color: #64748b;
+      color: #78716c;
     }
 
     .meta-value {
       font-size: 0.95rem;
       font-weight: 600;
-      color: #1e293b;
+      color: #1c1917;
     }
 
     .price-text {
       font-size: 1.1rem;
       font-weight: 700;
-      color: #059669; /* Verde esmeralda */
+      color: #563e2d;
     }
 
     .date-text {
@@ -420,7 +420,7 @@ export interface ColumnDef {
       display: flex;
       align-items: center;
       gap: 8px;
-      border-top: 1px solid #f1f5f9; flex-wrap: wrap;
+      border-top: 1px solid #ede6d6; flex-wrap: wrap;
       padding-top: 10px;
     }
 
