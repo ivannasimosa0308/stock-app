@@ -54,7 +54,7 @@ export type CatalogFilterMode = 'all' | 'low-stock' | 'valuation';
     template: `
     <ion-header>
       <ion-toolbar color="dark">
-        <ion-title>INVENT — Catálogo de inventario</ion-title>
+        <ion-title>Catálogo de inventario</ion-title>
         <ion-buttons slot="end">
           @if (authService.isAdmin()) {
             <ion-button (click)="router.navigate(['/admin'])" aria-label="Ir al panel de administración">
@@ -301,7 +301,7 @@ export type CatalogFilterMode = 'all' | 'low-stock' | 'valuation';
         transform: translateY(-2px);
       }
       .kpi-active {
-        outline: 3px solid #1c1917;
+        outline: 3px solid #2889b8;
         outline-offset: 2px;
       }
     `]

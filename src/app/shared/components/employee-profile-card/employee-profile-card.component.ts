@@ -111,10 +111,10 @@ import { StorageService } from '../../../core/services/storage.service';
         <button
           type="button"
           class="btn btn-sm w-100 fw-semibold rounded-3 d-flex flex-wrap align-items-center justify-content-center gap-1 py-2 px-2"
-          [ngClass]="authService.isClockedIn() ? 'btn-outline-danger' : 'btn-success text-white'"
+          [ngClass]="authService.isClockedIn() ? 'btn-warning text-white' : 'btn-success text-white'"
           (click)="onToggleClock()"
         >
-          <ion-icon [name]="authService.isClockedIn() ? 'stop-circle-outline' : 'play-circle-outline'"></ion-icon>
+          <ion-icon [name]="authService.isClockedIn() ? 'stop-circle-outline' : 'play-circle-outline'" class="text-white"></ion-icon>
           <span>{{ authService.isClockedIn() ? 'Finalizar turno' : 'Iniciar turno' }}</span>
         </button>
       </div>
@@ -129,7 +129,7 @@ import { StorageService } from '../../../core/services/storage.service';
       width: 92px;
       height: 92px;
       object-fit: cover;
-      border: 3px solid #6b4f3a;
+      border: 3px solid #2889b8;
     }
     .avatar-upload-btn {
       position: absolute;
@@ -141,16 +141,24 @@ import { StorageService } from '../../../core/services/storage.service';
       display: flex;
       align-items: center;
       justify-content: center;
-      border: 2px solid #fcfaf5;
+      border: 2px solid #ffffff;
     }
     .clock-box {
-      background: linear-gradient(180deg, #f7f2e7 0%, #ebe1cf 100%);
-      border: 1px solid #dcd0b8;
+      background: #444444;
+      color: #ffffff;
+      border: 1px solid #383838;
+    }
+    .clock-box .text-secondary,
+    .clock-box .text-muted {
+      color: #cfe8f3 !important;
+    }
+    .clock-box ion-icon {
+      color: #4bb4e6;
     }
     .timer-display {
       font-family: 'Consolas', 'Courier New', monospace;
       font-size: clamp(1.25rem, 2vw, 1.65rem);
-      color: #1c1917;
+      color: #ffffff;
       letter-spacing: 1px;
     }
     .extra-small {

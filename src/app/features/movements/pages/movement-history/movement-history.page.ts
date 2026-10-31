@@ -55,7 +55,7 @@ import { Product } from '../../../../core/models/product.model';
   template: `
     <ion-header>
       <ion-toolbar color="dark">
-        <ion-title>INVENT — Control de Entradas y Salidas</ion-title>
+        <ion-title>Control de entradas y salidas</ion-title>
         <ion-buttons slot="end">
           @if (authService.isAdmin()) {
             <ion-button (click)="router.navigate(['/admin'])">
@@ -472,12 +472,12 @@ import { Product } from '../../../../core/models/product.model';
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
     }
     .movement-in {
-      background-color: #f3f6f3;
-      border: 1px solid #c5d4c8;
+      background-color: #eef6fa;
+      border: 1px solid #b8d9eb;
     }
     .movement-out {
-      background-color: #faf3ef;
-      border: 1px solid #e3c8be;
+      background-color: #fdf6ec;
+      border: 1px solid #edd0a5;
     }
   `]
 })

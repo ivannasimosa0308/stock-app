@@ -262,25 +262,25 @@ export interface ColumnDef {
 
     ion-searchbar {
       padding: 0;
-      --box-shadow: 0 2px 8px rgba(28, 25, 23, 0.05);
-      --background: #fcfaf5;
-      --border-radius: 12px;
-      border: 1px solid #e4dccb;
+      --box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+      --background: #ffffff;
+      --border-radius: 8px;
+      border: 1px solid #cfd8df;
     }
 
     .sort-wrapper {
       display: flex;
       align-items: center;
-      background: #fcfaf5;
-      border-radius: 12px;
-      border: 1px solid #e4dccb;
+      background: #ffffff;
+      border-radius: 8px;
+      border: 1px solid #cfd8df;
       padding: 2px 8px;
-      box-shadow: 0 2px 8px rgba(28, 25, 23, 0.05);
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
     }
 
     .sort-icon {
       font-size: 18px;
-      color: #6b4f3a;
+      color: #185a7a;
       margin-right: 4px;
     }
 
@@ -303,14 +303,15 @@ export interface ColumnDef {
 
     /* Tarjeta individual de Inventario (Mobile-Friendly) */
     .inventory-card {
-      background: #fcfaf5;
-      border-radius: 14px;
-      border: 1px solid #e4dccb;
+      background: #ffffff;
+      border-radius: 10px;
+      border: 1px solid #d4dde4;
+      border-top: 4px solid #185a7a;
       padding: 16px;
       display: flex;
       flex-direction: column;
       justify-content: space-between; flex-wrap: wrap; gap: 6px;
-      box-shadow: 0 2px 8px rgba(28, 25, 23, 0.05);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
       transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
       cursor: pointer;
       outline: none; overflow: hidden;
@@ -318,12 +319,12 @@ export interface ColumnDef {
 
     .inventory-card:hover {
       transform: translateY(-2px);
-      box-shadow: 0 8px 20px rgba(28, 25, 23, 0.09);
-      border-color: #c8b99e;
+      box-shadow: 0 6px 16px rgba(24, 90, 122, 0.16);
+      border-color: #2889b8;
     }
 
     .inventory-card:focus-visible {
-      outline: 3px solid #6b4f3a;
+      outline: 3px solid #2889b8;
       outline-offset: 2px;
     }
 
@@ -338,8 +339,8 @@ export interface ColumnDef {
       display: inline-flex;
       align-items: center;
       gap: 5px;
-      background: #EFE9DC;
-      color: #4a3525;
+      background: #e6f0f5;
+      color: #185a7a;
       padding: 3px 8px;
       border-radius: 6px;
       font-size: 0.8rem;
@@ -357,22 +358,22 @@ export interface ColumnDef {
       margin: 0 0 6px 0;
       font-size: 1.1rem;
       font-weight: 700;
-      color: #1c1917;
+      color: #222222;
       line-height: 1.3;
     }
 
     .category-tag {
       font-size: 0.78rem;
-      color: #5c4d3c;
-      background: #f5efe4;
-      border: 1px solid #e4dccb;
+      color: #185a7a;
+      background: #eef4f7;
+      border: 1px solid #cfe0e8;
       padding: 2px 8px;
-      border-radius: 12px;
+      border-radius: 10px;
     }
 
     .reason-tag {
       font-size: 0.8rem;
-      color: #78716c;
+      color: #555555;
     }
 
     /* Detalles y Métricas de la Tarjeta */
@@ -380,9 +381,9 @@ export interface ColumnDef {
       display: flex;
       justify-content: space-between; flex-wrap: wrap; gap: 6px;
       align-items: baseline;
-      background: #f5efe4;
+      background: #f4f7f9;
       padding: 10px 12px;
-      border-radius: 10px;
+      border-radius: 8px;
       margin-bottom: 14px;
     }
 
@@ -396,19 +397,19 @@ export interface ColumnDef {
       text-transform: uppercase;
       font-weight: 600;
       letter-spacing: 0.05em;
-      color: #78716c;
+      color: #5a6a75;
     }
 
     .meta-value {
       font-size: 0.95rem;
       font-weight: 600;
-      color: #1c1917;
+      color: #222222;
     }
 
     .price-text {
       font-size: 1.1rem;
       font-weight: 700;
-      color: #563e2d;
+      color: #185a7a;
     }
 
     .date-text {
@@ -420,7 +421,7 @@ export interface ColumnDef {
       display: flex;
       align-items: center;
       gap: 8px;
-      border-top: 1px solid #ede6d6; flex-wrap: wrap;
+      border-top: 1px solid #e6ecef; flex-wrap: wrap;
       padding-top: 10px;
     }
 

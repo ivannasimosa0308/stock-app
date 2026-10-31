@@ -1,26 +1,28 @@
 /*
  * App Global SCSS + Bootstrap 5 Custom Integration
  * ----------------------------------------------------------------------------
- * Paleta ejecutiva sobria y profesional: Marrones, Beige Arena y Negro Carbón
+ * Paleta industrial inspirada en "Stock Controller":
+ * Azul Cerúleo (#2889b8), Azul Petróleo (#185a7a), Mostaza Ocre (#d49035),
+ * Gris Carbón (#444444) y Fondo Gris Claro (#efefef)
  */
 
-// 1. Variables SCSS personalizadas de Bootstrap 5 (Paleta Marrón / Beige / Negro)
-$primary: #6b4f3a;
-$secondary: #7c6f64;
-$success: #3f624d;
-$info: #8c735b;
-$warning: #b87d3b;
-$danger: #9e3b33;
-$light: #f7f3eb;
-$dark: #1c1917;
+// 1. Variables SCSS personalizadas de Bootstrap 5 (Paleta Stock Controller)
+$primary: #185a7a;
+$secondary: #444444;
+$success: #1b6b85;
+$info: #2889b8;
+$warning: #d49035;
+$danger: #b84a39;
+$light: #f2f4f6;
+$dark: #444444;
 
-$body-bg: #f3ede2;
-$body-color: #1c1917;
-$border-radius: 0.75rem;
-$border-radius-lg: 1rem;
-$border-radius-sm: 0.5rem;
-$box-shadow-sm: 0 2px 10px rgba(28, 25, 23, 0.06);
-$box-shadow: 0 8px 24px rgba(28, 25, 23, 0.09);
+$body-bg: #efefef;
+$body-color: #2b2b2b;
+$border-radius: 0.45rem;
+$border-radius-lg: 0.6rem;
+$border-radius-sm: 0.35rem;
+$box-shadow-sm: 0 2px 6px rgba(0, 0, 0, 0.12);
+$box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15);
 
 // 2. Importación de Bootstrap 5 SCSS
 @import "bootstrap/scss/bootstrap";
@@ -39,47 +41,64 @@ $box-shadow: 0 8px 24px rgba(28, 25, 23, 0.09);
 @import "@ionic/angular/css/text-transformation.css";
 @import "@ionic/angular/css/flex-utils.css";
 
-// 4. Variables globales de tema ejecutivo (Marrón, Beige y Negro Carbón) para Ionic + Bootstrap
+// 4. Variables globales de tema Stock Controller para Ionic + Bootstrap
 :root {
-  --ion-color-primary: #6b4f3a;
-  --ion-color-primary-rgb: 107, 79, 58;
+  --ion-color-primary: #185a7a;
+  --ion-color-primary-rgb: 24, 90, 122;
   --ion-color-primary-contrast: #ffffff;
-  --ion-color-primary-shade: #594130;
-  --ion-color-primary-tint: #7d624d;
+  --ion-color-primary-shade: #154f6b;
+  --ion-color-primary-tint: #2f6b87;
 
-  --ion-color-secondary: #8c735b;
-  --ion-color-secondary-rgb: 140, 115, 91;
+  --ion-color-secondary: #d49035;
+  --ion-color-secondary-rgb: 212, 144, 53;
   --ion-color-secondary-contrast: #ffffff;
 
-  --ion-color-tertiary: #4a3525;
-  --ion-color-success: #3f624d;
-  --ion-color-warning: #b87d3b;
-  --ion-color-danger: #9e3b33;
-  --ion-color-dark: #1c1917;
-  --ion-color-medium: #78716c;
-  --ion-color-light: #f3ede2;
+  --ion-color-tertiary: #2889b8;
+  --ion-color-success: #1b6b85;
+  --ion-color-warning: #d49035;
+  --ion-color-danger: #b84a39;
+  --ion-color-dark: #2889b8;
+  --ion-color-dark-rgb: 40, 137, 184;
+  --ion-color-dark-contrast: #ffffff;
+  --ion-color-dark-shade: #2379a2;
+  --ion-color-dark-tint: #3e95bf;
+  --ion-color-medium: #666666;
+  --ion-color-light: #efefef;
 
-  --ion-background-color: #f3ede2;
-  --ion-background-color-rgb: 243, 237, 226;
-  --ion-text-color: #1c1917;
-  --ion-text-color-rgb: 28, 25, 23;
-  --ion-card-background: #fcfaf5;
-  --ion-item-background: #fcfaf5;
-  --ion-toolbar-background: #1c1917;
-  --ion-toolbar-color: #f5f0e6;
+  --ion-background-color: #efefef;
+  --ion-background-color-rgb: 239, 239, 239;
+  --ion-text-color: #2b2b2b;
+  --ion-text-color-rgb: 43, 43, 43;
+  --ion-card-background: #ffffff;
+  --ion-item-background: #ffffff;
+  --ion-toolbar-background: #2889b8;
+  --ion-toolbar-color: #ffffff;
 }
 
-// Clases reutilizables con acabado Beige / Crema / Marrón / Negro
+// Cabecera estilo Stock Controller (Azul cerúleo #2889b8 con línea inferior ocre #d49035)
+ion-header ion-toolbar {
+  --background: #2889b8 !important;
+  --color: #ffffff !important;
+  border-bottom: 3px solid #d49035;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.18);
+}
+
+ion-header ion-toolbar ion-button {
+  --color: #ffffff !important;
+  font-weight: 600;
+}
+
+// Clases reutilizables estilo Stock Controller
 .invent-shell {
-  background-color: #f3ede2;
+  background-color: #efefef;
   min-height: 100%;
 }
 
 .invent-card {
-  background: #fcfaf5;
-  border: 1px solid #e4dccb;
-  border-radius: 1rem;
-  box-shadow: 0 6px 20px rgba(28, 25, 23, 0.06);
+  background: #ffffff;
+  border: 1px solid #d6dce2;
+  border-radius: 0.55rem;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.10);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
   overflow: hidden;
   word-wrap: break-word;
@@ -97,20 +116,44 @@ $box-shadow: 0 8px 24px rgba(28, 25, 23, 0.09);
 
 .btn-primary {
   color: #ffffff !important;
-  background-color: #6b4f3a;
-  border-color: #6b4f3a;
+  background-color: #185a7a;
+  border-color: #185a7a;
 }
 
 .btn-primary:hover,
 .btn-primary:focus {
-  background-color: #563e2d;
-  border-color: #563e2d;
+  background-color: #134863;
+  border-color: #134863;
+}
+
+.btn-success {
+  color: #ffffff !important;
+  background-color: #2889b8;
+  border-color: #2889b8;
+}
+
+.btn-success:hover,
+.btn-success:focus {
+  background-color: #1f7099;
+  border-color: #1f7099;
+}
+
+.btn-warning {
+  color: #ffffff !important;
+  background-color: #d49035;
+  border-color: #d49035;
 }
 
 .btn-dark {
-  background-color: #1c1917;
-  border-color: #1c1917;
-  color: #f7f3eb !important;
+  background-color: #444444;
+  border-color: #444444;
+  color: #ffffff !important;
+}
+
+.btn-dark:hover,
+.btn-dark:focus {
+  background-color: #333333;
+  border-color: #333333;
 }
 
 .invent-card .badge,
@@ -128,43 +171,43 @@ $box-shadow: 0 8px 24px rgba(28, 25, 23, 0.09);
   max-width: 100%;
 }
 
-// Tarjetas KPI con paleta Marrón Espresso, Bronce, Terracota Tostado y Negro Carbón
-.invent-kpi-coral {
-  background: linear-gradient(135deg, #7c4736 0%, #572f22 100%);
-  color: #fcfaf5;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 1rem;
-  box-shadow: 0 8px 20px rgba(87, 47, 34, 0.24);
-  overflow: hidden;
-  word-wrap: break-word;
-}
-
+// Tarjetas KPI con los 3 colores exactos de los bloques de Stock Controller:
+// 1. Mostaza Ocre (#d49035)
+// 2. Azul Petróleo (#185a7a)
+// 3. Gris Carbón (#444444) con detalles celestes
+// 4. Azul Cerúleo (#2889b8)
 .invent-kpi-amber {
-  background: linear-gradient(135deg, #8c6747 0%, #63462d 100%);
-  color: #fcfaf5;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 1rem;
-  box-shadow: 0 8px 20px rgba(99, 70, 45, 0.24);
+  background: linear-gradient(180deg, #d8963c 0%, #c78328 100%);
+  color: #ffffff;
+  border-radius: 0.55rem;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.18);
   overflow: hidden;
   word-wrap: break-word;
 }
 
 .invent-kpi-indigo {
-  background: linear-gradient(135deg, #2e2621 0%, #171412 100%);
-  color: #fcfaf5;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 1rem;
-  box-shadow: 0 8px 20px rgba(23, 20, 18, 0.28);
+  background: linear-gradient(180deg, #1b6285 0%, #16516e 100%);
+  color: #ffffff;
+  border-radius: 0.55rem;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.18);
+  overflow: hidden;
+  word-wrap: break-word;
+}
+
+.invent-kpi-coral {
+  background: linear-gradient(180deg, #4a4a4a 0%, #3b3b3b 100%);
+  color: #ffffff;
+  border-radius: 0.55rem;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.20);
   overflow: hidden;
   word-wrap: break-word;
 }
 
 .invent-kpi-emerald {
-  background: linear-gradient(135deg, #4a5d4e 0%, #2f3e33 100%);
-  color: #fcfaf5;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 1rem;
-  box-shadow: 0 8px 20px rgba(47, 62, 51, 0.24);
+  background: linear-gradient(180deg, #2889b8 0%, #1d7099 100%);
+  color: #ffffff;
+  border-radius: 0.55rem;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.18);
   overflow: hidden;
   word-wrap: break-word;
 }
@@ -173,6 +216,6 @@ $box-shadow: 0 8px 24px rgba(28, 25, 23, 0.09);
 .invent-kpi-amber .badge.bg-white,
 .invent-kpi-indigo .badge.bg-white,
 .invent-kpi-emerald .badge.bg-white {
-  background-color: #f7f3eb !important;
-  color: #2e2621 !important;
+  background-color: rgba(255, 255, 255, 0.92) !important;
+  color: #185a7a !important;
 }

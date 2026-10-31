@@ -58,7 +58,7 @@ export type DashboardFilterMode = 'units' | 'valuation' | 'low-stock';
   template: `
     <ion-header>
       <ion-toolbar color="dark">
-        <ion-title>INVENT — Panel de administración</ion-title>
+        <ion-title>Panel de administración</ion-title>
         <ion-buttons slot="end">
           <ion-button (click)="router.navigate(['/admin'])" color="primary">
             <ion-icon name="bar-chart-outline" slot="start"></ion-icon>
@@ -369,10 +369,10 @@ export type DashboardFilterMode = 'units' | 'valuation' | 'low-stock';
       width: 42px;
       height: 42px;
       object-fit: cover;
-      background-color: #f7f3eb;
+      background-color: #f2f4f6;
     }
     .product-row:hover {
-      background-color: #f7f3eb;
+      background-color: #f2f6f9;
     }
     .kpi-clickable {
       transition: transform 0.18s ease, outline 0.18s ease;
@@ -381,7 +381,7 @@ export type DashboardFilterMode = 'units' | 'valuation' | 'low-stock';
       transform: translateY(-2px);
     }
     .kpi-selected {
-      outline: 3px solid #1c1917;
+      outline: 3px solid #2889b8;
       outline-offset: 2px;
     }
   `]
@@ -495,17 +495,17 @@ export class AdminDashboardPage implements OnInit, AfterViewInit {
     const canvas = this.flowCanvas.nativeElement;
     const ctx = canvas.getContext('2d');
 
-    let espressoGradient: string | CanvasGradient = 'rgba(107, 79, 58, 0.25)';
-    let bronzeGradient: string | CanvasGradient = 'rgba(158, 59, 51, 0.14)';
+    let petrolGradient: string | CanvasGradient = 'rgba(24, 90, 122, 0.25)';
+    let ochreGradient: string | CanvasGradient = 'rgba(212, 144, 53, 0.16)';
     if (ctx) {
-      espressoGradient = ctx.createLinearGradient(0, 0, 0, 260);
-      espressoGradient.addColorStop(0, 'rgba(107, 79, 58, 0.42)');
-      espressoGradient.addColorStop(0.75, 'rgba(107, 79, 58, 0.10)');
-      espressoGradient.addColorStop(1, 'rgba(107, 79, 58, 0.0)');
+      petrolGradient = ctx.createLinearGradient(0, 0, 0, 260);
+      petrolGradient.addColorStop(0, 'rgba(24, 90, 122, 0.40)');
+      petrolGradient.addColorStop(0.75, 'rgba(40, 137, 184, 0.12)');
+      petrolGradient.addColorStop(1, 'rgba(40, 137, 184, 0.0)');
 
-      bronzeGradient = ctx.createLinearGradient(0, 0, 0, 260);
-      bronzeGradient.addColorStop(0, 'rgba(158, 59, 51, 0.26)');
-      bronzeGradient.addColorStop(1, 'rgba(158, 59, 51, 0.0)');
+      ochreGradient = ctx.createLinearGradient(0, 0, 0, 260);
+      ochreGradient.addColorStop(0, 'rgba(212, 144, 53, 0.30)');
+      ochreGradient.addColorStop(1, 'rgba(212, 144, 53, 0.0)');
     }
 
     const isMonthly = this.chartMode() === 'months';
@@ -531,11 +531,11 @@ export class AdminDashboardPage implements OnInit, AfterViewInit {
           {
             label: isMonthly ? 'Flujo de existencias (stock activo)' : 'Stock actual (unidades)',
             data: primarySeries,
-            borderColor: '#6b4f3a',
-            backgroundColor: espressoGradient,
+            borderColor: '#185a7a',
+            backgroundColor: petrolGradient,
             borderWidth: 3,
-            pointBackgroundColor: '#fcfaf5',
-            pointBorderColor: '#6b4f3a',
+            pointBackgroundColor: '#ffffff',
+            pointBorderColor: '#185a7a',
             pointBorderWidth: 2,
             pointRadius: 4,
             pointHoverRadius: 6,
@@ -545,12 +545,12 @@ export class AdminDashboardPage implements OnInit, AfterViewInit {
           {
             label: isMonthly ? 'Salidas / demanda mensual' : 'Umbral mínimo de seguridad',
             data: secondarySeries,
-            borderColor: '#9e3b33',
-            backgroundColor: bronzeGradient,
+            borderColor: '#d49035',
+            backgroundColor: ochreGradient,
             borderWidth: 2,
             borderDash: isMonthly ? [] : [5, 5],
-            pointBackgroundColor: '#fcfaf5',
-            pointBorderColor: '#9e3b33',
+            pointBackgroundColor: '#ffffff',
+            pointBorderColor: '#d49035',
             pointRadius: 3,
             tension: 0.42,
             fill: true

@@ -26,7 +26,7 @@ import { AuthService } from '../../../../core/services/auth.service';
   template: `
     <ion-header>
       <ion-toolbar color="dark">
-        <ion-title>INVENT — StockFlow Enterprise</ion-title>
+        <ion-title>StockFlow</ion-title>
       </ion-toolbar>
     </ion-header>
 
@@ -92,7 +92,7 @@ import { AuthService } from '../../../../core/services/auth.service';
               </form>
 
               <div class="divider-text text-center my-4">
-                <span class="px-3 text-muted small" style="background-color: #fcfaf5;">Acceso rápido demo</span>
+                <span class="bg-white px-3 text-muted small">Acceso rápido demo</span>
               </div>
 
               <!-- Botones Demo Debajo del Inicio de Sesión (Izquierda: Admin | Derecha: Operador) -->
@@ -130,9 +130,10 @@ import { AuthService } from '../../../../core/services/auth.service';
       .brand-badge {
         width: 56px;
         height: 56px;
-        border-radius: 16px;
-        background: linear-gradient(135deg, #29231e 0%, #6b4f3a 100%);
-        box-shadow: 0 8px 20px rgba(41, 35, 30, 0.28);
+        border-radius: 12px;
+        background: linear-gradient(135deg, #2889b8 0%, #185a7a 100%);
+        border-bottom: 3px solid #d49035;
+        box-shadow: 0 6px 16px rgba(24, 90, 122, 0.28);
       }
       .divider-text {
         position: relative;
@@ -143,7 +144,7 @@ import { AuthService } from '../../../../core/services/auth.service';
         top: 50%;
         left: 0;
         right: 0;
-        border-top: 1px solid #e4dccb;
+        border-top: 1px solid #d6dce2;
         z-index: 0;
       }
       .divider-text span {
